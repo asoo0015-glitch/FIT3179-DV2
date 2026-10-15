@@ -25,7 +25,7 @@ HEAD_FONT = "Playfair Display, Georgia, serif"
 # one colour per state, used on every chart (colour-blind-safe, Okabe-Ito based)
 STATE_ORDER = ["New South Wales", "Victoria", "Queensland", "South Australia",
                "Western Australia", "Tasmania", "NT and ACT"]
-STATE_COLOURS = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#8a8478"]
+STATE_COLOURS = ["#0072B2", "#D55E00", "#6b4fa0", "#CC79A7", "#E69F00", "#56B4E9", "#8a8478"]
 # full list for charts that keep NT and ACT separate (maps)
 STATE_ORDER_8 = STATE_ORDER[:6] + ["Northern Territory", "Australian Capital Territory"]
 STATE_COLOURS_8 = STATE_COLOURS[:6] + ["#8a8478", "#5b574e"]
@@ -136,7 +136,9 @@ write("01_streamgraph.vg.json", {
 lc_colour = {"domain": ["Titles launched", "Titles closed", SLICE], "range": [LAUNCH, CLOSE, SLICE_COLOUR]}
 DEC = [f"{d}s" for d in range(1830, 1950, 10)]
 write("02_butterfly.vg.json", {
-    "title": {"text": "Newspaper titles launched and closed, by decade"},
+    "title": {"text": "Newspaper titles launched and closed, by decade",
+              "subtitle": ["The 1890s had the most launches (247).",
+                           "From the 1920s, more titles closed than opened."]},
     "width": "container", "height": 340,
     "encoding": {"y": {"field": "label", "type": "ordinal", "title": None, "sort": DEC,
                        "axis": {"labelFontSize": 13, "domain": False, "ticks": False}}},
@@ -429,10 +431,15 @@ write("09_bump.vg.json", {
          "encoding": {"opacity": {"condition": {"param": "hl", "value": 1}, "value": 0.22},
                       "tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year"},
                                   {"field": "rank", "title": "Rank"}, {"field": "titles", "title": "Titles in print"}]}},
-        {"transform": [{"filter": "datum.year == 1950"}],
+        {"transform": [{"filter": "datum.year == 1950"}], 
          "mark": {"type": "text", "align": "left", "dx": 14, "fontSize": 12, "fontWeight": 600},
          "encoding": {"text": {"field": "state"}, "color": {"field": "state", "type": "nominal", "scale": STATE_SCALE_8, "legend": None}}},
+        {"data": {"values": [{"year": "1900", "rank": 3, "t": "WA jumps to 3rd"}]},
+         "mark": {"type": "text", "align": "left", "dx": -8, "dy": -17, "fontSize": 11.5, "fontStyle": "italic", "color": INK},
+         "encoding": {"x": {"field": "year", "type": "ordinal"}, "y": {"field": "rank", "type": "quantitative"},
+                      "text": {"field": "t"}, "color": {"value": INK}}},
     ],
+    
 })
 
 # ======================================================== 10. LOLLIPOP
@@ -497,7 +504,8 @@ write("11_indexed_line.vg.json", {
 
 # ============================================================ 12. HEATMAP
 write("12_heatmap.vg.json", {
-    "title": {"text": "Newspaper titles added to Trove's list each year, by state"},
+    "title": {"text": "Newspaper titles added to Trove's list each year, by state",
+              "subtitle": "2013 was the peak: 322 titles added, 183 of them from New South Wales"},
     "width": "container", "height": 300,
     "data": {"url": "data/titles_added_to_trove.csv"},
     "encoding": {
