@@ -1,0 +1,380 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Articles per year in Trove (log scale)",
+    "subtitle": "Each step up the axis is ten times more articles"
+  },
+  "width": "container",
+  "height": 330,
+  "data": {
+    "url": "data/articles_all_years.csv"
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954.5,
+            "year2": 2023
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#cfc4a8",
+        "opacity": 0.4
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "x2": {
+          "field": "year2"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "color": "#7a4a1d",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "total",
+            "title": "Articles",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954,
+            "total": 3661437
+          },
+          {
+            "year": 1955,
+            "total": 436398
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "size": 80,
+        "filled": true,
+        "color": "#b5472f"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954,
+            "total": 3661437,
+            "t": "1954: 3.7 million"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "dy": -12,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1955,
+            "total": 436398,
+            "t": "1955: 436,000 (down 88%)"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1989,
+            "total": 1500,
+            "t": "After 1954: only a few papers"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontSize": 12,
+        "color": "#6f665a"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

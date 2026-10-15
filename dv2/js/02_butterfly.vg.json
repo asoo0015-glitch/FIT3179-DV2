@@ -1,0 +1,238 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Newspaper titles launched and closed, by decade"
+  },
+  "width": "container",
+  "height": 340,
+  "encoding": {
+    "y": {
+      "field": "label",
+      "type": "ordinal",
+      "title": null,
+      "sort": [
+        "1830s",
+        "1840s",
+        "1850s",
+        "1860s",
+        "1870s",
+        "1880s",
+        "1890s",
+        "1900s",
+        "1910s",
+        "1920s",
+        "1930s",
+        "1940s"
+      ],
+      "axis": {
+        "labelFontSize": 13,
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/butterfly_long.csv"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.72
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "\u2190 Titles launched        Titles closed \u2192",
+          "axis": {
+            "values": [
+              -300,
+              -200,
+              -100,
+              0,
+              100,
+              200,
+              300
+            ],
+            "labelExpr": "abs(datum.value)"
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Titles launched",
+              "Titles closed",
+              "Victorian papers in Trove only for 1914\u20131918"
+            ],
+            "range": [
+              "#2a7f7f",
+              "#b5472f",
+              "#c4baa4"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "title": null,
+            "labelLimit": 380
+          }
+        },
+        "order": {
+          "field": "stack_order",
+          "type": "quantitative",
+          "sort": "ascending"
+        },
+        "tooltip": [
+          {
+            "field": "label",
+            "title": "Decade"
+          },
+          {
+            "field": "series",
+            "title": "Group"
+          },
+          {
+            "field": "value",
+            "title": "Titles (negative = launched)"
+          },
+          {
+            "field": "net",
+            "title": "Net change in decade"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles_launched_closed_by_decade.csv"
+      },
+      "transform": [
+        {
+          "calculate": "-datum.Launched",
+          "as": "neg"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -4,
+        "fontSize": 11,
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "neg",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Launched"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles_launched_closed_by_decade.csv"
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 4,
+        "fontSize": 11,
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "Closed",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Closed"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles_launched_closed_by_decade.csv"
+      },
+      "transform": [
+        {
+          "calculate": "'Net ' + (datum.net > 0 ? '+' : '\u2212') + abs(datum.net)",
+          "as": "netlabel"
+        },
+        {
+          "calculate": "340",
+          "as": "netx"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "fontSize": 12,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "x": {
+          "field": "netx",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "netlabel"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.net < 0",
+            "value": "#b5472f"
+          },
+          "value": "#2a7f7f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

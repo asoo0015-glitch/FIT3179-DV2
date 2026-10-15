@@ -1,0 +1,155 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": [
+      "Papers printed partly or wholly in other languages",
+      "(titles that began by 1954)"
+    ]
+  },
+  "width": "container",
+  "height": 320,
+  "data": {
+    "url": "data/non_english_languages.csv"
+  },
+  "encoding": {
+    "y": {
+      "field": "language_full",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "German",
+        "Italian",
+        "Chinese",
+        "Hebrew",
+        "French",
+        "Lithuanian",
+        "Polish",
+        "Danish",
+        "Modern Greek",
+        "Indonesian",
+        "Estonian",
+        "Ukrainian",
+        "Dutch"
+      ],
+      "axis": {
+        "ticks": false,
+        "domain": false,
+        "labelFontSize": 12.5
+      }
+    },
+    "x": {
+      "field": "titles",
+      "type": "quantitative",
+      "title": "Number of titles",
+      "axis": {
+        "grid": true,
+        "tickMinStep": 1
+      },
+      "scale": {
+        "domainMin": 0
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 3,
+        "color": "#7a4a1d"
+      },
+      "encoding": {
+        "x2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 170,
+        "opacity": 1,
+        "color": "#7a4a1d"
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "language_full",
+            "title": "Language"
+          },
+          {
+            "field": "titles",
+            "title": "Titles"
+          },
+          {
+            "field": "first_year",
+            "title": "First title appeared",
+            "format": "d"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "calculate": "datum.titles + ' (from ' + datum.first_year + ')'",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 11.5,
+        "color": "#6f665a"
+      },
+      "encoding": {
+        "text": {
+          "field": "lab"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

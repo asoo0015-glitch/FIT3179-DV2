@@ -1,0 +1,330 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Titles in print, town by town"
+  },
+  "width": 620,
+  "height": 520,
+  "params": [
+    {
+      "name": "yr0",
+      "value": 1850
+    },
+    {
+      "name": "yr1",
+      "value": 1900
+    },
+    {
+      "name": "show_slices",
+      "value": true
+    },
+    {
+      "name": "focus",
+      "value": [
+        134,
+        -28.5,
+        760
+      ],
+      "bind": {
+        "input": "select",
+        "options": [
+          [
+            134,
+            -28.5,
+            760
+          ],
+          [
+            146.5,
+            -35.5,
+            2600
+          ],
+          [
+            145.3,
+            -37.3,
+            6200
+          ],
+          [
+            151.0,
+            -33.2,
+            7000
+          ],
+          [
+            138.6,
+            -34.4,
+            5200
+          ],
+          [
+            119.5,
+            -31.0,
+            3400
+          ],
+          [
+            151.5,
+            -24.5,
+            1500
+          ]
+        ],
+        "labels": [
+          "All of Australia",
+          "South-east: Victoria, NSW, Tasmania",
+          "Melbourne and Victoria",
+          "Sydney and the Hunter",
+          "Adelaide and the Murray",
+          "Perth and the goldfields",
+          "Queensland coast"
+        ],
+        "name": "Zoom to: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "center": {
+      "expr": "[focus[0], focus[1]]"
+    },
+    "scale": {
+      "expr": "focus[2]"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia_states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "'No data: ' + datum.properties.STE_NAME21",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4dcc8",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "tooltip": {
+          "field": "note"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.lat != null && datum.start <= yr1 && datum.end >= yr0 && (show_slices || datum.wwi_slice == 0)"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "n"
+            },
+            {
+              "op": "sum",
+              "field": "articles",
+              "as": "arts"
+            }
+          ],
+          "groupby": [
+            "place",
+            "state",
+            "lat",
+            "lon"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.72,
+        "stroke": "white",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "n",
+          "type": "quantitative",
+          "title": "Titles in print",
+          "scale": {
+            "type": "sqrt",
+            "domain": [
+              0,
+              120
+            ],
+            "range": [
+              0,
+              1900
+            ]
+          },
+          "legend": {
+            "values": [
+              1,
+              10,
+              50,
+              100
+            ],
+            "orient": "bottom-left",
+            "symbolType": "circle",
+            "symbolFillColor": "#b9ae96",
+            "symbolStrokeColor": "#8f866f",
+            "symbolOpacity": 0.9
+          }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Victoria",
+              "Queensland",
+              "South Australia",
+              "Western Australia",
+              "Tasmania",
+              "Northern Territory",
+              "Australian Capital Territory"
+            ],
+            "range": [
+              "#0072B2",
+              "#D55E00",
+              "#009E73",
+              "#CC79A7",
+              "#E69F00",
+              "#56B4E9",
+              "#8a8478",
+              "#5b574e"
+            ]
+          },
+          "legend": null
+        },
+        "order": {
+          "field": "n",
+          "sort": "descending"
+        },
+        "tooltip": [
+          {
+            "field": "place",
+            "title": "Place"
+          },
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "n",
+            "title": "Titles in print"
+          },
+          {
+            "field": "arts",
+            "title": "Articles in Trove",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.lat != null && datum.start <= yr1 && datum.end >= yr0 && (show_slices || datum.wwi_slice == 0)"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "n"
+            }
+          ],
+          "groupby": [
+            "place",
+            "lat",
+            "lon"
+          ]
+        },
+        {
+          "filter": "datum.n >= 14"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -13,
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "fill": "#2b2620"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "place"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

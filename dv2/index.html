@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Read All About It: Australia's newspapers, 1803-1954</title>
+  <meta name="description" content="A data story of how Australia's newspapers boomed, peaked around the First World War and thinned out, told with Trove data and Vega-Lite maps.">
+
+  <!-- Vega, Vega-Lite and Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0"></script>
+
+  <!-- Pure.css grid (responsive) -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/grids-responsive-min.css">
+
+  <!-- Newspaper typefaces -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- ============================ MASTHEAD ============================ -->
+  <header class="masthead">
+    <p class="dateline">Data story &middot; Australia &middot; 1803&ndash;1954</p>
+    <h1>Read All About It</h1>
+    <p class="deck">How Australia's newspapers grew with every wave of settlement, peaked around the First World War, then closed faster than they opened &mdash; and why what we can read online today is only part of the story.</p>
+    <p class="byline">By Aaron Soong Yujien (34076832) &middot; October 15 2026</p>
+
+    <div class="facts pure-g">
+      <div class="pure-u-1-2 pure-u-md-1-4"><span class="big">251 million</span><span class="small">newspaper articles in Trove</span></div>
+      <div class="pure-u-1-2 pure-u-md-1-4"><span class="big">1,831</span><span class="small">newspaper titles in this story</span></div>
+      <div class="pure-u-1-2 pure-u-md-1-4"><span class="big">134 years</span><span class="small">the longest-running title, the Riverine Herald of Echuca</span></div>
+      <div class="pure-u-1-2 pure-u-md-1-4"><span class="big">&minus;88%</span><span class="small">articles in 1955 compared with 1954</span></div>
+    </div>
+
+    <p class="note">
+      <strong>How to read this page.</strong> The data comes from <em>Trove</em>, the National Library of Australia's online collection of digitised newspapers.
+      An &ldquo;article&rdquo; here is anything Trove has scanned and made searchable: news stories, adverts, lists and notices.
+      A &ldquo;title&rdquo; is one newspaper, such as <em>The Argus</em>. Scroll down, and hover over or drag on the charts to explore.
+    </p>
+  </header>
+
+  <!-- ============================ CHAPTER 1 ============================ -->
+  <section class="chapter" id="boom">
+    <h2><span class="num">1</span> A young country finds its press</h2>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
+        <p>The first paper, Sydney's <em>Gazette</em>, appeared in 1803. For decades the colonies printed only a few thousand articles a year. Then people arrived, and the presses followed.</p>
+        <p>Trove holds <strong>81,624</strong> articles for 1850, <strong>637,508</strong> for 1880 and <strong>2.6 million</strong> for 1900. Victoria's yearly total grew from about 19,000 articles in 1851 to almost 75,000 in 1859, in the first years of its gold rush. Western Australia's own gold rush shows up in the 1890s, when its yearly total rose from 114,000 (1895) to 359,000 (1898).</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_stream" class="vis"></div></div>
+    </div>
+    <p class="source">Source: Trove article counts by state and year (Tim Sherratt, GLAM Workbench). Counts are articles that have been digitised, not everything that was printed.</p>
+  </section>
+
+  <!-- ============================ CHAPTER 2 ============================ -->
+  <section class="chapter" id="peak">
+    <h2><span class="num">2</span> The peak, and a trap in the data</h2>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_butterfly" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose">
+        <p>Launches peaked in the <strong>1890s</strong>, when <strong>247</strong> new titles appeared. The 1910s look even bigger (<strong>307</strong>), but look at the grey bars. <strong>86</strong> of those are Victorian local papers that Trove holds only for the years 1914&ndash;1918. They are slices of papers that ran for longer, not new launches or closures, so they make the 1910s look busier than they were.</p>
+        <p>Set the grey bars aside and a clearer pattern remains. From the 1920s <strong>more titles close than open</strong>: a net loss of 32 in the 1920s, 38 in the 1930s and 47 in the 1940s.</p>
+        <p class="caveat">Titles that ended in the 1950s are left out: Trove stops digitising most papers around 1954, so those end dates are partly an artefact of the collection.</p>
+      </div></div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1"><div class="prose wide bulge">
+        <p>The same bulge shows up in the article counts of Chapter 1. Victoria's yearly total jumps from 766,000 articles in 1913 to 1.28 million in 1914, then drops to 509,000 by 1919, which is why Trove's national count appears to &ldquo;peak&rdquo; at 4.8 million in 1915. In fact the 1920s and 1930s are just as high (4.7 million in 1929). The honest reading is a long <strong>plateau</strong> from about 1914 to 1939, followed by a decline.</p>
+      </div></div>
+    </div>
+
+    <div class="pure-g gantt-row">
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
+        <h3>Papers built to last</h3>
+        <p>A few titles survived for a century or more. Echuca's <em>Riverine Herald</em> was printed for <strong>134 years</strong> (1869&ndash;2002), and Sydney's French-language <em>Le Courrier Australien</em> for 120. The big-city dailies &mdash; <em>The Sydney Morning Herald</em>, <em>The Argus</em>, <em>The Age</em> &mdash; anchor the list, along with country papers like the <em>Border Watch</em> in Mount Gambier.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_gantt" class="vis"></div></div>
+    </div>
+    <p class="source">Source: Trove newspaper title list with start and end dates (Tim Sherratt, GLAM Workbench). Dates are the runs recorded in Trove, which can differ from a paper's full printing history.</p>
+  </section>
+
+  <!-- ============================ CHAPTER 3 ============================ -->
+  <section class="chapter" id="maps">
+    <h2><span class="num">3</span> Where the presses ran</h2>
+    <div class="pure-g">
+      <div class="pure-u-1"><div class="prose wide">
+        <p>Before 1860, three in four titles started in a capital city (158 of the 210 that we can place on a map). From 1860 to 1899 the pattern flips: <strong>77%</strong> of new titles started in a regional town, as the goldfields, farming districts and railways created new communities that wanted their own paper.</p>
+      </div></div>
+      <div class="pure-u-1">
+        <p class="key"><span class="dot dot-capital"></span> Capital city &nbsp;&nbsp; <span class="dot dot-regional"></span> Regional town</p>
+        <div id="vis_dots" class="vis scroll-x"></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Pick a period and watch three maps change</h3>
+    <div class="control">
+      <div class="presets" role="group" aria-label="Quick year ranges">
+        <span>Try:</span>
+        <button class="preset" data-from="1851" data-to="1870">Gold rushes 1851&ndash;1870</button>
+        <button class="preset" data-from="1890" data-to="1901">Boom to Federation 1890&ndash;1901</button>
+        <button class="preset" data-from="1914" data-to="1918">First World War 1914&ndash;1918</button>
+        <button class="preset" data-from="1929" data-to="1945">Depression and WWII 1929&ndash;1945</button>
+        <button class="preset" data-from="1803" data-to="1954">All years</button>
+      </div>
+      <div class="readout">Showing titles in print at some point between <strong id="range-label">1850&ndash;1900</strong></div>
+      <label class="slice-toggle"><input type="checkbox" id="toggle-slices" checked> Include the 86 Victorian papers that Trove holds only for 1914&ndash;1918 (the grey band)</label>
+      <div id="vis_overview" class="vis"></div>
+    </div>
+
+    <div class="pure-g maps-row">
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_symbol" class="vis scroll-x"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
+        <h3>Zoom in</h3>
+        <p>Each circle is a town. Bigger circles mean more newspapers in print there during the years you chose. Use the <em>Zoom to</em> menu to look closely at Melbourne, Sydney, Adelaide, Perth and the goldfields, or the Queensland coast.</p>
+        <p>The maps count a title if it was in print at any time in the chosen years. Tick or untick the box above the maps to see how much of Victoria's 1914&ndash;1918 total comes from the grey-band papers.</p>
+      </div></div>
+    </div>
+
+    <div class="pure-g maps-row">
+      <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
+        <div id="vis_choropleth" class="vis"></div>
+        <p class="caption" id="measure-caption">Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
+        <div id="vis_bin" class="vis"></div>
+        <p class="caption">The country is divided into squares about 200 km wide. The darkest squares are the Sydney, Melbourne and Perth regions.</p>
+      </div></div>
+    </div>
+    <p class="source">Sources: Trove title list and place coordinates (Tim Sherratt, GLAM Workbench); state boundaries and areas from the Australian Bureau of Statistics, ASGS Edition 3 (2021). Titles without a recorded place are left off the town and square maps, but included in the state map.</p>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_lollipop" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_bump" class="vis"></div></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1"><div class="prose wide">
+        <p><strong>Sydney</strong> printed the most titles (174), followed by <strong>Perth</strong> (99), <strong>Melbourne</strong> (76), <strong>Hobart</strong> (70) and <strong>Adelaide</strong> (64). Western Australia punches above its weight: its gold rushes of the 1890s helped it climb from <strong>6th in 1870 to 2nd in 1930</strong> in the number of papers in print, ahead of Victoria and South Australia.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============================ CHAPTER 4 ============================ -->
+  <section class="chapter" id="thinning">
+    <h2><span class="num">4</span> The press thins out</h2>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_index" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
+        <p>Indexing each state to its own 1929 total makes the decline easy to compare. Across Australia, preserved articles dipped to <strong>88.5</strong> in 1931, the Depression, then fell to <strong>54.4</strong> in 1943, the lowest point of the war.</p>
+        <p>South Australia (<strong>37.0</strong>) and Queensland (<strong>37.6</strong>) fell furthest by 1943, while New South Wales held up best (69.9). Victoria, which had the big 1914&ndash;1918 bulge, sits in the middle (50.4).</p>
+        <p class="caveat">Read this carefully: the fall combines real closures with the way Trove has chosen which papers and years to digitise. New South Wales, Victoria and Western Australia dominate because that is what Trove holds; the Northern Territory and the ACT barely appear.</p>      </div></div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_dumbbell" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose side">
+        <p>Between 1900 and 1930 the balance moved west. <strong>Western Australia</strong> more than doubled its titles in print (41 to 91), while <strong>Victoria</strong> fell from 110 to 65.</p>
+      </div></div>
+    </div>
+
+  </section>
+
+  <!-- ============================ CHAPTER 5 ============================ -->
+  <section class="chapter" id="record">
+    <h2><span class="num">5</span> What we can read today</h2>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose">
+        <p>About <strong>69%</strong> of the articles in Trove are news stories and similar articles. Around <strong>19%</strong> are advertisements, <strong>11%</strong> are lists, results and guides, and about <strong>1%</strong> are family notices: births, marriages and deaths that make Trove a treasure for family historians.</p>
+        <p>Readers have also improved the record. Volunteers have corrected the machine-read text of about <strong>16 million</strong> articles, roughly 6.5% of the total.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_waffle" class="vis vis-center"></div></div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_languages" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose side">
+        <h3>The press in other languages</h3>
+        <p>The record is not only in English. In this list, <strong>39 titles</strong> that began by 1954 were printed partly or wholly in <strong>13 languages</strong>, led by German, Italian and Chinese. The German-language press goes back to 1848, and the Chinese-language press to the gold rushes of the 1850s.</p>
+        <p class="caveat">This counts papers in which at least a fifth of the text was detected as another language. It covers only the titles in this dataset, and language detection on OCR text can be wrong.</p>
+      </div></div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_cliff" class="vis"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose">
+        <h3>A cliff in the record</h3>
+        <p>Trove has <strong>3.7 million</strong> articles for 1954 and only <strong>436,000</strong> for 1955, a drop of 88%. This is not newspapers vanishing: it is the line where copyright and permission limit what the library could digitise. Everything on this page should be read with that in mind.</p>
+      </div></div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose">
+        <p>The record is still growing. Trove added between 117 and 322 newspaper titles to its list every year from 2011 to 2021, peaking at <strong>322</strong> in 2013. What looks like &ldquo;the history of the press&rdquo; keeps changing as more papers are digitised.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_heatmap" class="vis"></div></div>
+    </div>
+    <p class="source">Sources: Trove article categories and totals; Trove title lists captured 2009&ndash;2022 (Tim Sherratt, GLAM Workbench). State is read from the place recorded for each title; titles without one are grouped as &ldquo;Other / unknown&rdquo;.</p>  </section>
+
+  <!-- ============================ ABOUT ============================ -->
+  <footer class="about">
+    <h2>About this story</h2>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-2"><div class="prose">
+        <h3>Limits of the data</h3>
+        <p>Trove is not every newspaper ever printed. It holds what has been digitised, and mostly papers published before 1955. Counts of articles are therefore &ldquo;articles preserved&rdquo;, not &ldquo;articles published&rdquo;. End dates around 1954 are an effect of the collection. Each title is placed at one location, so papers that served a whole district appear at a single town.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-md-1-2"><div class="prose">
+        <h3>Data sources</h3>
+        <ul>
+          <li>Trove newspaper article totals and title lists, harvested from the Trove API by Tim Sherratt, <a href="https://glam-workbench.net/trove-newspapers/" target="_blank" rel="noopener">GLAM Workbench</a>. Original collection: <a href="https://trove.nla.gov.au/" target="_blank" rel="noopener">Trove, National Library of Australia</a>.</li>
+          <li>State and Territory boundaries (2021) and areas: Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026" target="_blank" rel="noopener">Australian Statistical Geography Standard, Edition 3</a>, &copy; Commonwealth of Australia, CC BY 4.0. Simplified and converted to TopoJSON with <a href="https://mapshaper.org" target="_blank" rel="noopener">Mapshaper</a>.</li>
+        </ul>
+      </div></div>
+    </div>
+    <p class="credits">Design, text and charts by Aaron Soong Yujien (34076832), October 15 2026, for FIT3179 Data Visualisation, Monash University. Charts are built with <a href="https://vega.github.io/vega-lite/" target="_blank" rel="noopener">Vega-Lite</a>; every chart's specification is in the <code>js/</code> folder of this repository.</p>
+  </footer>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

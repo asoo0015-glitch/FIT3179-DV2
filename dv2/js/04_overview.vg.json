@@ -1,0 +1,158 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Drag across the chart to choose the years shown on the maps below",
+    "fontSize": 13,
+    "font": "Source Serif 4, Georgia, serif",
+    "fontStyle": "italic",
+    "fontWeight": 400
+  },
+  "width": "container",
+  "height": 130,
+  "data": {
+    "url": "data/active_titles_by_year_state.csv"
+  },
+  "params": [
+    {
+      "name": "brush",
+      "value": {
+        "year": [
+          1850,
+          1900
+        ]
+      },
+      "select": {
+        "type": "interval",
+        "encodings": [
+          "x"
+        ]
+      }
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "axis": {
+        "format": "d",
+        "tickCount": 15,
+        "grid": false
+      },
+      "scale": {
+        "domain": [
+          1803,
+          1954
+        ],
+        "nice": false
+      }
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "titles",
+      "type": "quantitative",
+      "title": "Titles in print",
+      "axis": {
+        "tickCount": 3
+      }
+    },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "NT and ACT",
+          "Victorian papers in Trove only for 1914\u20131918"
+        ],
+        "range": [
+          "#0072B2",
+          "#D55E00",
+          "#009E73",
+          "#CC79A7",
+          "#E69F00",
+          "#56B4E9",
+          "#8a8478",
+          "#c4baa4"
+        ]
+      },
+      "legend": {
+        "orient": "top",
+        "columns": 4,
+        "labelLimit": 360
+      }
+    },
+    "order": {
+      "field": "group",
+      "sort": "descending"
+    },
+    "tooltip": [
+      {
+        "field": "group",
+        "title": "State"
+      },
+      {
+        "field": "year",
+        "format": "d",
+        "title": "Year"
+      },
+      {
+        "field": "titles",
+        "title": "Titles in print"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

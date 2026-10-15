@@ -1,0 +1,183 @@
+state,year,total,index
+New South Wales,1929,1654176,100.0
+New South Wales,1930,1603418,96.9
+New South Wales,1931,1471934,89.0
+New South Wales,1932,1446035,87.4
+New South Wales,1933,1504634,91.0
+New South Wales,1934,1578317,95.4
+New South Wales,1935,1645186,99.5
+New South Wales,1936,1640975,99.2
+New South Wales,1937,1617409,97.8
+New South Wales,1938,1662879,100.5
+New South Wales,1939,1552024,93.8
+New South Wales,1940,1398728,84.6
+New South Wales,1941,1522425,92.0
+New South Wales,1942,1285574,77.7
+New South Wales,1943,1155913,69.9
+New South Wales,1944,1167566,70.6
+New South Wales,1945,1155774,69.9
+New South Wales,1946,1463304,88.5
+New South Wales,1947,1512129,91.4
+New South Wales,1948,1333900,80.6
+New South Wales,1949,1521613,92.0
+New South Wales,1950,1612158,97.5
+New South Wales,1951,1526449,92.3
+New South Wales,1952,1570724,95.0
+New South Wales,1953,1688909,102.1
+New South Wales,1954,1685862,101.9
+Queensland,1929,996583,100.0
+Queensland,1930,1004697,100.8
+Queensland,1931,957445,96.1
+Queensland,1932,939221,94.2
+Queensland,1933,988956,99.2
+Queensland,1934,912037,91.5
+Queensland,1935,916151,91.9
+Queensland,1936,947178,95.0
+Queensland,1937,937202,94.0
+Queensland,1938,925047,92.8
+Queensland,1939,902258,90.5
+Queensland,1940,726869,72.9
+Queensland,1941,598044,60.0
+Queensland,1942,477276,47.9
+Queensland,1943,374263,37.6
+Queensland,1944,381628,38.3
+Queensland,1945,430962,43.2
+Queensland,1946,498795,50.1
+Queensland,1947,518436,52.0
+Queensland,1948,460833,46.2
+Queensland,1949,520923,52.3
+Queensland,1950,530149,53.2
+Queensland,1951,514571,51.6
+Queensland,1952,521166,52.3
+Queensland,1953,546517,54.8
+Queensland,1954,535216,53.7
+South Australia,1929,487338,100.0
+South Australia,1930,445476,91.4
+South Australia,1931,327643,67.2
+South Australia,1932,313119,64.3
+South Australia,1933,318172,65.3
+South Australia,1934,328430,67.4
+South Australia,1935,333869,68.5
+South Australia,1936,346061,71.0
+South Australia,1937,344455,70.7
+South Australia,1938,351651,72.2
+South Australia,1939,340570,69.9
+South Australia,1940,312498,64.1
+South Australia,1941,272239,55.9
+South Australia,1942,211581,43.4
+South Australia,1943,180114,37.0
+South Australia,1944,182898,37.5
+South Australia,1945,196479,40.3
+South Australia,1946,227083,46.6
+South Australia,1947,242651,49.8
+South Australia,1948,225776,46.3
+South Australia,1949,253534,52.0
+South Australia,1950,279924,57.4
+South Australia,1951,239574,49.2
+South Australia,1952,252674,51.8
+South Australia,1953,273719,56.2
+South Australia,1954,283161,58.1
+Tasmania,1929,212991,100.0
+Tasmania,1930,173768,81.6
+Tasmania,1931,173751,81.6
+Tasmania,1932,186121,87.4
+Tasmania,1933,192956,90.6
+Tasmania,1934,227813,107.0
+Tasmania,1935,198681,93.3
+Tasmania,1936,215929,101.4
+Tasmania,1937,233425,109.6
+Tasmania,1938,236092,110.8
+Tasmania,1939,231278,108.6
+Tasmania,1940,206386,96.9
+Tasmania,1941,183160,86.0
+Tasmania,1942,155382,73.0
+Tasmania,1943,140191,65.8
+Tasmania,1944,142806,67.0
+Tasmania,1945,186850,87.7
+Tasmania,1946,183515,86.2
+Tasmania,1947,193930,91.1
+Tasmania,1948,158846,74.6
+Tasmania,1949,201595,94.6
+Tasmania,1950,198840,93.4
+Tasmania,1951,180603,84.8
+Tasmania,1952,183800,86.3
+Tasmania,1953,186424,87.5
+Tasmania,1954,190138,89.3
+Victoria,1929,715135,100.0
+Victoria,1930,688679,96.3
+Victoria,1931,639860,89.5
+Victoria,1932,654809,91.6
+Victoria,1933,694049,97.1
+Victoria,1934,754713,105.5
+Victoria,1935,768951,107.5
+Victoria,1936,781145,109.2
+Victoria,1937,770272,107.7
+Victoria,1938,772085,108.0
+Victoria,1939,735660,102.9
+Victoria,1940,621190,86.9
+Victoria,1941,536877,75.1
+Victoria,1942,416835,58.3
+Victoria,1943,360760,50.4
+Victoria,1944,382168,53.4
+Victoria,1945,416025,58.2
+Victoria,1946,524200,73.3
+Victoria,1947,513297,71.8
+Victoria,1948,434492,60.8
+Victoria,1949,533159,74.6
+Victoria,1950,545812,76.3
+Victoria,1951,480059,67.1
+Victoria,1952,488453,68.3
+Victoria,1953,511552,71.5
+Victoria,1954,535418,74.9
+Western Australia,1929,563454,100.0
+Western Australia,1930,554908,98.5
+Western Australia,1931,523124,92.8
+Western Australia,1932,553647,98.3
+Western Australia,1933,564375,100.2
+Western Australia,1934,587502,104.3
+Western Australia,1935,629069,111.6
+Western Australia,1936,630742,111.9
+Western Australia,1937,642583,114.0
+Western Australia,1938,602778,107.0
+Western Australia,1939,563606,100.0
+Western Australia,1940,458216,81.3
+Western Australia,1941,436210,77.4
+Western Australia,1942,341333,60.6
+Western Australia,1943,305075,54.1
+Western Australia,1944,306215,54.3
+Western Australia,1945,327849,58.2
+Western Australia,1946,422693,75.0
+Western Australia,1947,451736,80.2
+Western Australia,1948,476174,84.5
+Western Australia,1949,479275,85.1
+Western Australia,1950,391577,69.5
+Western Australia,1951,355251,63.0
+Western Australia,1952,373587,66.3
+Western Australia,1953,405368,71.9
+Western Australia,1954,394363,70.0
+Australia,1929,4639935,100.0
+Australia,1930,4481266,96.6
+Australia,1931,4105059,88.5
+Australia,1932,4102063,88.4
+Australia,1933,4269707,92.0
+Australia,1934,4396148,94.7
+Australia,1935,4499413,97.0
+Australia,1936,4570640,98.5
+Australia,1937,4552850,98.1
+Australia,1938,4557792,98.2
+Australia,1939,4333451,93.4
+Australia,1940,3730438,80.4
+Australia,1941,3555489,76.6
+Australia,1942,2892615,62.3
+Australia,1943,2526158,54.4
+Australia,1944,2583924,55.7
+Australia,1945,2736036,59.0
+Australia,1946,3321532,71.6
+Australia,1947,3438316,74.1
+Australia,1948,3097807,66.8
+Australia,1949,3518722,75.8
+Australia,1950,3565396,76.8
+Australia,1951,3304342,71.2
+Australia,1952,3397474,73.2
+Australia,1953,3618843,78.0
+Australia,1954,3629727,78.2

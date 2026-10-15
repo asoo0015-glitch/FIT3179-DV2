@@ -1,0 +1,274 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Titles in print, by state"
+  },
+  "width": "container",
+  "height": 330,
+  "params": [
+    {
+      "name": "yr0",
+      "value": 1850
+    },
+    {
+      "name": "yr1",
+      "value": 1900
+    },
+    {
+      "name": "show_slices",
+      "value": true
+    },
+    {
+      "name": "measure",
+      "value": "count",
+      "bind": {
+        "input": "select",
+        "options": [
+          "count",
+          "per100k"
+        ],
+        "labels": [
+          "Number of titles",
+          "Titles per 100,000 km\u00b2"
+        ],
+        "name": "Show: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia_states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "'No data: ' + datum.properties.STE_NAME21",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4dcc8",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "tooltip": {
+          "field": "note"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.state != 'International' && datum.state != 'National' && datum.start <= yr1 && datum.end >= yr0 && (show_slices || datum.wwi_slice == 0)"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "n"
+            }
+          ],
+          "groupby": [
+            "state"
+          ]
+        },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "data/state_area.csv"
+            },
+            "key": "state",
+            "fields": [
+              "area_km2"
+            ]
+          }
+        },
+        {
+          "calculate": "datum.n / datum.area_km2 * 100000",
+          "as": "per100k"
+        },
+        {
+          "calculate": "measure == 'count' ? datum.n : datum.per100k",
+          "as": "shade"
+        },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "data/australia_states.topojson",
+              "format": {
+                "type": "topojson",
+                "feature": "states"
+              }
+            },
+            "key": "properties.STE_NAME21"
+          },
+          "as": "geo"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "shape": {
+          "field": "geo",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "shade",
+          "type": "quantitative",
+          "title": "Darker = more",
+          "scale": {
+            "type": "sqrt",
+            "scheme": "oranges",
+            "domainMin": 0
+          },
+          "legend": {
+            "orient": "bottom-left",
+            "format": "~s",
+            "gradientLength": 120
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "n",
+            "title": "Titles in print"
+          },
+          {
+            "field": "per100k",
+            "title": "Per 100,000 km\u00b2",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "s": "NSW",
+            "lon": 146.5,
+            "lat": -32.3
+          },
+          {
+            "s": "VIC",
+            "lon": 144.8,
+            "lat": -36.9
+          },
+          {
+            "s": "QLD",
+            "lon": 144.5,
+            "lat": -22.5
+          },
+          {
+            "s": "SA",
+            "lon": 135.0,
+            "lat": -30.0
+          },
+          {
+            "s": "WA",
+            "lon": 122.0,
+            "lat": -25.5
+          },
+          {
+            "s": "TAS",
+            "lon": 146.6,
+            "lat": -42.1
+          },
+          {
+            "s": "NT",
+            "lon": 133.5,
+            "lat": -19.5
+          },
+          {
+            "s": "ACT",
+            "lon": 149.0,
+            "lat": -35.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#2b2620",
+        "opacity": 0.75
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "s"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

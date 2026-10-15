@@ -1,0 +1,279 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Articles preserved per year, 1929 = 100",
+    "subtitle": "Each line shows a state's yearly total compared with its own 1929 total"
+  },
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/articles_index_1929.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.state == 'Australia' ? 1 : 0",
+      "as": "is_au"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "axis": {
+        "format": "d",
+        "values": [
+          1929,
+          1934,
+          1939,
+          1944,
+          1949,
+          1954
+        ],
+        "grid": false
+      },
+      "scale": {
+        "domain": [
+          1929,
+          1954
+        ],
+        "nice": false
+      }
+    },
+    "y": {
+      "field": "index",
+      "type": "quantitative",
+      "title": "Index (1929 = 100)",
+      "scale": {
+        "domain": [
+          30,
+          115
+        ]
+      }
+    },
+    "color": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "Australia",
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania"
+        ],
+        "range": [
+          "#2b2620",
+          "#0072B2",
+          "#D55E00",
+          "#009E73",
+          "#CC79A7",
+          "#E69F00",
+          "#56B4E9"
+        ]
+      },
+      "legend": {
+        "orient": "top",
+        "columns": 4
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "y": 100
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          5,
+          4
+        ],
+        "color": "#6f665a"
+      },
+      "encoding": {
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "strokeWidth": {
+          "condition": {
+            "test": "datum.is_au == 1",
+            "value": 4.5
+          },
+          "value": 1.8
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.is_au == 1",
+            "value": 1
+          },
+          "value": 0.7
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 18,
+        "filled": true,
+        "opacity": 0
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "year",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "index",
+            "title": "Index (1929 = 100)"
+          },
+          {
+            "field": "total",
+            "title": "Articles",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1931,
+            "index": 88.5,
+            "t": "1931: Depression, 88.5"
+          },
+          {
+            "year": 1943,
+            "index": 54.4,
+            "t": "1943: wartime low, 54.4"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "dy": 16,
+        "fontStyle": "italic",
+        "fontSize": 12,
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "index",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "t"
+        },
+        "color": {
+          "value": "#2b2620"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1943,
+            "index": 54.4
+          },
+          {
+            "year": 1931,
+            "index": 88.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "size": 90,
+        "filled": false,
+        "color": "#2b2620",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "index",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#2b2620"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

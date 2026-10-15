@@ -1,0 +1,342 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Where newspapers first appeared",
+    "subtitle": "One dot per title, placed by the year the title started"
+  },
+  "hconcat": [
+    {
+      "title": {
+        "text": "Before 1860",
+        "font": "Playfair Display, Georgia, serif",
+        "fontSize": 15,
+        "anchor": "middle"
+      },
+      "width": 300,
+      "height": 290,
+      "projection": {
+        "type": "mercator",
+        "center": [
+          133.5,
+          -27.5
+        ],
+        "scale": 400,
+        "translate": [
+          150,
+          145
+        ]
+      },
+      "layer": [
+        {
+          "data": {
+            "url": "data/australia_states.topojson",
+            "format": {
+              "type": "topojson",
+              "feature": "states"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "#e4dcc8",
+            "stroke": "white",
+            "strokeWidth": 0.8
+          }
+        },
+        {
+          "data": {
+            "url": "data/titles.csv"
+          },
+          "transform": [
+            {
+              "filter": "datum.lat != null && datum.era == '1. Before 1860'"
+            }
+          ],
+          "mark": {
+            "type": "circle",
+            "opacity": 0.6,
+            "size": 22
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "place_type",
+              "type": "nominal",
+              "title": null,
+              "scale": {
+                "domain": [
+                  "Capital city",
+                  "Regional town"
+                ],
+                "range": [
+                  "#1d1a16",
+                  "#e07b00"
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "short",
+                "title": "Title"
+              },
+              {
+                "field": "place",
+                "title": "Place"
+              },
+              {
+                "field": "start",
+                "title": "Started",
+                "format": "d"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "text": "1860\u20131899",
+        "font": "Playfair Display, Georgia, serif",
+        "fontSize": 15,
+        "anchor": "middle"
+      },
+      "width": 300,
+      "height": 290,
+      "projection": {
+        "type": "mercator",
+        "center": [
+          133.5,
+          -27.5
+        ],
+        "scale": 400,
+        "translate": [
+          150,
+          145
+        ]
+      },
+      "layer": [
+        {
+          "data": {
+            "url": "data/australia_states.topojson",
+            "format": {
+              "type": "topojson",
+              "feature": "states"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "#e4dcc8",
+            "stroke": "white",
+            "strokeWidth": 0.8
+          }
+        },
+        {
+          "data": {
+            "url": "data/titles.csv"
+          },
+          "transform": [
+            {
+              "filter": "datum.lat != null && datum.era == '2. 1860-1899'"
+            }
+          ],
+          "mark": {
+            "type": "circle",
+            "opacity": 0.6,
+            "size": 22
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "place_type",
+              "type": "nominal",
+              "title": null,
+              "scale": {
+                "domain": [
+                  "Capital city",
+                  "Regional town"
+                ],
+                "range": [
+                  "#1d1a16",
+                  "#e07b00"
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "short",
+                "title": "Title"
+              },
+              {
+                "field": "place",
+                "title": "Place"
+              },
+              {
+                "field": "start",
+                "title": "Started",
+                "format": "d"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "text": "1900 onwards",
+        "font": "Playfair Display, Georgia, serif",
+        "fontSize": 15,
+        "anchor": "middle"
+      },
+      "width": 300,
+      "height": 290,
+      "projection": {
+        "type": "mercator",
+        "center": [
+          133.5,
+          -27.5
+        ],
+        "scale": 400,
+        "translate": [
+          150,
+          145
+        ]
+      },
+      "layer": [
+        {
+          "data": {
+            "url": "data/australia_states.topojson",
+            "format": {
+              "type": "topojson",
+              "feature": "states"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "#e4dcc8",
+            "stroke": "white",
+            "strokeWidth": 0.8
+          }
+        },
+        {
+          "data": {
+            "url": "data/titles.csv"
+          },
+          "transform": [
+            {
+              "filter": "datum.lat != null && datum.era == '3. 1900 onwards'"
+            }
+          ],
+          "mark": {
+            "type": "circle",
+            "opacity": 0.6,
+            "size": 22
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "place_type",
+              "type": "nominal",
+              "title": null,
+              "scale": {
+                "domain": [
+                  "Capital city",
+                  "Regional town"
+                ],
+                "range": [
+                  "#1d1a16",
+                  "#e07b00"
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "short",
+                "title": "Title"
+              },
+              {
+                "field": "place",
+                "title": "Place"
+              },
+              {
+                "field": "start",
+                "title": "Started",
+                "format": "d"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "color": "shared"
+    }
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}

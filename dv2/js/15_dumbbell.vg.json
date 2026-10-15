@@ -1,0 +1,159 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": [
+      "Titles in print by state:",
+      "1900 against 1930"
+    ]
+  },
+  "width": "container",
+  "height": 260,
+  "data": {
+    "url": "data/active_titles_by_year_state.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "titles": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "(datum.year == 1900 || datum.year == 1930) && indexof(datum.group, 'Victorian papers') < 0"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "group",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "Western Australia",
+        "Queensland",
+        "South Australia",
+        "New South Wales",
+        "Tasmania",
+        "Victoria",
+        "NT and ACT"
+      ],
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelLimit": 150
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#8f866f",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "titles",
+          "type": "quantitative",
+          "aggregate": "min",
+          "title": "Titles in print"
+        },
+        "x2": {
+          "field": "titles",
+          "aggregate": "max"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 190,
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "titles",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year",
+          "scale": {
+            "domain": [
+              1900,
+              1930
+            ],
+            "range": [
+              "#8f866f",
+              "#b5472f"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "format": "d"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "title": "State"
+          },
+          {
+            "field": "year",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "titles",
+            "title": "Titles in print"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Source Serif 4, Georgia, serif",
+    "title": {
+      "font": "Playfair Display, Georgia, serif",
+      "fontSize": 16,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "gridColor": "#e2dac6",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Source Serif 4, Georgia, serif",
+      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Source Serif 4, Georgia, serif"
+    }
+  }
+}
