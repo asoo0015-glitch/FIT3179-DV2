@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "The towns that printed the most newspapers"
   },

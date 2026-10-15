@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "How the states ranked by number of newspapers in print",
     "subtitle": "Hover over a line to follow one state"

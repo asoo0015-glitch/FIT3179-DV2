@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Newspaper titles added to Trove's list each year, by state"
   },

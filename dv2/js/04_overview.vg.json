@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Drag across the chart to choose the years shown on the maps below",
     "fontSize": 13,

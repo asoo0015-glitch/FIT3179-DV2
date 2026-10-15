@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where titles clustered (2\u00b0 \u00d7 2\u00b0 squares)"
   },
