@@ -1,6 +1,6 @@
 // main.js - embeds every Vega-Lite chart and links the year selector to the maps.
 
-const EMBED_OPTIONS = { actions: { export: true, source: true, compiled: false, editor: true }, renderer: "canvas" };
+const EMBED_OPTIONS = { mode: "vega-lite", actions: { export: true, source: true, compiled: false, editor: true }, renderer: "canvas" };
 
 // chart div id -> spec file
 const CHARTS = {
