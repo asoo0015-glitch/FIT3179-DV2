@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Articles per year in Trove (log scale)",
     "subtitle": "Each step up the axis is ten times more articles"

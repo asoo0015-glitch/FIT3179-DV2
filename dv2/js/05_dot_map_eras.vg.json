@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where newspapers first appeared",
     "subtitle": "One dot per title, placed by the year the title started"

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "The 15 longest-running newspapers in Trove",
     "subtitle": "Bars show each title's run in Trove; the number is its length in years"

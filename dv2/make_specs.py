@@ -11,7 +11,6 @@ from pathlib import Path
 
 OUT = Path("js")
 OUT.mkdir(exist_ok=True)
-SCHEMA = "https://vega.github.io/schema/vega-lite/v5.json"
 
 # ------------------------------------------------------------------ style
 BG = "#f6f1e7"          # newsprint cream (same as the page)
@@ -72,7 +71,7 @@ def column(path, field):
 
 
 def write(name, spec):
-    spec = {"$schema": SCHEMA, **spec, "config": CONFIG}
+    spec = {**spec, "config": CONFIG}
     (OUT / name).write_text(json.dumps(spec, indent=2))
     print("wrote", name)
 
