@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where newspapers first appeared",
     "subtitle": "One dot per title, placed by the year the title started"
@@ -11,18 +12,18 @@
         "fontSize": 15,
         "anchor": "middle"
       },
-      "width": 300,
-      "height": 290,
+      "width": 320,
+      "height": 300,
       "projection": {
         "type": "mercator",
         "center": [
           133.5,
           -27.5
         ],
-        "scale": 400,
+        "scale": 430,
         "translate": [
-          150,
-          145
+          160,
+          150
         ]
       },
       "layer": [
@@ -75,7 +76,7 @@
                 ],
                 "range": [
                   "#1d1a16",
-                  "#e07b00"
+                  "#21736d"
                 ]
               },
               "legend": null
@@ -106,18 +107,18 @@
         "fontSize": 15,
         "anchor": "middle"
       },
-      "width": 300,
-      "height": 290,
+      "width": 320,
+      "height": 300,
       "projection": {
         "type": "mercator",
         "center": [
           133.5,
           -27.5
         ],
-        "scale": 400,
+        "scale": 430,
         "translate": [
-          150,
-          145
+          160,
+          150
         ]
       },
       "layer": [
@@ -170,7 +171,7 @@
                 ],
                 "range": [
                   "#1d1a16",
-                  "#e07b00"
+                  "#21736d"
                 ]
               },
               "legend": null
@@ -201,18 +202,18 @@
         "fontSize": 15,
         "anchor": "middle"
       },
-      "width": 300,
-      "height": 290,
+      "width": 320,
+      "height": 300,
       "projection": {
         "type": "mercator",
         "center": [
           133.5,
           -27.5
         ],
-        "scale": 400,
+        "scale": 430,
         "translate": [
-          150,
-          145
+          160,
+          150
         ]
       },
       "layer": [
@@ -265,7 +266,7 @@
                 ],
                 "range": [
                   "#1d1a16",
-                  "#e07b00"
+                  "#21736d"
                 ]
               },
               "legend": null
@@ -308,6 +309,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

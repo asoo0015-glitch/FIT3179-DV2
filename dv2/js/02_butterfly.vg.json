@@ -1,6 +1,11 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Newspaper titles launched and closed, by decade"
+    "text": "Newspaper titles launched and closed, by decade",
+    "subtitle": [
+      "The 1890s had the most launches (247).",
+      "From the 1920s, more titles closed than opened."
+    ]
   },
   "width": "container",
   "height": 340,
@@ -69,14 +74,15 @@
               "Victorian papers in Trove only for 1914\u20131918"
             ],
             "range": [
-              "#2a7f7f",
-              "#b5472f",
+              "#21736d",
+              "#5b574e",
               "#c4baa4"
             ]
           },
           "legend": {
             "orient": "top",
             "title": null,
+            "columns": 2,
             "labelLimit": 380
           }
         },
@@ -184,9 +190,9 @@
         "color": {
           "condition": {
             "test": "datum.net < 0",
-            "value": "#b5472f"
+            "value": "#5b574e"
           },
-          "value": "#2a7f7f"
+          "value": "#21736d"
         }
       }
     }
@@ -204,6 +210,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where titles clustered (2\u00b0 \u00d7 2\u00b0 squares)"
   },
@@ -107,12 +108,12 @@
               51
             ],
             "range": [
-              "#fde7c8",
-              "#fbc47f",
-              "#f28e2b",
-              "#d0551c",
-              "#9a2e0e",
-              "#5c1405"
+              "#e3f1ee",
+              "#b3dad3",
+              "#7fbdb4",
+              "#3f968c",
+              "#21736d",
+              "#0e3f3b"
             ]
           },
           "legend": {
@@ -165,6 +166,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

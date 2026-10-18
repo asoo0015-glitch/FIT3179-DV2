@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Titles in print, by state"
   },
@@ -19,16 +20,16 @@
     },
     {
       "name": "measure",
-      "value": "count",
+      "value": "per100k",
       "bind": {
         "input": "select",
         "options": [
-          "count",
-          "per100k"
+          "per100k",
+          "count"
         ],
         "labels": [
-          "Number of titles",
-          "Titles per 100,000 km\u00b2"
+          "Titles per 100,000 km\u00b2 (fair comparison)",
+          "Number of titles"
         ],
         "name": "Show: "
       }
@@ -134,7 +135,11 @@
           "title": "Darker = more",
           "scale": {
             "type": "sqrt",
-            "scheme": "oranges",
+            "range": [
+              "#e3f1ee",
+              "#8cc4bb",
+              "#4aa093"
+            ],
             "domainMin": 0
           },
           "legend": {
@@ -164,53 +169,60 @@
       "data": {
         "values": [
           {
-            "s": "NSW",
+            "s": [
+              "New South",
+              "Wales"
+            ],
             "lon": 146.5,
             "lat": -32.3
           },
           {
-            "s": "VIC",
+            "s": "Victoria",
             "lon": 144.8,
             "lat": -36.9
           },
           {
-            "s": "QLD",
+            "s": "Queensland",
             "lon": 144.5,
             "lat": -22.5
           },
           {
-            "s": "SA",
+            "s": [
+              "South",
+              "Australia"
+            ],
             "lon": 135.0,
             "lat": -30.0
           },
           {
-            "s": "WA",
+            "s": [
+              "Western",
+              "Australia"
+            ],
             "lon": 122.0,
             "lat": -25.5
           },
           {
-            "s": "TAS",
+            "s": "Tasmania",
             "lon": 146.6,
             "lat": -42.1
           },
           {
-            "s": "NT",
+            "s": [
+              "Northern",
+              "Territory"
+            ],
             "lon": 133.5,
             "lat": -19.5
-          },
-          {
-            "s": "ACT",
-            "lon": 149.0,
-            "lat": -35.5
           }
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 10.5,
         "fontWeight": 700,
         "color": "#2b2620",
-        "opacity": 0.75
+        "opacity": 0.8
       },
       "encoding": {
         "longitude": {
@@ -240,6 +252,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "How the states ranked by number of newspapers in print",
     "subtitle": "Hover over a line to follow one state"
@@ -62,7 +63,7 @@
         "range": [
           "#0072B2",
           "#D55E00",
-          "#009E73",
+          "#6b4fa0",
           "#CC79A7",
           "#E69F00",
           "#56B4E9",
@@ -173,7 +174,7 @@
             "range": [
               "#0072B2",
               "#D55E00",
-              "#009E73",
+              "#6b4fa0",
               "#CC79A7",
               "#E69F00",
               "#56B4E9",
@@ -182,6 +183,42 @@
             ]
           },
           "legend": null
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "1900",
+            "rank": 3,
+            "t": "Climbs to third place"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": -8,
+        "dy": -17,
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "rank",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "t"
+        },
+        "color": {
+          "value": "#2b2620"
         }
       }
     }
@@ -199,6 +236,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

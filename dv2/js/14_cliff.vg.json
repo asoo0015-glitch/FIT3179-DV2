@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Articles per year in Trove (log scale)",
     "subtitle": "Each step up the axis is ten times more articles"
@@ -51,7 +52,7 @@
       "mark": {
         "type": "line",
         "strokeWidth": 3,
-        "color": "#7a4a1d",
+        "color": "#5b574e",
         "interpolate": "monotone"
       },
       "encoding": {
@@ -120,7 +121,7 @@
         "type": "point",
         "size": 80,
         "filled": true,
-        "color": "#b5472f"
+        "color": "#21736d"
       },
       "encoding": {
         "x": {
@@ -173,7 +174,7 @@
         "type": "text",
         "align": "right",
         "dx": -10,
-        "dy": -12,
+        "dy": -24,
         "fontSize": 12,
         "fontStyle": "italic",
         "color": "#2b2620"
@@ -346,6 +347,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

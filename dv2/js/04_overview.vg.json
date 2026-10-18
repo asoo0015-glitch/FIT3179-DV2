@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Drag across the chart to choose the years shown on the maps below",
     "fontSize": 13,
@@ -77,7 +78,7 @@
         "range": [
           "#0072B2",
           "#D55E00",
-          "#009E73",
+          "#6b4fa0",
           "#CC79A7",
           "#E69F00",
           "#56B4E9",
@@ -88,7 +89,8 @@
       "legend": {
         "orient": "top",
         "columns": 4,
-        "labelLimit": 360
+        "labelLimit": 360,
+        "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"
       }
     },
     "order": {
@@ -124,6 +126,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

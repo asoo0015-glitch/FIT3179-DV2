@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "The 15 longest-running newspapers in Trove",
     "subtitle": "Bars show each title's run in Trove; the number is its length in years"
@@ -82,7 +83,7 @@
             "range": [
               "#0072B2",
               "#D55E00",
-              "#009E73",
+              "#6b4fa0",
               "#CC79A7",
               "#E69F00",
               "#56B4E9",
@@ -244,6 +245,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

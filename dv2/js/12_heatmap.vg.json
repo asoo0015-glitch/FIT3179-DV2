@@ -1,6 +1,11 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Newspaper titles added to Trove's list each year, by state"
+    "text": "Newspaper titles added to Trove's list each year, by state",
+    "subtitle": [
+      "2013 was the peak: 322 titles added,",
+      "183 of them from New South Wales"
+    ]
   },
   "width": "container",
   "height": 300,
@@ -32,7 +37,7 @@
       "axis": {
         "domain": false,
         "ticks": false,
-        "labelLimit": 200
+        "labelLimit": 260
       }
     }
   },
@@ -49,7 +54,12 @@
           "type": "quantitative",
           "title": "Titles added",
           "scale": {
-            "scheme": "oranges",
+            "range": [
+              "#e3f1ee",
+              "#7fbdb4",
+              "#21736d",
+              "#0e3f3b"
+            ],
             "domainMin": 0
           },
           "legend": {
@@ -107,6 +117,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": [
       "Papers printed partly or wholly in other languages",
@@ -53,12 +54,18 @@
     {
       "mark": {
         "type": "rule",
-        "strokeWidth": 3,
-        "color": "#7a4a1d"
+        "strokeWidth": 3
       },
       "encoding": {
         "x2": {
           "datum": 0
+        },
+        "color": {
+          "condition": {
+            "test": "datum.language_full == 'German'",
+            "value": "#21736d"
+          },
+          "value": "#a39574"
         }
       }
     },
@@ -66,10 +73,16 @@
       "mark": {
         "type": "circle",
         "size": 170,
-        "opacity": 1,
-        "color": "#7a4a1d"
+        "opacity": 1
       },
       "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum.language_full == 'German'",
+            "value": "#21736d"
+          },
+          "value": "#a39574"
+        },
         "tooltip": [
           {
             "field": "language_full",
@@ -121,6 +134,7 @@
       "anchor": "start",
       "fontWeight": 700,
       "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
       "subtitleFontSize": 12.5,
       "subtitlePadding": 6,
