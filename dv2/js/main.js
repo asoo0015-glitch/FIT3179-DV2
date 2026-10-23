@@ -11,6 +11,7 @@ const CHARTS = {
   vis_lollipop: "js/10_lollipop.vg.json",
   vis_bump: "js/09_bump.vg.json",
   vis_index: "js/11_indexed_line.vg.json",
+  vis_dumbbell: "js/15_dumbbell.vg.json",
   vis_waffle: "js/13_waffle.vg.json",
   vis_cliff: "js/14_cliff.vg.json",
   vis_heatmap: "js/12_heatmap.vg.json",
@@ -26,6 +27,21 @@ const LINKED = {
 
 const OVERVIEW = { id: "vis_overview", file: "js/04_overview.vg.json" };
 
+// extra embed options for individual linked charts
+const LINKED_OPTIONS = {
+  // the "Zoom to" menu is drawn under the text beside the map instead of above the chart
+  vis_symbol: () => ({ bind: document.getElementById("zoom-controls") }),
+  // the legend title follows the "Show:" menu (a Vega-Lite spec cannot do this by itself)
+  vis_choropleth: () => ({
+    patch: (vgSpec) => {
+      (vgSpec.legends || []).forEach((legend) => {
+        legend.title = { signal: "measure == 'count' ? 'Number of titles' : 'Titles per 100,000 km²'" };
+      });
+      return vgSpec;
+    },
+  }),
+};
+
 const linkedViews = [];
 let overviewView = null;
 
@@ -35,12 +51,62 @@ function showError(id, err) {
   if (el) el.innerHTML = '<p class="caveat">Sorry, this chart could not be loaded.</p>';
 }
 
-// ---- plain charts -------------------------------------------------------
-Object.entries(CHARTS).forEach(([id, file]) => {
-  vegaEmbed("#" + id, file, EMBED_OPTIONS).catch((e) => showError(id, e));
+// The charts are drawn on a canvas, so the web font (Merriweather) must be ready before drawing.
+// Verdana is a system font. Never wait more than 2.5 seconds.
+const fontsReady = Promise.race([
+  Promise.all([
+    document.fonts.load("700 15px Merriweather"),
+    document.fonts.load("900 15px Merriweather"),
+    document.fonts.load("11px Verdana"),
+  ]),
+  new Promise((resolve) => setTimeout(resolve, 2500)),
+]).catch(() => {});
+
+fontsReady.then(() => {
+  // ---- plain charts -----------------------------------------------------
+  Object.entries(CHARTS).forEach(([id, file]) => {
+    vegaEmbed("#" + id, file, EMBED_OPTIONS).catch((e) => showError(id, e));
+  });
+
+  // ---- year selector -> maps -------------------------------------------
+  Promise.all(
+    Object.entries(LINKED).map(([id, file]) => {
+      const extra = LINKED_OPTIONS[id] ? LINKED_OPTIONS[id]() : {};
+      return vegaEmbed("#" + id, file, { ...EMBED_OPTIONS, ...extra }).then((r) => {
+        linkedViews.push(r.view);
+
+        // choropleth only: update the caption when the measure changes
+        if (id === "vis_choropleth") {
+          const caption = document.getElementById("measure-caption");
+          r.view.addSignalListener("measure", (_, v) => {
+            caption.innerHTML =
+              v === "count"
+                ? "Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey."
+                : "Shading shows <strong>titles per 100,000 km&sup2;</strong>, which allows for the very different sizes of the states. Grey means no titles in print.";
+          });
+        }
+        return r.view;
+      }).catch((e) => showError(id, e));
+    })
+  ).then(() => {
+    vegaEmbed("#" + OVERVIEW.id, OVERVIEW.file, EMBED_OPTIONS)
+      .then((r) => {
+        overviewView = r.view;
+        const sig = brushSignalName(r.view);
+        if (!sig) { console.warn("brush signal not found"); return; }
+
+        const read = (value) => {
+          // value is [a, b] when a range is brushed and null when the brush is cleared
+          if (value && value.length === 2) setYears(value[0], value[1]);
+          else setYears(1803, 1954);
+        };
+        r.view.addSignalListener(sig, (_, v) => read(v));
+        read(r.view.signal(sig));   // start in sync with the initial brush
+      })
+      .catch((e) => showError(OVERVIEW.id, e));
+  });
 });
 
-// ---- year selector -> maps ---------------------------------------------
 function setYears(a, b) {
   a = Math.round(a);
   b = Math.round(b);
@@ -53,47 +119,6 @@ function brushSignalName(view) {
   const names = Object.keys(view.getState({ signals: () => true }).signals);
   return names.find((n) => /^brush_year$/.test(n));
 }
-
-Promise.all(
-  Object.entries(LINKED).map(([id, file]) =>
-    vegaEmbed("#" + id, file, EMBED_OPTIONS).then((r) => {
-      linkedViews.push(r.view);
-
-      // choropleth only: update the caption when the measure changes
-      if (id === "vis_choropleth") {
-        const caption = document.getElementById("measure-caption");
-        r.view.addSignalListener("measure", (_, v) => {
-          caption.innerHTML =
-            v === "count"
-              ? "Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey."
-              : "Shading shows <strong>titles per 100,000 km&sup2;</strong>, which allows for the very different sizes of the states. Grey means no titles in print.";
-        });
-      }
-      return r.view;
-    }).catch((e) => showError(id, e))
-  )
-).then(() => {
-  vegaEmbed("#" + OVERVIEW.id, OVERVIEW.file, EMBED_OPTIONS)
-    .then((r) => {
-      overviewView = r.view;
-      const sig = brushSignalName(r.view);
-      if (!sig) { console.warn("brush signal not found"); return; }
-
-      const read = (value) => {
-        // value is [a, b] when a range is brushed and null when the brush is cleared
-        if (value && value.length === 2) setYears(value[0], value[1]);
-        else setYears(1803, 1954);
-      };
-      r.view.addSignalListener(sig, (_, v) => read(v));
-      read(r.view.signal(sig));   // start in sync with the initial brush
-    })
-    .catch((e) => showError(OVERVIEW.id, e));
-});
-
-// ---- include / exclude the Victorian 1914-1918 slices -------------------
-document.getElementById("toggle-slices").addEventListener("change", (e) => {
-  linkedViews.forEach((v) => v.signal("show_slices", e.target.checked).runAsync());
-});
 
 // ---- preset buttons -----------------------------------------------------
 document.querySelectorAll(".preset").forEach((btn) => {

@@ -7,73 +7,6 @@
   "data": {
     "url": "data/top_towns.csv"
   },
-  "encoding": {
-    "y": {
-      "field": "town",
-      "type": "nominal",
-      "sort": [
-        "Sydney, NSW",
-        "Perth, WA",
-        "Melbourne, VIC",
-        "Hobart, TAS",
-        "Adelaide, SA",
-        "Fremantle, WA",
-        "Brisbane, QLD",
-        "Launceston, TAS",
-        "Geraldton, WA",
-        "Coolgardie, WA",
-        "Kalgoorlie, WA",
-        "Port Adelaide, SA",
-        "Queanbeyan, NSW",
-        "Bunbury, WA",
-        "Goulburn, NSW"
-      ],
-      "title": null,
-      "axis": {
-        "ticks": false,
-        "domain": false,
-        "labelFontSize": 12.5,
-        "labelLimit": 230,
-        "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
-      }
-    },
-    "x": {
-      "field": "titles",
-      "type": "quantitative",
-      "title": "Number of titles",
-      "axis": {
-        "grid": true,
-        "tickMinStep": 25
-      }
-    },
-    "color": {
-      "field": "state",
-      "type": "nominal",
-      "scale": {
-        "domain": [
-          "New South Wales",
-          "Victoria",
-          "Queensland",
-          "South Australia",
-          "Western Australia",
-          "Tasmania",
-          "Northern Territory",
-          "Australian Capital Territory"
-        ],
-        "range": [
-          "#0072B2",
-          "#D55E00",
-          "#6b4fa0",
-          "#CC79A7",
-          "#E69F00",
-          "#56B4E9",
-          "#8a8478",
-          "#5b574e"
-        ]
-      },
-      "legend": null
-    }
-  },
   "layer": [
     {
       "mark": {
@@ -81,8 +14,53 @@
         "strokeWidth": 3
       },
       "encoding": {
+        "y": {
+          "field": "town",
+          "type": "nominal",
+          "sort": [
+            "Sydney, NSW",
+            "Perth, WA",
+            "Melbourne, VIC",
+            "Hobart, TAS",
+            "Adelaide, SA",
+            "Fremantle, WA",
+            "Brisbane, QLD",
+            "Launceston, TAS",
+            "Geraldton, WA",
+            "Coolgardie, WA",
+            "Kalgoorlie, WA",
+            "Port Adelaide, SA",
+            "Queanbeyan, NSW",
+            "Bunbury, WA",
+            "Goulburn, NSW"
+          ],
+          "title": "Town",
+          "axis": {
+            "ticks": false,
+            "domain": false,
+            "labelFontSize": 11,
+            "labelLimit": 230,
+            "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
+          }
+        },
+        "x": {
+          "field": "titles",
+          "type": "quantitative",
+          "title": "Number of titles",
+          "axis": {
+            "grid": true,
+            "tickMinStep": 25
+          }
+        },
         "x2": {
           "datum": 0
+        },
+        "color": {
+          "condition": {
+            "test": "datum.town == 'Sydney, NSW'",
+            "value": "#7cc400"
+          },
+          "value": "#4a5560"
         }
       }
     },
@@ -93,6 +71,51 @@
         "opacity": 1
       },
       "encoding": {
+        "y": {
+          "field": "town",
+          "type": "nominal",
+          "sort": [
+            "Sydney, NSW",
+            "Perth, WA",
+            "Melbourne, VIC",
+            "Hobart, TAS",
+            "Adelaide, SA",
+            "Fremantle, WA",
+            "Brisbane, QLD",
+            "Launceston, TAS",
+            "Geraldton, WA",
+            "Coolgardie, WA",
+            "Kalgoorlie, WA",
+            "Port Adelaide, SA",
+            "Queanbeyan, NSW",
+            "Bunbury, WA",
+            "Goulburn, NSW"
+          ],
+          "title": "Town",
+          "axis": {
+            "ticks": false,
+            "domain": false,
+            "labelFontSize": 11,
+            "labelLimit": 230,
+            "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
+          }
+        },
+        "x": {
+          "field": "titles",
+          "type": "quantitative",
+          "title": "Number of titles",
+          "axis": {
+            "grid": true,
+            "tickMinStep": 25
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.town == 'Sydney, NSW'",
+            "value": "#7cc400"
+          },
+          "value": "#4a5560"
+        },
         "tooltip": [
           {
             "field": "town",
@@ -115,12 +138,85 @@
         "type": "text",
         "align": "left",
         "dx": 12,
-        "fontSize": 12,
+        "fontSize": 11,
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "y": {
+          "field": "town",
+          "type": "nominal",
+          "sort": [
+            "Sydney, NSW",
+            "Perth, WA",
+            "Melbourne, VIC",
+            "Hobart, TAS",
+            "Adelaide, SA",
+            "Fremantle, WA",
+            "Brisbane, QLD",
+            "Launceston, TAS",
+            "Geraldton, WA",
+            "Coolgardie, WA",
+            "Kalgoorlie, WA",
+            "Port Adelaide, SA",
+            "Queanbeyan, NSW",
+            "Bunbury, WA",
+            "Goulburn, NSW"
+          ],
+          "title": "Town",
+          "axis": {
+            "ticks": false,
+            "domain": false,
+            "labelFontSize": 11,
+            "labelLimit": 230,
+            "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
+          }
+        },
+        "x": {
+          "field": "titles",
+          "type": "quantitative",
+          "title": "Number of titles",
+          "axis": {
+            "grid": true,
+            "tickMinStep": 25
+          }
+        },
+        "text": {
+          "field": "titles"
+        },
+        "color": {
+          "value": "#2b2620"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "note": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "top",
+        "x": "width",
+        "y": {
+          "expr": "height - 62"
+        },
+        "dx": -4,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "lineHeight": 15,
         "color": "#2b2620"
       },
       "encoding": {
         "text": {
-          "field": "titles"
+          "value": [
+            "Western Australia has 6 of",
+            "the top 15 towns, helped by",
+            "its 1890s gold rushes."
+          ]
         }
       }
     }
@@ -130,43 +226,45 @@
     "view": {
       "stroke": null
     },
-    "font": "Source Serif 4, Georgia, serif",
+    "font": "Verdana, Geneva, sans-serif",
     "title": {
-      "font": "Playfair Display, Georgia, serif",
-      "fontSize": 16,
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
       "color": "#2b2620",
       "anchor": "start",
       "fontWeight": 700,
-      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFont": "Verdana, Geneva, sans-serif",
       "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
-      "subtitleFontSize": 12.5,
+      "subtitleFontSize": 11.5,
       "subtitlePadding": 6,
       "offset": 10
     },
     "axis": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#6f665a",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
-      "gridColor": "#e2dac6",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
       "domainColor": "#b9ae96",
       "tickColor": "#b9ae96"
     },
     "legend": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#2b2620",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
       "symbolType": "square",
       "symbolOpacity": 1
     },
     "text": {
-      "font": "Source Serif 4, Georgia, serif"
+      "font": "Verdana, Geneva, sans-serif"
     }
   }
 }

@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/pure-min.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/grids-responsive-min.css">
 
-  <!-- Newspaper typefaces -->
+  <!-- Typefaces: Merriweather (serif, titles) from Google Fonts. Verdana (text) is already installed on Windows and macOS. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -27,7 +27,6 @@
 
   <!-- ============================ MASTHEAD ============================ -->
   <header class="masthead">
-    <p class="dateline">Data story &middot; Australia &middot; 1803&ndash;1954</p>
     <h1>Read All About It</h1>
     <p class="deck">How Australia's newspapers grew with every wave of settlement, peaked around the First World War, then closed faster than they opened &mdash; and why what we can read online today is only part of the story.</p>
     <p class="byline">By Aaron Soong &middot; Published <time datetime="2026-10-25">25 October 2026</time></p>
@@ -51,7 +50,6 @@
       </div></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_stream" class="vis"></div></div>
     </div>
-    <p class="source">Source: Trove article counts by state and year (Tim Sherratt, GLAM Workbench). Counts are articles that have been digitised, not everything that was printed.</p>
   </section>
 
   <!-- ============================ CHAPTER 2 ============================ -->
@@ -79,7 +77,6 @@
       </div></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_gantt" class="vis"></div></div>
     </div>
-    <p class="source">Source: Trove newspaper title list with start and end dates (Tim Sherratt, GLAM Workbench). Dates are the runs recorded in Trove, which can differ from a paper's full printing history.</p>
   </section>
 
   <!-- ============================ CHAPTER 3 ============================ -->
@@ -90,15 +87,14 @@
         <p>Before 1860, three in four titles started in a capital city (158 of the 210 that we can place on a map). From 1860 to 1899 the pattern flips: <strong>77%</strong> of new titles started in a regional town, as the goldfields, farming districts and railways created new communities that wanted their own paper.</p>
       </div></div>
       <div class="pure-u-1">
-        <p class="key"><span class="dot dot-capital"></span> Capital city &nbsp;&nbsp; <span class="dot dot-regional"></span> Regional town</p>
+        <p class="dot-key"><span class="dot-key-title">Type of place:</span> <span class="dot dot-capital"></span> Capital city <span class="dot dot-regional"></span> Regional town</p>
         <div id="vis_dots" class="vis scroll-x"></div>
       </div>
     </div>
 
-    <h3 class="subhead">Pick a period and watch three maps change</h3>
+    <h3 class="subhead">Observe the change over the years across 3 different maps</h3>
     <div class="control">
       <div class="presets" role="group" aria-label="Quick year ranges">
-        <span>Try:</span>
         <button class="preset" data-from="1851" data-to="1870">Gold rushes 1851&ndash;1870</button>
         <button class="preset" data-from="1890" data-to="1901">Boom to Federation 1890&ndash;1901</button>
         <button class="preset" data-from="1914" data-to="1918">First World War 1914&ndash;1918</button>
@@ -106,7 +102,6 @@
         <button class="preset" data-from="1803" data-to="1954">All years</button>
       </div>
       <div class="readout">Showing titles in print at some point between <strong id="range-label">1850&ndash;1900</strong></div>
-      <label class="slice-toggle"><input type="checkbox" id="toggle-slices" checked> Include the 86 Victorian papers that Trove holds only for 1914&ndash;1918 (the grey band)</label>
       <div id="vis_overview" class="vis"></div>
     </div>
 
@@ -115,7 +110,19 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
         <h3>Zoom in</h3>
         <p>Each circle is a town. Bigger circles mean more newspapers in print there during the years you chose. Use the <em>Zoom to</em> menu to look closely at Melbourne, Sydney, Adelaide, Perth and the goldfields, or the Queensland coast.</p>
-        <p>The maps count a title if it was in print at any time in the chosen years. Tick or untick the box above the maps to see how much of Victoria's 1914&ndash;1918 total comes from the grey-band papers.</p>
+        <p>The maps count a title if<br>it was in print at any time in the chosen years.</p>
+        <div class="map-controls">
+          <div id="zoom-controls"></div>
+          <div class="size-legend" role="img" aria-label="Circle size: 1, 10, 50 or 100 titles in print">
+            <p class="legend-title">Titles in print</p>
+            <div class="size-row">
+              <span class="size-item"><span class="size-dot" style="--d:14.9px"></span>1</span>
+              <span class="size-item"><span class="size-dot" style="--d:26.4px"></span>10</span>
+              <span class="size-item"><span class="size-dot" style="--d:39.5px"></span>50</span>
+              <span class="size-item"><span class="size-dot" style="--d:47.0px"></span>100</span>
+            </div>
+          </div>
+        </div>
       </div></div>
     </div>
 
@@ -129,7 +136,6 @@
         <p class="caption">The country is divided into squares about 200 km wide. The darkest squares are the Sydney, Melbourne and Perth regions.</p>
       </div></div>
     </div>
-    <p class="source">Sources: Trove title list and place coordinates (Tim Sherratt, GLAM Workbench); state boundaries and areas from the Australian Bureau of Statistics, ASGS Edition 3 (2021). Titles without a recorded place are left off the town and square maps, but included in the state map.</p>
 
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_lollipop" class="vis"></div></div>
@@ -195,8 +201,7 @@
         <p>The record is still growing. Trove added between 117 and 322 newspaper titles to its list every year from 2011 to 2021, peaking at <strong>322</strong> in 2013. What looks like &ldquo;the history of the press&rdquo; keeps changing as more papers are digitised.</p>
       </div></div>
       <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_heatmap" class="vis"></div></div>
-    </div>
-    <p class="source">Sources: Trove article categories and totals; Trove title lists captured 2009&ndash;2022 (Tim Sherratt, GLAM Workbench). State is read from the place recorded for each title; titles without one are grouped as &ldquo;Other / unknown&rdquo;.</p>  </section>
+    </div></section>
 
   <!-- ============================ ABOUT ============================ -->
   <footer class="about">
@@ -204,12 +209,20 @@
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-2"><div class="prose">
         <h3>Limits of the data</h3>
-        <p>Trove is not every newspaper ever printed. It holds what has been digitised, and mostly papers published before 1955. Counts of articles are therefore &ldquo;articles preserved&rdquo;, not &ldquo;articles published&rdquo;. End dates around 1954 are an effect of the collection. Each title is placed at one location, so papers that served a whole district appear at a single town.</p>
+        <ul>
+          <li>Trove holds only what has been digitised, mostly papers published before 1955.</li>
+          <li>Counts are articles digitised, not everything that was printed.</li>
+          <li>End dates around 1954 are an effect of the collection.</li>
+          <li>Dates are the runs recorded in Trove. They can differ from a paper's full printing history.</li>
+          <li>Each title is placed at one location, so a paper serving a whole district appears at a single town.</li>
+          <li>Titles without a recorded place are left off the town and square maps, but included in the state map.</li>
+          <li>State is read from the place recorded for each title. Titles without one are grouped as &ldquo;Other / unknown&rdquo;.</li>
+        </ul>
       </div></div>
       <div class="pure-u-1 pure-u-md-1-2"><div class="prose">
         <h3>Data sources</h3>
         <ul>
-          <li>Trove newspaper article totals and title lists, harvested from the Trove API by Tim Sherratt, <a href="https://glam-workbench.net/trove-newspapers/" target="_blank" rel="noopener">GLAM Workbench</a>. Original collection: <a href="https://trove.nla.gov.au/" target="_blank" rel="noopener">Trove, National Library of Australia</a>.</li>
+          <li>Trove newspaper article totals, article categories (the waffle chart) and title lists (captured 2009&ndash;2022), harvested from the Trove API by Tim Sherratt, <a href="https://glam-workbench.net/trove-newspapers/" target="_blank" rel="noopener">GLAM Workbench</a>. Original collection: <a href="https://trove.nla.gov.au/" target="_blank" rel="noopener">Trove, National Library of Australia</a>.</li>
           <li>State and Territory boundaries (2021) and areas: Australian Bureau of Statistics, <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026" target="_blank" rel="noopener">Australian Statistical Geography Standard, Edition 3</a>, &copy; Commonwealth of Australia, CC BY 4.0. Simplified and converted to TopoJSON with <a href="https://mapshaper.org" target="_blank" rel="noopener">Mapshaper</a>.</li>
           <li>Non-English newspaper titles and detected languages, Tim Sherratt, <a href="https://glam-workbench.net/trove-newspapers/" target="_blank" rel="noopener">GLAM Workbench</a>.</li>
         </ul>

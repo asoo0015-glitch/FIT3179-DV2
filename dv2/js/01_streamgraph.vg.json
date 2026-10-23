@@ -19,7 +19,7 @@
         "x": {
           "field": "year",
           "type": "quantitative",
-          "title": null,
+          "title": "Year",
           "axis": {
             "format": "d",
             "tickCount": 10,
@@ -38,7 +38,19 @@
           "field": "total",
           "type": "quantitative",
           "stack": "center",
-          "axis": null
+          "scale": {
+            "domain": [
+              -250000,
+              5350000
+            ]
+          },
+          "axis": {
+            "title": "Articles per year",
+            "labels": false,
+            "ticks": false,
+            "domain": false,
+            "grid": false
+          }
         },
         "color": {
           "field": "group",
@@ -154,10 +166,10 @@
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 4,
+        "dx": 9,
         "y": 8,
         "baseline": "top",
-        "fontSize": 12,
+        "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620"
       },
@@ -184,10 +196,10 @@
       "mark": {
         "type": "text",
         "align": "right",
-        "dx": -4,
+        "dx": -5,
         "y": 8,
         "baseline": "top",
-        "fontSize": 12,
+        "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620"
       },
@@ -200,6 +212,42 @@
           "field": "label"
         }
       }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1832,
+            "mid": 2390000
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "dx": 2,
+        "dy": -44,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "mid",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "1830s: newspapers",
+            "start to boom"
+          ]
+        }
+      }
     }
   ],
   "config": {
@@ -207,43 +255,45 @@
     "view": {
       "stroke": null
     },
-    "font": "Source Serif 4, Georgia, serif",
+    "font": "Verdana, Geneva, sans-serif",
     "title": {
-      "font": "Playfair Display, Georgia, serif",
-      "fontSize": 16,
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
       "color": "#2b2620",
       "anchor": "start",
       "fontWeight": 700,
-      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFont": "Verdana, Geneva, sans-serif",
       "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
-      "subtitleFontSize": 12.5,
+      "subtitleFontSize": 11.5,
       "subtitlePadding": 6,
       "offset": 10
     },
     "axis": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#6f665a",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
-      "gridColor": "#e2dac6",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
       "domainColor": "#b9ae96",
       "tickColor": "#b9ae96"
     },
     "legend": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#2b2620",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
       "symbolType": "square",
       "symbolOpacity": 1
     },
     "text": {
-      "font": "Source Serif 4, Georgia, serif"
+      "font": "Verdana, Geneva, sans-serif"
     }
   }
 }

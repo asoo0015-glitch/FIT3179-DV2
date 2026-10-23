@@ -1,7 +1,10 @@
 {
   "title": {
-    "text": "How the states ranked by number of newspapers in print",
-    "subtitle": "Hover over a line to follow one state"
+    "text": [
+      "How the states ranked by number",
+      "of newspapers in print"
+    ],
+    "subtitle": "1st = highest rank (most newspapers in print)"
   },
   "width": "container",
   "height": 330,
@@ -12,7 +15,7 @@
     "x": {
       "field": "year",
       "type": "ordinal",
-      "title": null,
+      "title": "Year",
       "axis": {
         "labelAngle": 0,
         "grid": false
@@ -24,7 +27,7 @@
     "y": {
       "field": "rank",
       "type": "quantitative",
-      "title": "Rank (1 = most titles)",
+      "title": "Rank",
       "scale": {
         "domain": [
           0.6,
@@ -108,7 +111,7 @@
         "type": "circle",
         "size": 150,
         "opacity": 1,
-        "stroke": "#f6f1e7",
+        "stroke": "#fbf7ee",
         "strokeWidth": 1.5
       },
       "encoding": {
@@ -149,7 +152,7 @@
         "type": "text",
         "align": "left",
         "dx": 14,
-        "fontSize": 12,
+        "fontSize": 11,
         "fontWeight": 600
       },
       "encoding": {
@@ -184,42 +187,6 @@
           "legend": null
         }
       }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "year": "1900",
-            "rank": 3,
-            "t": "Climbs to third place"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": -8,
-        "dy": -17,
-        "fontSize": 11.5,
-        "fontStyle": "italic",
-        "color": "#2b2620"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "rank",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "t"
-        },
-        "color": {
-          "value": "#2b2620"
-        }
-      }
     }
   ],
   "config": {
@@ -227,43 +194,45 @@
     "view": {
       "stroke": null
     },
-    "font": "Source Serif 4, Georgia, serif",
+    "font": "Verdana, Geneva, sans-serif",
     "title": {
-      "font": "Playfair Display, Georgia, serif",
-      "fontSize": 16,
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
       "color": "#2b2620",
       "anchor": "start",
       "fontWeight": 700,
-      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFont": "Verdana, Geneva, sans-serif",
       "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
-      "subtitleFontSize": 12.5,
+      "subtitleFontSize": 11.5,
       "subtitlePadding": 6,
       "offset": 10
     },
     "axis": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#6f665a",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
-      "gridColor": "#e2dac6",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
       "domainColor": "#b9ae96",
       "tickColor": "#b9ae96"
     },
     "legend": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#2b2620",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
       "symbolType": "square",
       "symbolOpacity": 1
     },
     "text": {
-      "font": "Source Serif 4, Georgia, serif"
+      "font": "Verdana, Geneva, sans-serif"
     }
   }
 }

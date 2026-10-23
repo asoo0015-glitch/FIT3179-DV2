@@ -1,127 +1,150 @@
-/* Read All About It - newspaper look: cream "newsprint", serif type */
+/* Read All About It - light beige "page" on a dark brown background.
+   Fonts: Merriweather (serif) for titles, Verdana for everything else.
+   To try Lora instead of Merriweather, change --font-head here, the Google Fonts link in index.html
+   and HEAD_FONT in make_specs.py. */
 :root {
-  --paper: #f6f1e7;
+  --side: #3b2a20;      /* dark brown either side of the page */
+  --paper: #fbf7ee;     /* the page itself: light beige */
   --ink: #2b2620;
   --muted: #6f665a;
-  --rule: #cfc4a8;
+  --rule: #d8cdb3;
   --accent: #b5472f;
+  --font-head: Merriweather, Georgia, serif;
+  --font-body: Verdana, Geneva, sans-serif;
 }
 
-html { background: #e9e2d0; }
+html { background: var(--side); }
 
 body {
   margin: 0;
   color: var(--ink);
-  background: var(--paper);
-  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
-  font-size: 17px;
-  line-height: 1.6;
+  background: var(--side);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
 }
 
+/* layout: dark brown side | beige page | dark brown side */
 .page {
   max-width: 1080px;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 24px 28px 40px;
+  padding: 28px 32px 48px;
+  box-sizing: border-box;
   background: var(--paper);
 }
 
 /* ---------- headings ---------- */
-h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; line-height: 1.15; margin: 0; }
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.25; margin: 0; }
 
 .masthead { text-align: left; border-bottom: 3px double var(--ink); padding-bottom: 20px; margin-bottom: 8px; }
-.masthead h1 { font-size: clamp(2.6rem, 8vw, 4.8rem); font-weight: 900; letter-spacing: -0.02em; margin: 4px 0 10px; }
-.dateline { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--muted); margin: 8px 0 0; }
-.deck { font-size: 1.3rem; max-width: 46em; margin: 0 0 8px; font-style: italic; }
-.byline { color: var(--muted); font-size: 0.9rem; margin: 0 0 18px; }
+.masthead h1 { font-size: clamp(2.2rem, 7vw, 4rem); font-weight: 900; letter-spacing: -0.02em; margin: 4px 0 14px; line-height: 1.1; }
+.deck { font-size: 1.02rem; margin: 0 0 10px; max-width: 21em; }
+.byline { color: var(--muted); font-size: 0.82rem; margin: 0 0 18px; }
 
 .facts { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 14px 0; margin: 12px 0 16px; }
 .facts > div { padding: 4px 10px; box-sizing: border-box; }
-.facts .big { display: block; font-family: "Playfair Display", Georgia, serif; font-weight: 900; font-size: 2rem; line-height: 1.1; color: var(--accent); }
-.facts .small { display: block; font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
-
-.note { font-size: 0.95rem; color: var(--muted); max-width: 52em; margin: 0; }
+.facts .big { display: block; font-family: var(--font-head); font-weight: 900; font-size: 1.55rem; line-height: 1.2; color: var(--accent); }
+.facts .small { display: block; font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
 
 /* ---------- chapters ---------- */
-.chapter { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--rule); }
-.chapter > h2 { font-size: 2rem; font-weight: 700; margin-bottom: 18px; }
+.chapter { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.chapter > h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 18px; }
 .chapter h2 .num {
-  display: inline-block; width: 2.2rem; height: 2.2rem; line-height: 2.2rem; margin-right: 8px;
-  text-align: center; font-size: 1.1rem; color: var(--paper); background: var(--ink); border-radius: 50%;
+  display: inline-block; width: 2.1rem; height: 2.1rem; line-height: 2.1rem; margin-right: 8px;
+  text-align: center; font-family: var(--font-body); font-size: 0.95rem; color: var(--paper); background: var(--ink); border-radius: 50%;
   vertical-align: 3px;
 }
-h3 { font-size: 1.25rem; margin-bottom: 8px; }
-.subhead { margin: 28px 0 8px; font-size: 1.5rem; }
+h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.subhead { margin: 28px 0 8px; font-size: 1.25rem; }
 
-.prose { padding: 0 20px 0 0; max-width: 34em; }
-.prose.wide { max-width: 52em; }
+/* text blocks: a narrow measure keeps every line at 10 words or fewer */
+.prose { padding: 0 20px 0 0; max-width: 21em; }
 .prose p { margin: 0 0 0.9em; }
-.prose.side { padding: 40px 0 0 20px; }
-.caveat { font-size: 0.92rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 12px; }
-.source { font-size: 0.8rem; color: var(--muted); margin: 14px 0 0; max-width: 62em; }
-.caption { font-size: 0.85rem; color: var(--muted); margin: 4px 0 0; padding: 0 6px; }
+.prose strong { color: var(--accent); font-weight: 700; }
+.prose.side { padding: 0 0 0 20px; }
+.caveat { font-size: 0.85rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 12px; }
+.caption { font-size: 0.8rem; color: var(--muted); margin: 4px 0 0; padding: 0 6px; max-width: 24em; }
+.bulge p { border-left: 3px solid var(--accent); padding-left: 14px; }
 
 /* ---------- charts ---------- */
-.vis { width: 100%; min-height: 40px; }
+.vis { width: 100%; min-height: 40px; margin-bottom: 6px; }
 .vis-center { display: flex; justify-content: center; }
 .scroll-x { overflow-x: auto; }       /* only kicks in on very narrow screens */
 .map-box { padding: 0 6px; }
 .maps-row { margin-top: 10px; }
 .gantt-row { margin-top: 28px; }
-.vega-embed { width: 100%; }
+.pure-g + .pure-g { margin-top: 24px; }
+.vega-embed { width: 100%; display: flex !important; flex-direction: column; }
 .vega-embed.has-actions { padding-right: 0; }
 .vega-embed details summary { top: -6px; }
-
-/* Vega-Lite's own input widgets (dropdowns, sliders) */
-.vega-bind { font-size: 0.9rem; margin: 4px 0 8px 6px; }
-.vega-bind label { margin-right: 6px; color: var(--muted); }
-.vega-bind select {
-  font-family: inherit; font-size: 0.9rem; padding: 3px 6px; background: #fffaf0;
-  border: 1px solid var(--rule); border-radius: 4px; color: var(--ink);
-}
-
-/* ---------- linked-map controls ---------- */
-.control { background: #efe8d6; border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px 4px; margin: 6px 0 14px; }
-.presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.9rem; }
-.preset {
-  font-family: inherit; font-size: 0.85rem; padding: 5px 10px; cursor: pointer;
-  background: #fffaf0; color: var(--ink); border: 1px solid var(--rule); border-radius: 999px;
-}
-.preset:hover, .preset:focus-visible { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.readout { margin: 10px 0 0; font-size: 1rem; }
-.readout strong { color: var(--accent); }
-
-/* ---------- footer ---------- */
-.about { margin-top: 48px; padding-top: 18px; border-top: 3px double var(--ink); }
-.about h2 { font-size: 1.6rem; margin-bottom: 10px; }
-.about .prose { max-width: none; font-size: 0.92rem; }
-.about ul { padding-left: 1.1em; margin: 0; }
-.about li { margin-bottom: 0.6em; }
-.credits { font-size: 0.85rem; color: var(--muted); margin-top: 14px; }
-a { color: #1a5a8a; }
-
-@media (max-width: 767px) {
-  body { font-size: 16px; }
-  .page { padding: 16px 16px 32px; }
-  .prose, .prose.side { padding: 0; }
-  .chapter > h2 { font-size: 1.6rem; }
-}
-
-.bulge p { border-left: 3px solid var(--accent); padding-left: 14px; }
-.slice-toggle { display: block; font-size: 0.9rem; margin: 6px 0 10px; color: var(--ink); }
-.slice-toggle input { margin-right: 6px; accent-color: var(--accent); }
 /* put Vega-Lite's dropdowns above their charts */
-.vega-embed { display: flex !important; flex-direction: column; }
 .vega-embed > .vega-bindings { order: -1 !important; }
 .maps-row .vega-bindings { margin-bottom: 4px; }
 
-.key { font-size: 0.9rem; margin: 6px 0 0 6px; color: var(--muted); }
-.dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
-.dot-capital { background: #1d1a16; }
-.dot-regional { background: #e07b00; }
+/* Vega-Lite's own input widgets (dropdowns) */
+.vega-bind { font-size: 0.82rem; margin: 4px 0 8px 6px; }
+.vega-bind label { margin-right: 6px; color: var(--muted); }
+.vega-bind select {
+  font-family: inherit; font-size: 0.82rem; padding: 3px 6px; background: #fffdf7;
+  border: 1px solid var(--rule); border-radius: 4px; color: var(--ink); max-width: 100%;
+}
 
-.prose, .prose.wide, .note, .deck { max-width: 31em; }
-.prose strong, .note strong { color: var(--accent); font-weight: 600; }
-.prose.side { padding-top: 0; }
-.chapter { margin-top: 56px; }
-.pure-g + .pure-g { margin-top: 24px; }
-.vis { margin-bottom: 6px; }
+/* ---------- tooltips: one font and one size for every field and value ---------- */
+#vg-tooltip-element,
+#vg-tooltip-element h2,
+#vg-tooltip-element table tr td,
+#vg-tooltip-element table tr td.key,
+#vg-tooltip-element table tr td.value {
+  font-family: var(--font-body) !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+/* ---------- linked-map controls ---------- */
+.control { background: #f3ecdb; border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px 4px; margin: 6px 0 14px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.preset {
+  font-family: inherit; font-size: 0.78rem; padding: 5px 10px; cursor: pointer;
+  background: #fffdf7; color: var(--ink); border: 1px solid var(--rule); border-radius: 999px;
+}
+.preset:hover, .preset:focus-visible { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.readout { margin: 10px 0 0; font-size: 0.9rem; }
+.readout strong { color: var(--accent); }
+
+/* zoom menu and circle-size legend, under the text beside the town map */
+.map-controls { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+#zoom-controls .vega-bind { margin: 0 0 14px 0; display: block; }
+#zoom-controls .vega-bind label { display: block; }
+#zoom-controls .vega-bind select { width: 100%; }
+.size-legend .legend-title { margin: 0 0 8px; font-size: 0.78rem; color: var(--muted); }
+.size-row { display: flex; align-items: flex-end; gap: 18px; }
+.size-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.78rem; }
+/* same grey as the circles on the map's old legend; diameter comes from the map's sqrt size scale */
+.size-dot {
+  display: block; width: var(--d); height: var(--d); border-radius: 50%; box-sizing: border-box;
+  background: #b9ae96; border: 1px solid #8f866f; opacity: 0.9;
+}
+
+/* ---------- key above the era dot maps (colours match the dots on the maps) ---------- */
+.dot-key { font-size: 0.8rem; margin: 6px 0 4px 6px; color: var(--muted); }
+.dot-key-title { margin-right: 6px; }
+.dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin: 0 4px 0 10px; vertical-align: -1px; opacity: 0.6; }
+.dot-capital { background: #1d1a16; }
+.dot-regional { background: #21736d; }
+
+/* ---------- footer ---------- */
+.about { margin-top: 48px; padding-top: 18px; border-top: 3px double var(--ink); }
+.about h2 { font-size: 1.4rem; margin-bottom: 10px; }
+.about .prose { max-width: 23em; font-size: 0.8rem; }
+.about ul { padding-left: 1.1em; margin: 0; }
+.about li { margin-bottom: 0.6em; }
+.credits { font-size: 0.78rem; color: var(--muted); margin-top: 14px; max-width: 24em; }
+a { color: #1a5a8a; }
+
+@media (max-width: 767px) {
+  body { font-size: 14px; }
+  .page { padding: 16px 16px 32px; }
+  .prose, .prose.side { padding: 0; }
+  .chapter > h2 { font-size: 1.35rem; }
+}

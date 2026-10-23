@@ -1,6 +1,6 @@
 {
   "title": {
-    "text": "Where titles clustered (2\u00b0 \u00d7 2\u00b0 squares)"
+    "text": "Where titles clustered"
   },
   "width": "container",
   "height": 330,
@@ -12,10 +12,6 @@
     {
       "name": "yr1",
       "value": 1900
-    },
-    {
-      "name": "show_slices",
-      "value": true
     }
   ],
   "projection": {
@@ -54,7 +50,7 @@
       },
       "transform": [
         {
-          "filter": "datum.cell_id != null && datum.start <= yr1 && datum.end >= yr0 && (show_slices || datum.wwi_slice == 0)"
+          "filter": "datum.cell_id != null && datum.start <= yr1 && datum.end >= yr0"
         },
         {
           "aggregate": [
@@ -84,7 +80,7 @@
       ],
       "mark": {
         "type": "geoshape",
-        "stroke": "#f6f1e7",
+        "stroke": "#fbf7ee",
         "strokeWidth": 0.6,
         "opacity": 0.92
       },
@@ -157,43 +153,45 @@
     "view": {
       "stroke": null
     },
-    "font": "Source Serif 4, Georgia, serif",
+    "font": "Verdana, Geneva, sans-serif",
     "title": {
-      "font": "Playfair Display, Georgia, serif",
-      "fontSize": 16,
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
       "color": "#2b2620",
       "anchor": "start",
       "fontWeight": 700,
-      "subtitleFont": "Source Serif 4, Georgia, serif",
+      "subtitleFont": "Verdana, Geneva, sans-serif",
       "subtitleFontWeight": 400,
       "subtitleColor": "#6f665a",
-      "subtitleFontSize": 12.5,
+      "subtitleFontSize": 11.5,
       "subtitlePadding": 6,
       "offset": 10
     },
     "axis": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#6f665a",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
-      "gridColor": "#e2dac6",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
       "domainColor": "#b9ae96",
       "tickColor": "#b9ae96"
     },
     "legend": {
-      "labelFont": "Source Serif 4, Georgia, serif",
-      "titleFont": "Source Serif 4, Georgia, serif",
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
       "labelColor": "#2b2620",
       "titleColor": "#6f665a",
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
       "symbolType": "square",
       "symbolOpacity": 1
     },
     "text": {
-      "font": "Source Serif 4, Georgia, serif"
+      "font": "Verdana, Geneva, sans-serif"
     }
   }
 }
