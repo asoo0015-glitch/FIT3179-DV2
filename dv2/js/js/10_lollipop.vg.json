@@ -1,6 +1,10 @@
 {
   "title": {
-    "text": "The towns that printed the most newspapers"
+    "text": [
+      "Sydney had the most newspaper titles;",
+      "Perth came a clear second"
+    ],
+    "subtitle": "The 15 towns with the most titles in Trove"
   },
   "width": "container",
   "height": 360,

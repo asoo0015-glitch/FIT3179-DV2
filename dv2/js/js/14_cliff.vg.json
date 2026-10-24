@@ -1,7 +1,10 @@
 {
   "title": {
-    "text": "Articles per year in Trove (log scale)",
-    "subtitle": "Each step up the axis is ten times more articles"
+    "text": "Trove's articles fall 88% after 1954",
+    "subtitle": [
+      "Articles per year, on a log scale:",
+      "each step up the axis is ten times more"
+    ]
   },
   "width": "container",
   "height": 330,

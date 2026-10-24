@@ -1,8 +1,11 @@
 {
   "title": {
-    "text": "How the states ranked",
+    "text": [
+      "Western Australia rose from 6th",
+      "to 2nd place between 1870 and 1930"
+    ],
     "subtitle": [
-      "Ranked by newspapers in print.",
+      "States ranked by newspapers in print.",
       "1st = highest rank (the most)."
     ]
   },
@@ -19,7 +22,7 @@
       "axis": {
         "labelAngle": 0,
         "grid": false,
-        "labelFontSize": 10
+        "labelFontSize": 11
       },
       "scale": {
         "padding": 0.4

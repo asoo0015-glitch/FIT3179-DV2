@@ -6,11 +6,12 @@ Run from the project folder:   python prepare_data.py
 Needs: pip install pandas openpyxl
 """
 import json
-import math
 import re
 from pathlib import Path
 
 import pandas as pd
+
+from make_cells import build_cells, cell_id_for
 
 RAW = Path("raw")
 OUT = Path("data")
@@ -53,12 +54,9 @@ titles = news.merge(loc[["title_id", "place", "latitude", "longitude"]],
                     on="title_id", how="left")
 
 
-def cell(v):
-    return int(math.floor(v / 2.0) * 2)
-
-
+# bin map: 200 km x 200 km squares in the Albers equal-area projection (defined in make_cells.py)
 titles["cell_id"] = titles.apply(
-    lambda r: f"{cell(r.longitude)}_{cell(r.latitude)}" if pd.notna(r.latitude) else "", axis=1)
+    lambda r: cell_id_for(r.longitude, r.latitude) if pd.notna(r.latitude) else "", axis=1)
 titles["era"] = pd.cut(titles.start, [0, 1859, 1899, 3000],
                        labels=["1. Before 1860", "2. 1860-1899", "3. 1900 onwards"]).astype(str)
 titles = titles.rename(columns={"total": "articles", "latitude": "lat", "longitude": "lon"})
@@ -70,15 +68,10 @@ titles["lon"] = titles.lon.round(4)
 save(titles[["title_id", "short", "state", "place", "lat", "lon", "start", "end",
              "articles", "cell_id", "era", "place_type", "wwi_slice"]], "titles.csv")
 
-# 2-degree grid cells (polygons) for the bin map
-cells = []
-for cid in sorted(c for c in titles.cell_id.unique() if c):
-    x, y = map(int, cid.split("_"))
-    cells.append({"type": "Feature", "properties": {"cell_id": cid},
-                  "geometry": {"type": "Polygon",
-                               "coordinates": [[[x, y], [x, y + 2], [x + 2, y + 2], [x + 2, y], [x, y]]]}})  # clockwise, as d3-geo needs
-(OUT / "cells.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": cells}))
-print("cells.geojson", len(cells), "cells")
+# the squares themselves (polygons) for the bin map; equal area, so a darker square really means more titles
+cells = build_cells(titles.cell_id.unique())
+(OUT / "cells.geojson").write_text(json.dumps(cells), encoding="utf-8")
+print("cells.geojson", len(cells["features"]), "squares")
 
 # state areas from the ABS shapefile (exported with mapshaper)
 area = pd.read_csv(RAW / "ste" / "states_info.csv").rename(

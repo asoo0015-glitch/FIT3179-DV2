@@ -31,7 +31,15 @@
     }
   ],
   "projection": {
-    "type": "mercator"
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -132,
+      0
+    ]
   },
   "layer": [
     {
@@ -214,7 +222,7 @@
       },
       "mark": {
         "type": "text",
-        "fontSize": 10.5,
+        "fontSize": 11,
         "fontWeight": 700,
         "color": "#2b2620",
         "opacity": 0.8

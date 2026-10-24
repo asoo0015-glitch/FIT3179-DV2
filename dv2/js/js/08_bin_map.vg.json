@@ -15,7 +15,15 @@
     }
   ],
   "projection": {
-    "type": "mercator"
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -132,
+      0
+    ]
   },
   "layer": [
     {
@@ -50,7 +58,7 @@
       },
       "transform": [
         {
-          "filter": "datum.cell_id != null && datum.start <= yr1 && datum.end >= yr0"
+          "filter": "datum.cell_id != null && datum.cell_id !== '' && datum.start <= yr1 && datum.end >= yr0"
         },
         {
           "aggregate": [

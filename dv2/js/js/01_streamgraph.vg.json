@@ -1,7 +1,13 @@
 {
   "title": {
-    "text": "Articles preserved in Trove, by state, per year",
-    "subtitle": "Thickness of each band = number of articles"
+    "text": [
+      "From a trickle in the 1830s to",
+      "millions of articles a year by 1900"
+    ],
+    "subtitle": [
+      "Articles preserved in Trove each year, by state.",
+      "Thickness of each band = number of articles."
+    ]
   },
   "width": "container",
   "height": 380,

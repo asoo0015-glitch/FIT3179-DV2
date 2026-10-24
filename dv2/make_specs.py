@@ -66,19 +66,34 @@ STATE_SCALE_8 = {"domain": STATE_ORDER_8, "range": STATE_COLOURS_8}
 TOPO = {"url": "data/australia_states.topojson",
         "format": {"type": "topojson", "feature": "states"}}
 
+# MAP PROJECTION (all four maps): Albers equal-area conic, set up as Geoscience Australia's "Australian Albers"
+# (standard parallels 18 S and 36 S, central meridian 132 E). Equal-area means a state, or a 200 km square on
+# the bin map, takes up the same space on the page wherever it is, so shading and dot density can be compared
+# fairly. Mercator, the web-map default, stretches areas towards the poles (Tasmania would look larger than it is).
+# make_cells.py uses the same numbers for the bin-map squares: change them in both places together.
+# With a rotation, a "center" is given relative to the central meridian: [longitude - 132, latitude].
+CENTRAL_MERIDIAN = 132
+PROJ = {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-CENTRAL_MERIDIAN, 0]}
+
+# titles with no recorded place have an empty lat/lon: keep them off the town, dot and square maps
+HAS_PLACE = "datum.lat != null && datum.lat !== ''"
+HAS_SQUARE = "datum.cell_id != null && datum.cell_id !== ''"
+
 # a title was running during the chosen years (the 1914-1918 Victorian slices are always included)
 ACTIVE = "datum.start <= yr1 && datum.end >= yr0"
 YEAR_PARAMS = [{"name": "yr0", "value": 1850}, {"name": "yr1", "value": 1900}]
 
 
 def column(path, field):
-    with open(path, newline="") as f:
+    # utf-8 is explicit: without it Windows reads the file as cp1252, so the "…" in the Armidale label
+    # becomes "â€¦", no longer matches the CSV that Vega-Lite loads, and the chart's sort order silently breaks
+    with open(path, newline="", encoding="utf-8") as f:
         return [r[field] for r in csv.DictReader(f)]
 
 
 def write(name, spec):
     spec = {**spec, "config": CONFIG}
-    (OUT / name).write_text(json.dumps(spec, indent=2))
+    (OUT / name).write_text(json.dumps(spec, indent=2), encoding="utf-8")
     print("wrote", name)
 
 
@@ -104,7 +119,8 @@ events = [
     {"year": 1939, "label": "War begins", "row": 6},
 ]
 write("01_streamgraph.vg.json", {
-    "title": {"text": "Articles preserved in Trove, by state, per year", "subtitle": "Thickness of each band = number of articles"},
+    "title": {"text": ["From a trickle in the 1830s to", "millions of articles a year by 1900"],
+              "subtitle": ["Articles preserved in Trove each year, by state.", "Thickness of each band = number of articles."]},
     "width": "container", "height": 380,
     "data": {"url": "data/articles_by_year_state.csv"},
     "layer": [
@@ -163,7 +179,7 @@ write("02_butterfly.vg.json", {
     "title": {"text": "Newspaper titles launched and closed, by decade",
               "subtitle": ["The 1890s had the most launches (247).",
                            "From the 1920s, more titles closed than opened."]},
-    "width": "container", "height": 340,
+    "width": "container", "height": 560,
     "encoding": {"y": {"field": "label", "type": "ordinal", "title": "Decade", "sort": DEC,
                        "axis": {"labelFontSize": 12, "domain": False, "ticks": False}}},
     "layer": [
@@ -230,7 +246,7 @@ write("03_gantt.vg.json", {
                          {"field": "end", "title": "Last year", "format": "d"},
                          {"field": "years", "title": "Years in Trove"},
                          {"field": "articles", "title": "Articles in Trove", "format": ","}]}},
-        {"mark": {"type": "text", "align": "left", "dx": 5, "fontSize": 10.5, "color": INK},
+        {"mark": {"type": "text", "align": "left", "dx": 5, "fontSize": 11, "color": INK},
          "encoding": {"y": GY, "x": {"field": "end", "type": "quantitative"},
                       "text": {"field": "years", "type": "quantitative"}}},
         {"data": {"values": [{"x": 1954}]},
@@ -272,18 +288,20 @@ write("04_overview.vg.json", {
 # ============================== 5. DOT MAP, SMALL MULTIPLES BY ERA
 # three side-by-side panels (one per era), each a base map + one dot per title
 ERAS = [("1. Before 1860", "Before 1860"), ("2. 1860-1899", "1860\u20131899"), ("3. 1900 onwards", "1900 onwards")]
+ERA_SCALE = 480   # pixels per radian of the Albers projection: fits the whole country in a 320 x 300 panel
 
 
 def era_panel(era, label, show_legend):
+    # the heading, sub-heading and one short text per era are written in index.html (.era-block),
+    # so the panels themselves carry no Vega-Lite titles
     return {
-        "title": {"text": label, "font": HEAD_FONT, "fontSize": 14, "anchor": "middle"},
         "width": 320, "height": 300,
-        "projection": {"type": "mercator", "center": [133.5, -27.5], "scale": 430, "translate": [160, 150]},
+        "projection": {**PROJ, "center": [133.5 - CENTRAL_MERIDIAN, -27.5], "scale": ERA_SCALE, "translate": [160, 150]},
         "layer": [
             {"data": TOPO, "mark": {"type": "geoshape", "fill": LAND, "stroke": "white", "strokeWidth": 0.8}},
             {
                 "data": {"url": "data/titles.csv"},
-                "transform": [{"filter": f"datum.lat != null && datum.era == '{era}'"}],
+                "transform": [{"filter": f"{HAS_PLACE} && datum.era == '{era}'"}],
                 "mark": {"type": "circle", "opacity": 0.6, "size": 22},
                 "encoding": {
                     "longitude": {"field": "lon", "type": "quantitative"},
@@ -300,21 +318,21 @@ def era_panel(era, label, show_legend):
 
 
 write("05_dot_map_eras.vg.json", {
-    "title": {"text": "Where newspapers first appeared",
-              "subtitle": ["One dot per title, grouped", "by the era it started in"]},
     "hconcat": [era_panel(e, l, i == 1) for i, (e, l) in enumerate(ERAS)],
     "resolve": {"scale": {"color": "shared"}},
 })
 
 # ===================== 6. PROPORTIONAL SYMBOL MAP (zoom + linked years)
+# [centre longitude, centre latitude, scale]; the scale is in pixels per radian of the Albers projection.
+# (The old Mercator presets were the same views, with scales about 1/cos(latitude) smaller.)
 FOCUS = [
-    ([134, -28.5, 760], "All of Australia"),
-    ([146.5, -35.5, 2600], "South-east: Victoria, NSW, Tasmania"),
-    ([145.3, -37.3, 6200], "Melbourne and Victoria"),
-    ([151.0, -33.2, 7000], "Sydney and the Hunter"),
-    ([138.6, -34.4, 5200], "Adelaide and the Murray"),
-    ([119.5, -31.0, 3400], "Perth and the goldfields"),
-    ([151.5, -24.5, 1500], "Queensland coast"),
+    ([134, -28.5, 865], "All of Australia"),
+    ([148, -38.3, 2800], "South-east: Victoria, NSW, Tasmania"),   # re-centred south so Tasmania is in view
+    ([145.3, -37.3, 7790], "Melbourne and Victoria"),
+    ([151.0, -33.2, 8370], "Sydney and the Hunter"),
+    ([138.6, -34.4, 6300], "Adelaide and the Murray"),
+    ([119.5, -31.0, 3970], "Perth and the goldfields"),
+    ([151.5, -24.5, 1650], "Queensland coast"),
 ]
 write("06_symbol_map.vg.json", {
     "title": {"text": "Titles in print, town by town"},
@@ -324,13 +342,13 @@ write("06_symbol_map.vg.json", {
         "bind": {"input": "select", "options": [f[0] for f in FOCUS], "labels": [f[1] for f in FOCUS],
                  "name": "Zoom to: "},
     }],
-    "projection": {"type": "mercator", "center": {"expr": "[focus[0], focus[1]]"}, "scale": {"expr": "focus[2]"}},
+    "projection": {**PROJ, "center": {"expr": f"[focus[0] - {CENTRAL_MERIDIAN}, focus[1]]"}, "scale": {"expr": "focus[2]"}},
     "layer": [
         base_layer(),
         {
             "data": {"url": "data/titles.csv"},
             "transform": [
-                {"filter": "datum.lat != null && " + ACTIVE},
+                {"filter": HAS_PLACE + " && " + ACTIVE},
                 {"aggregate": [{"op": "count", "as": "n"}, {"op": "sum", "field": "articles", "as": "arts"}],
                  "groupby": ["place", "state", "lat", "lon"]},
             ],
@@ -353,7 +371,7 @@ write("06_symbol_map.vg.json", {
         {
             "data": {"url": "data/titles.csv"},
             "transform": [
-                {"filter": "datum.lat != null && " + ACTIVE},
+                {"filter": HAS_PLACE + " && " + ACTIVE},
                 {"aggregate": [{"op": "count", "as": "n"}], "groupby": ["place", "lat", "lon"]},
                 {"filter": "datum.n >= 14"},
             ],
@@ -384,7 +402,7 @@ write("07_choropleth.vg.json", {
         "bind": {"input": "select", "options": ["per100k", "count"],
                  "labels": ["Titles per 100,000 km² (fair comparison)", "Number of titles"], "name": "Show: "},
     }],
-    "projection": {"type": "mercator"},
+    "projection": PROJ,
     "layer": [
         base_layer(),
         {
@@ -408,7 +426,7 @@ write("07_choropleth.vg.json", {
                 {"s": "Queensland", "lon": 144.5, "lat": -22.5}, {"s": ["South", "Australia"], "lon": 135.0, "lat": -30.0},
                 {"s": ["Western", "Australia"], "lon": 122.0, "lat": -25.5}, {"s": "Tasmania", "lon": 146.6, "lat": -42.1},
                 {"s": ["Northern", "Territory"], "lon": 133.5, "lat": -19.5}]},
-            "mark": {"type": "text", "fontSize": 10.5, "fontWeight": 700, "color": INK, "opacity": 0.8},
+            "mark": {"type": "text", "fontSize": 11, "fontWeight": 700, "color": INK, "opacity": 0.8},
             "encoding": {"longitude": {"field": "lon", "type": "quantitative"},
                          "latitude": {"field": "lat", "type": "quantitative"},
                          "text": {"field": "s"}},
@@ -421,13 +439,13 @@ write("08_bin_map.vg.json", {
     "title": {"text": "Where titles clustered"},
     "width": "container", "height": 330,
     "params": YEAR_PARAMS,
-    "projection": {"type": "mercator"},
+    "projection": PROJ,
     "layer": [
         base_layer(),
         {
             "data": {"url": "data/titles.csv"},
             "transform": [
-                {"filter": "datum.cell_id != null && " + ACTIVE},
+                {"filter": HAS_SQUARE + " && " + ACTIVE},
                 {"aggregate": [{"op": "count", "as": "n"}], "groupby": ["cell_id"]},
                 {"lookup": "cell_id", "from": {"data": {"url": "data/cells.geojson", "format": {"type": "json", "property": "features"}},
                                                "key": "properties.cell_id"}, "as": "geo"},
@@ -449,13 +467,13 @@ write("08_bin_map.vg.json", {
 
 # ============================================================ 9. BUMP
 write("09_bump.vg.json", {
-    "title": {"text": "How the states ranked",
-              "subtitle": ["Ranked by newspapers in print.", "1st = highest rank (the most)."]},
+    "title": {"text": ["Western Australia rose from 6th", "to 2nd place between 1870 and 1930"],
+              "subtitle": ["States ranked by newspapers in print.", "1st = highest rank (the most)."]},
     "width": "container", "height": 330,
     "data": {"url": "data/bump_active_titles.csv"},
     "encoding": {
-        "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0, "grid": False},
-              "scale": {"padding": 0.5}},
+        "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0, "grid": False, "labelFontSize": 11},
+              "scale": {"padding": 0.4}},
         "y": {"field": "rank", "type": "quantitative", "title": "Rank",
               "scale": {"domain": [0.6, 6.4], "reverse": True},
               "axis": {"values": [1, 2, 3, 4, 5, 6], "format": "d", "grid": False}},
@@ -486,7 +504,8 @@ LY = {"field": "town", "type": "nominal", "sort": column("data/top_towns.csv", "
       "axis": {"ticks": False, "domain": False, "labelFontSize": 11, "labelLimit": 320, "labelExpr": TOWN_LABEL}}
 LX = {"field": "titles", "type": "quantitative", "title": "Number of titles", "axis": {"grid": True, "tickMinStep": 25}}
 write("10_lollipop.vg.json", {
-    "title": {"text": "The towns that printed the most newspapers"},
+    "title": {"text": ["Sydney had the most newspaper titles;", "Perth came a clear second"],
+              "subtitle": "The 15 towns with the most titles in Trove"},
     "width": "container", "height": 360,
     "data": {"url": "data/top_towns.csv"},
     "layer": [
@@ -537,8 +556,8 @@ def callout(year, index, box_year, box_index, box_w, text, below=True, box_h=24)
 
 
 write("11_indexed_line.vg.json", {
-    "title": {"text": "Articles preserved per year, 1929 = 100",
-              "subtitle": ["Each line shows a state's yearly total", "compared with its own 1929 total"]},
+    "title": {"text": ["By 1943, preserved articles fell", "to just over half their 1929 level"],
+              "subtitle": ["Each line shows a state's yearly total", "compared with its own 1929 total (1929 = 100)"]},
     "width": "container", "height": 340,
     "data": {"url": "data/articles_index_1929.csv"},
     "transform": [{"calculate": "datum.state == 'Australia' ? 1 : 0", "as": "is_au"}],
@@ -590,7 +609,7 @@ write("12_heatmap.vg.json", {
                        "scale": {"range": TEAL_RAMP, "domainMin": 0}, "legend": {"orient": "bottom", "gradientLength": 180}},
              "tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                          {"field": "titles", "title": "Titles added"}]}},
-        {"mark": {"type": "text", "fontSize": 10.5},
+        {"mark": {"type": "text", "fontSize": 11},
          "encoding": {"text": {"field": "titles", "type": "quantitative"},
                       "color": {"condition": {"test": "datum.titles > 45", "value": "white"}, "value": INK}}},
     ],
@@ -622,7 +641,8 @@ CX = {"field": "year", "type": "quantitative", "title": "Year",
 CY = {"field": "total", "type": "quantitative", "title": "Articles (log scale)",
       "scale": {"type": "log", "domain": [1000, 10000000]}, "axis": {"format": "~s", "tickCount": 4}}
 write("14_cliff.vg.json", {
-    "title": {"text": "Articles per year in Trove (log scale)", "subtitle": "Each step up the axis is ten times more articles"},
+    "title": {"text": "Trove's articles fall 88% after 1954",
+              "subtitle": ["Articles per year, on a log scale:", "each step up the axis is ten times more"]},
     "width": "container", "height": 330,
     "data": {"url": "data/articles_all_years.csv"},
     "layer": [
@@ -651,7 +671,8 @@ write("14_cliff.vg.json", {
 # ====================================================== 15. CONNECTED DOT PLOT
 DUMB_ORDER = ["Western Australia", "Queensland", "South Australia", "New South Wales", "Tasmania", "Victoria", "NT and ACT"]
 write("15_dumbbell.vg.json", {
-    "title": {"text": ["Titles in print by state:", "1900 against 1930"]},
+    "title": {"text": ["Western Australia's titles more than", "doubled while Victoria's fell"],
+              "subtitle": "Titles in print by state, 1900 against 1930"},
     "width": "container", "height": 260,
     "data": {"url": "data/active_titles_by_year_state.csv",
              "format": {"type": "csv", "parse": {"year": "number", "titles": "number"}}},
@@ -676,8 +697,8 @@ write("15_dumbbell.vg.json", {
 # the most common language gets the highlight colour, the rest stay muted
 LANG_COLOUR = {"condition": {"test": "datum.language_full == 'German'", "value": TEAL}, "value": "#a39574"}
 write("16_languages.vg.json", {
-    "title": {"text": ["Papers printed partly or wholly", "in other languages"],
-              "subtitle": "Titles that began by 1954"},
+    "title": {"text": ["German, Italian and Chinese lead", "the press in other languages"],
+              "subtitle": "Titles printed partly or wholly in another language, begun by 1954"},
     "width": "container", "height": 320,
     "data": {"url": "data/non_english_languages.csv"},
     "encoding": {
