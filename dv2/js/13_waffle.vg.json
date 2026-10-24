@@ -5,8 +5,8 @@
       "100 squares = all 251 million articles"
     ]
   },
-  "width": 300,
-  "height": 300,
+  "width": 430,
+  "height": 430,
   "data": {
     "url": "data/waffle_cells.csv"
   },

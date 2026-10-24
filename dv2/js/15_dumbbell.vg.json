@@ -7,7 +7,7 @@
     "subtitle": "Titles in print by state, 1900 against 1930"
   },
   "width": "container",
-  "height": 260,
+  "height": 320,
   "data": {
     "url": "data/active_titles_by_year_state.csv",
     "format": {
