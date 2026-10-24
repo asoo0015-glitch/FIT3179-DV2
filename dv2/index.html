@@ -122,7 +122,9 @@
       </div>
     </div>
 
-    <h3 class="subhead">Observe the change over the years across 3 different maps</h3>
+    <hr class="divider">
+
+    <h3 class="subhead">Observe the change over the years across 4 different maps below</h3>
     <div class="control">
       <div class="presets" role="group" aria-label="Quick year ranges">
         <button class="preset" data-from="1851" data-to="1870">Gold rushes 1851&ndash;1870</button>
@@ -156,30 +158,25 @@
       </div></div>
     </div>
 
-    <hr class="divider">
-
     <div class="pure-g maps-row">
       <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
         <div id="vis_choropleth" class="vis"></div>
         <div class="prose half">
-          <p id="measure-caption">Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey.</p>
+          <p class="caveat">Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey.</p>
           <p>Why two views? Big states have more titles simply because they are big, so dividing by area makes the comparison fair. Over all years, Victoria has 200 titles per 100,000 km&sup2; and Tasmania 168, while Western Australia has only 15 and Queensland 6, even though Western Australia had the third-most titles overall (370). The Australian Capital Territory scores highest (339) because it is so small that it is hard to see on this map.</p>
         </div>
       </div></div>
       <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
         <div id="vis_bin" class="vis"></div>
+        <p class="caveat">Titles with no place recorded (130 of 1,831) are left off, and each paper is placed at a single town.</p>
         <div class="prose half">
           <p>The country is divided into squares 200 km wide, all the same size. The darker the square, the more titles were in print inside it during the years you chose.</p>
           <p>Where towns sit close together, circles pile on top of each other. Squares add them up, so you can see where the press was thickest. With all years chosen, the three busiest squares are the <strong>Sydney</strong> (284 titles), <strong>Melbourne</strong> (174) and <strong>Perth</strong> (139) regions.</p>
-          <p>Titles with no place recorded (130 of 1,831) are left off, and each paper is placed at a single town.</p>
         </div>
       </div></div>
     </div>
-    <div class="pure-g">
-      <div class="pure-u-1"><div class="prose half">
-        <p>All the maps on this page use the Albers equal-area projection, which keeps every state and square true to size so that shading and dot density compare fairly. The usual web-map projection, Mercator, stretches areas towards the poles.</p>
-      </div></div>
-    </div>
+
+    <hr class="divider">
 
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_lollipop" class="vis"></div></div>
