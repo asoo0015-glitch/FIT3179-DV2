@@ -48,7 +48,7 @@
       "title": "Index (1929 = 100)",
       "scale": {
         "domain": [
-          30,
+          22,
           115
         ]
       }
@@ -79,7 +79,9 @@
       },
       "legend": {
         "orient": "top",
-        "columns": 4
+        "columns": {
+          "expr": "width < 520 ? 2 : 4"
+        }
       }
     }
   },
@@ -163,32 +165,110 @@
       "data": {
         "values": [
           {
-            "year": 1931,
-            "index": 88.5,
-            "t": "1931: Depression, 88.5"
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 0.9
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', 1931)"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 88.5) + 6"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "max(84.0, min(width - 84.0, scale('x', 1932.8)))"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 50) - 12.0"
+          }
+        },
+        "color": {
+          "value": "#6f665a"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "strokeWidth": 1,
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "max(84.0, min(width - 84.0, scale('x', 1932.8))) - 82.0"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "max(84.0, min(width - 84.0, scale('x', 1932.8))) + 82.0"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 50) - 12.0"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 50) + 12.0"
+          }
+        },
+        "color": null,
+        "fill": {
+          "value": "#fbf7ee"
+        },
+        "stroke": {
+          "value": "#8f866f"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
           }
         ]
       },
       "mark": {
         "type": "text",
-        "align": "left",
-        "dx": 8,
-        "dy": 27,
-        "fontStyle": "italic",
-        "fontSize": 11,
-        "color": "#2b2620"
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 11
       },
       "encoding": {
         "x": {
-          "field": "year",
-          "type": "quantitative"
+          "value": {
+            "expr": "max(84.0, min(width - 84.0, scale('x', 1932.8)))"
+          }
         },
         "y": {
-          "field": "index",
-          "type": "quantitative"
+          "value": {
+            "expr": "scale('y', 50)"
+          }
         },
         "text": {
-          "field": "t"
+          "value": "1931: Depression, 88.5"
         },
         "color": {
           "value": "#2b2620"
@@ -199,32 +279,110 @@
       "data": {
         "values": [
           {
-            "year": 1943,
-            "index": 54.4,
-            "t": "1943: Wartime low"
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 0.9
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', 1943)"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 54.4) + 6"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "max(66.0, min(width - 66.0, scale('x', 1943)))"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 28) - 12.0"
+          }
+        },
+        "color": {
+          "value": "#6f665a"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "strokeWidth": 1,
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "max(66.0, min(width - 66.0, scale('x', 1943))) - 64.0"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "max(66.0, min(width - 66.0, scale('x', 1943))) + 64.0"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 28) - 12.0"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 28) + 12.0"
+          }
+        },
+        "color": null,
+        "fill": {
+          "value": "#fbf7ee"
+        },
+        "stroke": {
+          "value": "#8f866f"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
           }
         ]
       },
       "mark": {
         "type": "text",
-        "align": "left",
-        "dx": -32,
-        "dy": 31,
-        "fontStyle": "italic",
-        "fontSize": 11,
-        "color": "#2b2620"
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 11
       },
       "encoding": {
         "x": {
-          "field": "year",
-          "type": "quantitative"
+          "value": {
+            "expr": "max(66.0, min(width - 66.0, scale('x', 1943)))"
+          }
         },
         "y": {
-          "field": "index",
-          "type": "quantitative"
+          "value": {
+            "expr": "scale('y', 28)"
+          }
         },
         "text": {
-          "field": "t"
+          "value": "1943: Wartime low"
         },
         "color": {
           "value": "#2b2620"

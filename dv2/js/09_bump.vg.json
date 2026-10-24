@@ -1,10 +1,10 @@
 {
   "title": {
-    "text": [
-      "How the states ranked by number",
-      "of newspapers in print"
-    ],
-    "subtitle": "1st = highest rank (most newspapers in print)"
+    "text": "How the states ranked",
+    "subtitle": [
+      "Ranked by newspapers in print.",
+      "1st = highest rank (the most)."
+    ]
   },
   "width": "container",
   "height": 330,

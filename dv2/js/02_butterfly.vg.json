@@ -81,7 +81,7 @@
           "legend": {
             "orient": "top",
             "title": null,
-            "columns": 2,
+            "columns": 1,
             "labelLimit": 380
           }
         },

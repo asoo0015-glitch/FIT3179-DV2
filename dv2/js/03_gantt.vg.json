@@ -56,13 +56,24 @@
           "scale": {
             "domain": [
               1835,
-              2020
+              2035
             ],
             "nice": false
           },
           "axis": {
             "format": "d",
-            "tickCount": 8
+            "values": [
+              1840,
+              1860,
+              1880,
+              1900,
+              1920,
+              1940,
+              1960,
+              1980,
+              2000,
+              2020
+            ]
           }
         },
         "x2": {
@@ -88,7 +99,9 @@
           "legend": {
             "orient": "top",
             "title": null,
-            "columns": 4,
+            "columns": {
+              "expr": "width < 200 ? 1 : width < 340 ? 2 : 4"
+            },
             "labelLimit": 200
           }
         },
@@ -201,14 +214,14 @@
       "data": {
         "values": [
           {
-            "x": 1954
+            "x": 1980
           }
         ]
       },
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 38,
+        "dx": 5,
         "baseline": "top",
         "fontStyle": "italic",
         "fontSize": 11,

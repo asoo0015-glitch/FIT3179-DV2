@@ -39,7 +39,7 @@
             "ticks": false,
             "domain": false,
             "labelFontSize": 11,
-            "labelLimit": 230,
+            "labelLimit": 320,
             "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
           }
         },
@@ -96,7 +96,7 @@
             "ticks": false,
             "domain": false,
             "labelFontSize": 11,
-            "labelLimit": 230,
+            "labelLimit": 320,
             "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
           }
         },
@@ -167,7 +167,7 @@
             "ticks": false,
             "domain": false,
             "labelFontSize": 11,
-            "labelLimit": 230,
+            "labelLimit": 320,
             "labelExpr": "split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]"
           }
         },

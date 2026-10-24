@@ -112,7 +112,8 @@
             ]
           },
           "legend": {
-            "orient": "bottom-left",
+            "orient": "left",
+            "offset": 4,
             "values": [
               1,
               3,

@@ -121,7 +121,7 @@ write("01_streamgraph.vg.json", {
                       "axis": {"title": "Articles per year", "labels": False, "ticks": False,
                                "domain": False, "grid": False}},
                 "color": {"field": "group", "type": "nominal", "title": "State",
-                          "scale": STATE_SCALE, "legend": {"orient": "top", "columns": 4, "title": None, "labelLimit": 260, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
+                          "scale": STATE_SCALE, "legend": {"orient": "top", "columns": {"expr": "width < 520 ? 1 : 3"}, "title": None, "labelLimit": 240, "columnPadding": 16, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
                 "tooltip": [{"field": "group", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                             {"field": "total", "title": "Articles", "format": ","}],
             },
@@ -144,8 +144,8 @@ write("01_streamgraph.vg.json", {
             "encoding": {"x": {"field": "year", "type": "quantitative"}, "text": {"field": "label"}},
         },
         {   # early boom: Trove holds ~1,150 articles for 1819, ~18,700 for 1834 and ~40,000 for 1840
-            "data": {"values": [{"year": 1832, "mid": 2390000}]},
-            "mark": {"type": "text", "align": "left", "baseline": "top", "dx": 2, "dy": -44,
+            "data": {"values": [{"year": 1851, "mid": 2390000}]},
+            "mark": {"type": "text", "align": "right", "baseline": "top", "dx": -6, "dy": -44,
                      "fontSize": 11, "fontStyle": "italic", "color": INK},
             "encoding": {"x": {"field": "year", "type": "quantitative"},
                          "y": {"field": "mid", "type": "quantitative"},
@@ -174,7 +174,7 @@ write("02_butterfly.vg.json", {
                 "x": {"field": "value", "type": "quantitative", "title": "\u2190 Titles launched        Titles closed \u2192",
                       "axis": {"values": [-300, -200, -100, 0, 100, 200, 300], "labelExpr": "abs(datum.value)"}},
                 "color": {"field": "series", "type": "nominal", "scale": lc_colour,
-                          "legend": {"orient": "top", "title": None, "columns": 2, "labelLimit": 380}},
+                          "legend": {"orient": "top", "title": None, "columns": 1, "labelLimit": 380}},
                 "order": {"field": "stack_order", "type": "quantitative", "sort": "ascending"},
                 "tooltip": [{"field": "label", "title": "Decade"}, {"field": "series", "title": "Group"},
                             {"field": "value", "title": "Titles (negative = launched)"}, {"field": "net", "title": "Net change in decade"}],
@@ -219,10 +219,11 @@ write("03_gantt.vg.json", {
          "encoding": {
              "y": GY,
              "x": {"field": "start", "type": "quantitative", "title": "Year",
-                   "scale": {"domain": [1835, 2020], "nice": False}, "axis": {"format": "d", "tickCount": 8}},
+                   "scale": {"domain": [1835, 2035], "nice": False},
+                   "axis": {"format": "d", "values": list(range(1840, 2021, 20))}},
              "x2": {"field": "end"},
              "color": {"field": "state", "type": "nominal", "scale": {"domain": GANTT_STATES, "range": GANTT_COLOURS},
-                       "legend": {"orient": "top", "title": None, "columns": 4, "labelLimit": 200}},
+                       "legend": {"orient": "top", "title": None, "columns": {"expr": "width < 200 ? 1 : width < 340 ? 2 : 4"}, "labelLimit": 200}},
              "tooltip": [{"field": "label", "title": "Newspaper"}, {"field": "place", "title": "Place"},
                          {"field": "state", "title": "State"},
                          {"field": "start", "title": "First year", "format": "d"},
@@ -235,9 +236,9 @@ write("03_gantt.vg.json", {
         {"data": {"values": [{"x": 1954}]},
          "mark": {"type": "rule", "strokeDash": [4, 3], "color": INK},
          "encoding": {"x": {"field": "x", "type": "quantitative"}}},
-        # two-line note, pushed right (dx) so it clears the year-count labels at the ends of the bars
-        {"data": {"values": [{"x": 1954}]},
-         "mark": {"type": "text", "align": "left", "dx": 38, "baseline": "top", "fontStyle": "italic", "fontSize": 11, "y": {"expr": "height - 58"},
+        # two-line note starting on the 1980 gridline, clear of the year-count labels at the bar ends
+        {"data": {"values": [{"x": 1980}]},
+         "mark": {"type": "text", "align": "left", "dx": 5, "baseline": "top", "fontStyle": "italic", "fontSize": 11, "y": {"expr": "height - 58"},
                   "color": INK},
          "encoding": {"x": {"field": "x", "type": "quantitative"},
                       "text": {"value": ["1954: Most of", "Trove stops here"]}}},
@@ -261,7 +262,7 @@ write("04_overview.vg.json", {
               "axis": {"tickCount": 3}},
         "color": {"field": "group", "type": "nominal", "title": None,
                   "scale": {"domain": STATE_ORDER + [SLICE], "range": STATE_COLOURS + [SLICE_COLOUR]},
-                  "legend": {"orient": "top", "columns": 4, "labelLimit": 360, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
+                  "legend": {"orient": "top", "columns": {"expr": "width < 480 ? 1 : width < 760 ? 3 : 4"}, "labelLimit": 360, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
         "order": {"field": "group", "sort": "descending"},
         "tooltip": [{"field": "group", "title": "State"}, {"field": "year", "format": "d", "title": "Year"},
                     {"field": "titles", "title": "Titles in print"}],
@@ -437,7 +438,7 @@ write("08_bin_map.vg.json", {
                 "color": {"field": "n", "type": "quantitative", "title": "Titles in square",
                           "scale": {"type": "threshold", "domain": [3, 6, 11, 26, 51],
                                     "range": ["#e3f1ee", "#b3dad3", "#7fbdb4", "#3f968c", "#21736d", "#0e3f3b"]},
-                          "legend": {"orient": "bottom-left", "values": [1, 3, 6, 11, 26, 51],
+                          "legend": {"orient": "left", "offset": 4, "values": [1, 3, 6, 11, 26, 51],
                                      "labelExpr": "datum.value == 1 ? '1–2' : datum.value == 3 ? '3–5' : datum.value == 6 ? '6–10' : datum.value == 11 ? '11–25' : datum.value == 26 ? '26–50' : '51+'"}},
                 "tooltip": [{"field": "n", "title": "Titles in this square"}],
             },
@@ -448,9 +449,8 @@ write("08_bin_map.vg.json", {
 
 # ============================================================ 9. BUMP
 write("09_bump.vg.json", {
-    "title": {"text": ["How the states ranked by number",
-                       "of newspapers in print"],
-              "subtitle": "1st = highest rank (most newspapers in print)"},
+    "title": {"text": "How the states ranked",
+              "subtitle": ["Ranked by newspapers in print.", "1st = highest rank (the most)."]},
     "width": "container", "height": 330,
     "data": {"url": "data/bump_active_titles.csv"},
     "encoding": {
@@ -483,7 +483,7 @@ TOWN_LABEL = ("split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 
 # every town is slate grey; Sydney, the town with the most titles, gets the bright highlight colour
 LOLLI_COLOUR = {"condition": {"test": "datum.town == 'Sydney, NSW'", "value": LOLLI_HI}, "value": LOLLI}
 LY = {"field": "town", "type": "nominal", "sort": column("data/top_towns.csv", "town"), "title": "Town",
-      "axis": {"ticks": False, "domain": False, "labelFontSize": 11, "labelLimit": 230, "labelExpr": TOWN_LABEL}}
+      "axis": {"ticks": False, "domain": False, "labelFontSize": 11, "labelLimit": 320, "labelExpr": TOWN_LABEL}}
 LX = {"field": "titles", "type": "quantitative", "title": "Number of titles", "axis": {"grid": True, "tickMinStep": 25}}
 write("10_lollipop.vg.json", {
     "title": {"text": "The towns that printed the most newspapers"},
@@ -509,6 +509,33 @@ write("10_lollipop.vg.json", {
 })
 
 # ================================================ 11. INDEXED LINE
+def callout(year, index, box_year, box_index, box_w, text, below=True, box_h=24):
+    """A boxed note in open space, joined to its data point by a thin line.
+    (year, index) is the data point; (box_year, box_index) is the CENTRE of the box in data units.
+    The box is box_w x box_h pixels, kept inside the plot, and sits below (or above) its point."""
+    one = {"data": {"values": [{"k": 1}]}}
+    px, py = f"scale('x', {year})", f"scale('y', {index})"
+    cx = f"max({box_w / 2 + 2}, min(width - {box_w / 2 + 2}, scale('x', {box_year})))"
+    cy = f"scale('y', {box_index})"
+    near = box_h / 2 if below else -box_h / 2          # box edge facing the point
+    ring = 6 if below else -6                           # start the line just outside the ring marker
+    # the chart's own encodings (year, index, state colour) are inherited by every layer,
+    # so each channel is overridden here with a fixed value
+    return [
+        {**one, "mark": {"type": "rule", "strokeWidth": 0.9},
+         "encoding": {"x": {"value": {"expr": px}}, "y": {"value": {"expr": f"{py} + {ring}"}},
+                      "x2": {"value": {"expr": cx}}, "y2": {"value": {"expr": f"{cy} - {near}"}},
+                      "color": {"value": MUTED}}},
+        {**one, "mark": {"type": "rect", "strokeWidth": 1, "cornerRadius": 3},
+         "encoding": {"x": {"value": {"expr": f"{cx} - {box_w / 2}"}}, "x2": {"value": {"expr": f"{cx} + {box_w / 2}"}},
+                      "y": {"value": {"expr": f"{cy} - {box_h / 2}"}}, "y2": {"value": {"expr": f"{cy} + {box_h / 2}"}},
+                      "color": None, "fill": {"value": BG}, "stroke": {"value": "#8f866f"}}},
+        {**one, "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 11},
+         "encoding": {"x": {"value": {"expr": cx}}, "y": {"value": {"expr": cy}},
+                      "text": {"value": text}, "color": {"value": INK}}},
+    ]
+
+
 write("11_indexed_line.vg.json", {
     "title": {"text": "Articles preserved per year, 1929 = 100",
               "subtitle": ["Each line shows a state's yearly total", "compared with its own 1929 total"]},
@@ -519,10 +546,10 @@ write("11_indexed_line.vg.json", {
         "x": {"field": "year", "type": "quantitative", "title": "Year",
               "axis": {"format": "d", "values": [1929, 1934, 1939, 1944, 1949, 1954], "grid": False}, "scale": {"domain": [1929, 1954], "nice": False}},
         "y": {"field": "index", "type": "quantitative", "title": "Index (1929 = 100)",
-              "scale": {"domain": [30, 115]}},
+              "scale": {"domain": [22, 115]}},
         "color": {"field": "state", "type": "nominal", "title": None,
                   "scale": {"domain": ["Australia"] + STATE_ORDER[:6], "range": [INK] + STATE_COLOURS[:6]},
-                  "legend": {"orient": "top", "columns": 4}},
+                  "legend": {"orient": "top", "columns": {"expr": "width < 520 ? 2 : 4"}}},
     },
     "layer": [
         {"data": {"values": [{"y": 100}]}, "mark": {"type": "rule", "strokeDash": [5, 4], "color": MUTED},
@@ -534,14 +561,8 @@ write("11_indexed_line.vg.json", {
          "encoding": {"tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                                   {"field": "index", "title": "Index (1929 = 100)"},
                                   {"field": "total", "title": "Articles", "format": ","}]}},
-        {"data": {"values": [{"year": 1931, "index": 88.5, "t": "1931: Depression, 88.5"}]},
-         "mark": {"type": "text", "align": "left", "dx": 8, "dy": 27, "fontStyle": "italic", "fontSize": 11, "color": INK},
-         "encoding": {"x": {"field": "year", "type": "quantitative"}, "y": {"field": "index", "type": "quantitative"},
-                      "text": {"field": "t"}, "color": {"value": INK}}},
-        {"data": {"values": [{"year": 1943, "index": 54.4, "t": "1943: Wartime low"}]},
-         "mark": {"type": "text", "align": "left", "dx": -32, "dy": 31, "fontStyle": "italic", "fontSize": 11, "color": INK},
-         "encoding": {"x": {"field": "year", "type": "quantitative"}, "y": {"field": "index", "type": "quantitative"},
-                      "text": {"field": "t"}, "color": {"value": INK}}},
+        *callout(1931, 88.5, 1932.8, 50, 164, "1931: Depression, 88.5"),
+        *callout(1943, 54.4, 1943, 28, 128, "1943: Wartime low"),
         {"data": {"values": [{"year": 1943, "index": 54.4}, {"year": 1931, "index": 88.5}]},
          "mark": {"type": "point", "size": 90, "filled": False, "color": INK, "strokeWidth": 1.5},
          "encoding": {"x": {"field": "year", "type": "quantitative"}, "y": {"field": "index", "type": "quantitative"},
@@ -664,7 +685,7 @@ write("16_languages.vg.json", {
               "sort": column("data/non_english_languages.csv", "language_full"),
               "axis": {"ticks": False, "domain": False, "labelFontSize": 11.5}},
         "x": {"field": "titles", "type": "quantitative", "title": "Number of titles",
-              "axis": {"grid": True, "tickMinStep": 1}, "scale": {"domainMin": 0}},
+              "axis": {"grid": True, "values": list(range(0, 10)), "format": "d"}, "scale": {"domainMin": 0}},
     },
     "layer": [
         {"mark": {"type": "rule", "strokeWidth": 3},

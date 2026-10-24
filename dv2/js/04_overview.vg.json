@@ -90,7 +90,9 @@
       },
       "legend": {
         "orient": "top",
-        "columns": 4,
+        "columns": {
+          "expr": "width < 480 ? 1 : width < 760 ? 3 : 4"
+        },
         "labelLimit": 360,
         "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"
       }
