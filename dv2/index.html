@@ -28,8 +28,15 @@
   <!-- ============================ MASTHEAD ============================ -->
   <header class="masthead">
     <h1>Read All About It</h1>
-    <p class="deck">How Australia's newspapers grew with every wave of settlement, peaked around the First World War, then closed faster than they opened &mdash; and why what we can read online today is only part of the story.</p>
-    <p class="byline">By Aaron Soong &middot; Published <time datetime="2026-10-25">25 October 2026</time></p>
+    <div class="intro pure-g">
+      <div class="pure-u-1 pure-u-md-1-2">
+        <p class="deck">How Australia's newspapers grew with every wave of settlement, peaked around the First World War, then closed faster than they opened &mdash; and why what we can read online today is only part of the story.</p>
+        <p class="byline">By Aaron Soong &middot; Published <time datetime="2026-10-25">25 October 2026</time></p>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 intro-pic">
+        <img src="images/australian_flag.png" alt="The Australian flag">
+      </div>
+    </div>
 
     <div class="facts pure-g">
       <div class="pure-u-1-2 pure-u-md-1-4"><span class="big">251 million</span><span class="small">newspaper articles in Trove</span></div>
@@ -57,16 +64,13 @@
     <h2><span class="num">2</span> The peak, and a trap in the data</h2>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_butterfly" class="vis"></div></div>
-      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
         <p>Launches peaked in the <strong>1890s</strong>, when <strong>247</strong> new titles appeared. The 1910s look even bigger (<strong>307</strong>), but look at the grey bars. <strong>86</strong> of those are Victorian local papers that Trove holds only for the years 1914&ndash;1918. They are slices of papers that ran for longer, not new launches or closures, so they make the 1910s look busier than they were.</p>
         <p>Set the grey bars aside and a clearer pattern remains. From the 1920s <strong>more titles close than open</strong>: a net loss of 32 in the 1920s, 38 in the 1930s and 47 in the 1940s.</p>
         <p class="caveat">Titles that ended in the 1950s are left out: Trove stops digitising most papers around 1954, so those end dates are partly an artefact of the collection.</p>
-      </div></div>
-    </div>
-
-    <div class="pure-g">
-      <div class="pure-u-1"><div class="prose wide bulge">
-        <p>The same bulge shows up in the article counts of Chapter 1. Victoria's yearly total jumps from 766,000 articles in 1913 to 1.28 million in 1914, then drops to 509,000 by 1919, which is why Trove's national count appears to &ldquo;peak&rdquo; at 4.8 million in 1915. In fact the 1920s and 1930s are just as high (4.7 million in 1929). The honest reading is a long <strong>plateau</strong> from about 1914 to 1939, followed by a decline.</p>
+        <div class="bulge">
+          <p>The same bulge shows up in the article counts of Chapter 1. Victoria's yearly total jumps from 766,000 articles in 1913 to 1.28 million in 1914, then drops to 509,000 by 1919, which is why Trove's national count appears to &ldquo;peak&rdquo; at 4.8 million in 1915. In fact the 1920s and 1930s are just as high (4.7 million in 1929). The honest reading is a long <strong>plateau</strong> from about 1914 to 1939, followed by a decline.</p>
+        </div>
       </div></div>
     </div>
 
@@ -86,9 +90,28 @@
       <div class="pure-u-1"><div class="prose wide">
         <p>Before 1860, three in four titles started in a capital city (158 of the 210 that we can place on a map). From 1860 to 1899 the pattern flips: <strong>77%</strong> of new titles started in a regional town, as the goldfields, farming districts and railways created new communities that wanted their own paper.</p>
       </div></div>
-      <div class="pure-u-1">
+    </div>
+
+    <div class="era-block scroll-x">
+      <div class="era-inner">
+        <h3 class="chart-title">Where newspapers first appeared</h3>
+        <p class="chart-sub">One dot per title, grouped by starting era</p>
+        <div class="era-text">
+          <div class="era-cell">
+            <h4>Before 1860</h4>
+            <p>Only 210 titles can be placed on a map. Sydney (62) and Hobart (46) lead the way.</p>
+          </div>
+          <div class="era-cell">
+            <h4>1860&ndash;1899</h4>
+            <p>605 titles. New South Wales (194) and Victoria (164) lead. Western Australia adds 94, helped by its 1890s gold rush.</p>
+          </div>
+          <div class="era-cell">
+            <h4>1900 onwards</h4>
+            <p>886 titles, the most of any era. Western Australia now leads with 274, ahead of New South Wales (249).</p>
+          </div>
+        </div>
         <p class="dot-key"><span class="dot-key-title">Type of place:</span> <span class="dot dot-capital"></span> Capital city <span class="dot dot-regional"></span> Regional town</p>
-        <div id="vis_dots" class="vis scroll-x"></div>
+        <div id="vis_dots" class="vis"></div>
       </div>
     </div>
 
@@ -142,8 +165,11 @@
       <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_bump" class="vis"></div></div>
     </div>
     <div class="pure-g">
-      <div class="pure-u-1"><div class="prose wide">
-        <p><strong>Sydney</strong> printed the most titles (174), followed by <strong>Perth</strong> (99), <strong>Melbourne</strong> (76), <strong>Hobart</strong> (70) and <strong>Adelaide</strong> (64). Western Australia punches above its weight: its gold rushes of the 1890s helped it climb from <strong>6th in 1870 to 2nd in 1930</strong> in the number of papers in print, ahead of Victoria and South Australia.</p>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose half">
+        <p><strong>Sydney</strong> printed the most titles (174), followed by <strong>Perth</strong> (99), <strong>Melbourne</strong> (76), <strong>Hobart</strong> (70) and <strong>Adelaide</strong> (64). Western Australia punches above its weight. Its gold rushes of the 1890s helped it climb from <strong>6th in 1870 to 2nd in 1930</strong> in the number of papers in print, ahead of Victoria and South Australia. Six of the 15 towns with the most titles are in Western Australia: Perth, Fremantle, Geraldton, Coolgardie, Kalgoorlie and Bunbury.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-lg-1-2"><div class="prose half">
+        <p>Victoria and New South Wales swapped first place until 1890. From 1900, New South Wales stays on top. Tasmania, second in 1850, was last by 1880. South Australia ranked third from 1850 to 1890, and Queensland fourth from 1870 to 1890.</p>
       </div></div>
     </div>
   </section>
@@ -190,7 +216,7 @@
 
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_cliff" class="vis"></div></div>
-      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
         <h3>A cliff in the record</h3>
         <p>Trove has <strong>3.7 million</strong> articles for 1954 and only <strong>436,000</strong> for 1955, a drop of 88%. This is not newspapers vanishing: it is the line where copyright and permission limit what the library could digitise. Everything on this page should be read with that in mind.</p>
       </div></div>

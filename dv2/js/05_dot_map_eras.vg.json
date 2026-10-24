@@ -1,19 +1,6 @@
 {
-  "title": {
-    "text": "Where newspapers first appeared",
-    "subtitle": [
-      "One dot per title, grouped",
-      "by the era it started in"
-    ]
-  },
   "hconcat": [
     {
-      "title": {
-        "text": "Before 1860",
-        "font": "Merriweather, Georgia, serif",
-        "fontSize": 14,
-        "anchor": "middle"
-      },
       "width": 320,
       "height": 300,
       "projection": {
@@ -103,12 +90,6 @@
       ]
     },
     {
-      "title": {
-        "text": "1860\u20131899",
-        "font": "Merriweather, Georgia, serif",
-        "fontSize": 14,
-        "anchor": "middle"
-      },
       "width": 320,
       "height": 300,
       "projection": {
@@ -198,12 +179,6 @@
       ]
     },
     {
-      "title": {
-        "text": "1900 onwards",
-        "font": "Merriweather, Georgia, serif",
-        "fontSize": 14,
-        "anchor": "middle"
-      },
       "width": 320,
       "height": 300,
       "projection": {

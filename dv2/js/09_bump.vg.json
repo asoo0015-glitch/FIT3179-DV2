@@ -18,10 +18,11 @@
       "title": "Year",
       "axis": {
         "labelAngle": 0,
-        "grid": false
+        "grid": false,
+        "labelFontSize": 10
       },
       "scale": {
-        "padding": 0.5
+        "padding": 0.4
       }
     },
     "y": {
