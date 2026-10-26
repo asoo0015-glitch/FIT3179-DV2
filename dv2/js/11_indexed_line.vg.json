@@ -189,7 +189,7 @@
         },
         "x2": {
           "value": {
-            "expr": "max(97.0, min(width - 97.0, scale('x', 1932.8)))"
+            "expr": "max(82.0, min(width - 82.0, scale('x', 1932.8)))"
           }
         },
         "y2": {
@@ -218,12 +218,12 @@
       "encoding": {
         "x": {
           "value": {
-            "expr": "max(97.0, min(width - 97.0, scale('x', 1932.8))) - 95.0"
+            "expr": "max(82.0, min(width - 82.0, scale('x', 1932.8))) - 80.0"
           }
         },
         "x2": {
           "value": {
-            "expr": "max(97.0, min(width - 97.0, scale('x', 1932.8))) + 95.0"
+            "expr": "max(82.0, min(width - 82.0, scale('x', 1932.8))) + 80.0"
           }
         },
         "y": {
@@ -264,7 +264,7 @@
       "encoding": {
         "x": {
           "value": {
-            "expr": "max(97.0, min(width - 97.0, scale('x', 1932.8)))"
+            "expr": "max(82.0, min(width - 82.0, scale('x', 1932.8)))"
           }
         },
         "y": {
@@ -308,7 +308,7 @@
         },
         "x2": {
           "value": {
-            "expr": "max(109.0, min(width - 109.0, scale('x', 1943.6)))"
+            "expr": "max(108.0, min(width - 108.0, scale('x', 1943.6)))"
           }
         },
         "y2": {
@@ -337,12 +337,12 @@
       "encoding": {
         "x": {
           "value": {
-            "expr": "max(109.0, min(width - 109.0, scale('x', 1943.6))) - 107.0"
+            "expr": "max(108.0, min(width - 108.0, scale('x', 1943.6))) - 106.0"
           }
         },
         "x2": {
           "value": {
-            "expr": "max(109.0, min(width - 109.0, scale('x', 1943.6))) + 107.0"
+            "expr": "max(108.0, min(width - 108.0, scale('x', 1943.6))) + 106.0"
           }
         },
         "y": {
@@ -383,7 +383,7 @@
       "encoding": {
         "x": {
           "value": {
-            "expr": "max(109.0, min(width - 109.0, scale('x', 1943.6)))"
+            "expr": "max(108.0, min(width - 108.0, scale('x', 1943.6)))"
           }
         },
         "y": {
@@ -394,8 +394,8 @@
         "text": {
           "value": [
             "1943: wartime low. Every state is",
-            "down; South Australia and Queensland",
-            "fall furthest"
+            "down; South Australia and",
+            "Queensland fall furthest"
           ]
         },
         "color": {
