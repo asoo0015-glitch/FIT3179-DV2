@@ -113,6 +113,37 @@
       }
     },
     {
+      "data": {
+        "values": [
+          {
+            "language_full": "French",
+            "x": 4.2
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "German began in 1848, Chinese in 1856,",
+            "during the gold rushes"
+          ]
+        }
+      }
+    },
+    {
       "mark": {
         "type": "text",
         "align": "left",

@@ -1,0 +1,463 @@
+{
+  "title": {
+    "text": [
+      "From a trickle in the 1830s to",
+      "millions of articles a year by 1900"
+    ],
+    "subtitle": [
+      "Articles preserved in Trove each year, by state.",
+      "Height of each band = number of articles."
+    ]
+  },
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "data/articles_by_year_state.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "opacity": 0.92
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1810,
+              1959
+            ],
+            "nice": false
+          }
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "total",
+          "type": "quantitative",
+          "stack": "zero",
+          "scale": {
+            "domain": [
+              0,
+              5500000
+            ]
+          },
+          "axis": {
+            "title": "Articles per year",
+            "grid": true,
+            "values": [
+              0,
+              1000000,
+              2000000,
+              3000000,
+              4000000,
+              5000000
+            ],
+            "labelExpr": "datum.value == 0 ? '0' : (datum.value / 1000000) + ' million'"
+          }
+        },
+        "color": {
+          "field": "group",
+          "type": "nominal",
+          "title": "State",
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Victoria",
+              "Queensland",
+              "South Australia",
+              "Western Australia",
+              "Tasmania",
+              "Northern Territory and Australian Capital Territory"
+            ],
+            "range": [
+              "#0072B2",
+              "#A9794F",
+              "#6b4fa0",
+              "#CC79A7",
+              "#E69F00",
+              "#56B4E9",
+              "#8a8478"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "columns": {
+              "expr": "width < 520 ? 1 : 3"
+            },
+            "title": null,
+            "labelLimit": 360,
+            "columnPadding": 16
+          }
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "title": "State"
+          },
+          {
+            "field": "year",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "total",
+            "title": "Articles",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1851
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          4,
+          3
+        ],
+        "color": "#2b2620",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1851
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "y": 6,
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Gold rushes",
+            "begin"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1901
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          4,
+          3
+        ],
+        "color": "#2b2620",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1901
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -6,
+        "y": 6,
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Federation"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1914
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          4,
+          3
+        ],
+        "color": "#2b2620",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1914
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "y": 6,
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "First",
+            "World War",
+            "begins"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1939
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          4,
+          3
+        ],
+        "color": "#2b2620",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1939
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "y": 6,
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Second",
+            "World War",
+            "begins"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1848,
+            "y": 1150000.0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Gold rushes: Victoria's",
+            "total grows almost",
+            "fourfold, 1851 to 1859"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1893,
+            "y": 2450000.0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "1890s gold rush: Western",
+            "Australia's yearly total",
+            "triples in three years"
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Verdana, Geneva, sans-serif",
+    "title": {
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Verdana, Geneva, sans-serif",
+      "subtitleFontWeight": 400,
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 11.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Verdana, Geneva, sans-serif"
+    }
+  }
+}

@@ -11,6 +11,12 @@
   "data": {
     "url": "data/top_towns.csv"
   },
+  "transform": [
+    {
+      "calculate": "split(datum.town, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 'VIC': 'Victoria', 'QLD': 'Queensland', 'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', 'ACT': 'Australian Capital Territory'})[split(datum.town, ', ')[1]]",
+      "as": "town_full"
+    }
+  ],
   "layer": [
     {
       "mark": {
@@ -122,7 +128,7 @@
         },
         "tooltip": [
           {
-            "field": "town",
+            "field": "town_full",
             "title": "Town"
           },
           {
@@ -206,7 +212,7 @@
         "baseline": "top",
         "x": "width",
         "y": {
-          "expr": "height - 62"
+          "expr": "height - 80"
         },
         "dx": -4,
         "fontSize": 11,
@@ -219,7 +225,8 @@
           "value": [
             "Western Australia has 6 of",
             "the top 15 towns, helped by",
-            "its 1890s gold rushes."
+            "its 1890s gold rushes; no",
+            "other state has more than 3."
           ]
         }
       }

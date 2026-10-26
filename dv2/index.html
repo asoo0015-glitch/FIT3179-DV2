@@ -54,6 +54,7 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
         <p>The first paper, Sydney's <em>Gazette</em>, appeared in 1803. For decades the colonies printed only a few thousand articles a year. Then people arrived, and the presses followed.</p>
         <p>Trove holds <strong>81,624</strong> articles for 1850, <strong>637,508</strong> for 1880 and <strong>2.6 million</strong> for 1900. Victoria's yearly total grew from about 19,000 articles in 1851 to almost 75,000 in 1859, in the first years of its gold rush. Western Australia's own gold rush shows up in the 1890s, when its yearly total rose from 114,000 (1895) to 359,000 (1898).</p>
+        <p>Read the chart as stacked bands. Each band's height is one state's yearly total, and the top edge is the national total. In 1840 that total was only 40,185 articles. By 1900 it was about <strong>65 times</strong> larger.</p>
       </div></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_stream" class="vis"></div></div>
     </div>
@@ -77,6 +78,9 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
         <h3>Papers built to last</h3>
         <p>A few titles survived for a century or more. Echuca's <em>Riverine Herald</em> was printed for <strong>134 years</strong> (1869&ndash;2002), and Sydney's French-language <em>Le Courrier Australien</em> for 120. The big-city dailies &mdash; <em>The Sydney Morning Herald</em>, <em>The Argus</em>, <em>The Age</em> &mdash; anchor the list, along with country papers like the <em>Border Watch</em> in Mount Gambier.</p>
+        <p>Seven of the 15 began before 1860, and the oldest, the <em>Sydney Morning Herald</em>, started in 1842. Victoria supplies <strong>seven</strong> titles and New South Wales four. South Australia has three and Tasmania one. Queensland and Western Australia have none: in 1850 they had only one and two titles, and their presses grew later.</p>
+        <p>Only six of the 15 were printed in a capital city. The rest came from towns like Echuca, Beechworth and Mount Gambier, so a local paper could last as long as a big daily.</p>
+        <p class="caveat">A run that ends in 1954 may have lasted longer in print, because Trove's coverage stops there.</p>
       </div></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_gantt" class="vis"></div></div>
     </div>
@@ -130,7 +134,7 @@
         <button class="preset" data-from="1851" data-to="1870">Gold rushes 1851&ndash;1870</button>
         <button class="preset" data-from="1890" data-to="1901">Boom to Federation 1890&ndash;1901</button>
         <button class="preset" data-from="1914" data-to="1918">First World War 1914&ndash;1918</button>
-        <button class="preset" data-from="1929" data-to="1945">Depression and WWII 1929&ndash;1945</button>
+        <button class="preset" data-from="1929" data-to="1945">Depression and Second World War 1929&ndash;1945</button>
         <button class="preset" data-from="1803" data-to="1954">All years</button>
       </div>
       <div class="readout">Showing titles in print at some point between <strong id="range-label">1850&ndash;1900</strong></div>
@@ -162,8 +166,8 @@
       <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
         <div id="vis_choropleth" class="vis"></div>
         <div class="prose half">
-          <p class="caveat">Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey.</p>
-          <p>Why two views? Big states have more titles simply because they are big, so dividing by area makes the comparison fair. Over all years, Victoria has 200 titles per 100,000 km&sup2; and Tasmania 168, while Western Australia has only 15 and Queensland 6, even though Western Australia had the third-most titles overall (370). The Australian Capital Territory scores highest (339) because it is so small that it is hard to see on this map.</p>
+          <p class="caveat">Shading shows <strong>titles per 100,000 km&sup2;</strong>, so states of very different sizes can be compared. Light grey means <strong>no data</strong>: no titles were in print there in the years you chose.</p>
+          <p>Why divide by area? Big states have more titles simply because they are big, so dividing by area makes the comparison fair. Over all years, Victoria has 200 titles per 100,000 km&sup2; and Tasmania 168, while Western Australia has only 15 and Queensland 6, even though Western Australia had the third-most titles overall (370). The Australian Capital Territory scores highest (339) because it is so small that it is hard to see on this map.</p>
         </div>
       </div></div>
       <div class="pure-u-1 pure-u-md-1-2"><div class="map-box">
@@ -185,9 +189,11 @@
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-2"><div class="prose half">
         <p><strong>Sydney</strong> printed the most titles (174), followed by <strong>Perth</strong> (99), <strong>Melbourne</strong> (76), <strong>Hobart</strong> (70) and <strong>Adelaide</strong> (64). Western Australia punches above its weight. Its gold rushes of the 1890s helped it climb from <strong>6th in 1870 to 2nd in 1930</strong> in the number of papers in print, ahead of Victoria and South Australia. Six of the 15 towns with the most titles are in Western Australia: Perth, Fremantle, Geraldton, Coolgardie, Kalgoorlie and Bunbury.</p>
+        <p>The top five towns hold 483 of the 632 titles in this list. Sydney alone has 174, almost as many as Perth and Melbourne together (175). Brisbane, a capital city, ranks only seventh, with 22 titles.</p>
       </div></div>
       <div class="pure-u-1 pure-u-lg-1-2"><div class="prose half">
         <p>Victoria and New South Wales swapped first place until 1890. From 1900, New South Wales stays on top. Tasmania, second in 1850, was last by 1880. South Australia ranked third from 1850 to 1890, and Queensland fourth from 1870 to 1890.</p>
+        <p>Western Australia's climb came in two steps. It had 13 titles in 1890 and 41 in 1900, then 91 by 1930, when it passed Victoria (65). Tasmania stayed last from 1880 onwards.</p>
       </div></div>
     </div>
   </section>
@@ -200,7 +206,7 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
         <p>Indexing each state to its own 1929 total makes the decline easy to compare. Across Australia, preserved articles dipped to <strong>88.5</strong> in 1931, the Depression, then fell to <strong>54.4</strong> in 1943, the lowest point of the war.</p>
         <p>South Australia (<strong>37.0</strong>) and Queensland (<strong>37.6</strong>) fell furthest by 1943, while New South Wales held up best (69.9). Victoria, which had the big 1914&ndash;1918 bulge, sits in the middle (50.4).</p>
-        <p class="caveat">Read this carefully: the fall combines real closures with the way Trove has chosen which papers and years to digitise. New South Wales, Victoria and Western Australia dominate because that is what Trove holds; the Northern Territory and the ACT barely appear.</p>      </div></div>
+        <p class="caveat">Read this carefully: the fall combines real closures with the way Trove has chosen which papers and years to digitise. New South Wales, Victoria and Western Australia dominate because that is what Trove holds; the Northern Territory and the Australian Capital Territory barely appear.</p>      </div></div>
     </div>
 
     <div class="pure-g">
@@ -219,12 +225,12 @@
   <section class="chapter" id="record">
     <h2><span class="num">5</span> What we can read today</h2>
     <div class="pure-g">
-           <div class="pure-u-1 pure-u-lg-1-2"><div class="prose wide">
+      <div class="pure-u-1 pure-u-lg-1-3"><div class="prose">
         <p>About <strong>69%</strong> of the articles in Trove are news stories and similar articles. Around <strong>19%</strong> are advertisements, <strong>11%</strong> are lists, results and guides, and about <strong>1%</strong> are family notices: births, marriages and deaths that make Trove a treasure for family historians.</p>
         <p>Each square stands for 1% of all 251 million articles, so one square is about 2.5 million articles. The shares are rounded to whole numbers, which is why the squares add up to exactly 100. Advertisements and lists are easy to overlook, yet they record prices, jobs, race results and shipping timetables from daily life. Family notices fill just one square, but every notice names real people, so that small share is where many family histories begin.</p>
         <p>Readers have also improved the record. Volunteers have corrected the machine-read text of about <strong>16 million</strong> articles, roughly 6.5% of the total.</p>
       </div></div>
-      <div class="pure-u-1 pure-u-lg-1-2"><div id="vis_waffle" class="vis vis-center"></div></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="vis_waffle" class="vis scroll-x"></div></div>
     </div>
 
     <div class="pure-g">
@@ -232,6 +238,7 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
         <h3>The press in other languages</h3>
         <p>The record is not only in English. In this list, <strong>39 titles</strong> that began by 1954 were printed partly or wholly in <strong>13 languages</strong>, led by German, Italian and Chinese. The German-language press goes back to 1848, and the Chinese-language press to the gold rushes of the 1850s.</p>
+        <p>German leads with <strong>9</strong> titles, ahead of Italian (8) and Chinese (7). Together those three make up 24 of the 39. Lithuanian, Estonian, Ukrainian and Polish papers all start between 1948 and 1950.</p>
         <p class="caveat">This counts papers in which at least a fifth of the text was detected as another language. It covers only the titles in this dataset, and language detection on OCR text can be wrong.</p>
       </div></div>
     </div>
@@ -241,6 +248,7 @@
       <div class="pure-u-1 pure-u-lg-1-3"><div class="prose side">
         <h3>A cliff in the record</h3>
         <p>Trove has <strong>3.7 million</strong> articles for 1954 and only <strong>436,000</strong> for 1955, a drop of 88%. This is not newspapers vanishing: it is the line where copyright and permission limit what the library could digitise. Everything on this page should be read with that in mind.</p>
+        <p>After 1955 the yearly total never rises above 436,398. By 2020 it is down to about 3,200, because Trove holds only the few papers it has permission to show.</p>
       </div></div>
     </div>
 
@@ -257,6 +265,26 @@
   <!-- ============================ ABOUT ============================ -->
   <footer class="about">
     <h2>About this story</h2>
+    <h3 class="how-title">How this story was made</h3>
+    <div class="pure-g how">
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4"><div class="prose">
+        <h4><span class="step">1</span> Collect</h4>
+        <p>Trove's lists of titles (start and end years, state and place) and its yearly article counts, by state and by type of article, came from the GLAM Workbench. State boundaries and areas came from the Australian Bureau of Statistics.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4"><div class="prose">
+        <h4><span class="step">2</span> Clean and join</h4>
+        <p>We kept titles with both a start and an end year, and matched each title to the first town listed for it. Victorian papers that Trove holds only for 1914&ndash;1918 are flagged as separate slices.</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4"><div class="prose">
+        <h4><span class="step">3</span> Calculate</h4>
+        <p>A title is in print in every year between its start and end. Titles per 100,000 km&sup2; is titles divided by state area, times 100,000. Each article count is indexed to its own 1929 total (1929 = 100).</p>
+      </div></div>
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4"><div class="prose">
+        <h4><span class="step">4</span> Draw</h4>
+        <p>Every chart is written in Vega-Lite. The maps share one equal-area projection, and the squares on the square map are all 200 km wide. One year selector drives the town, state and square maps.</p>
+      </div></div>
+    </div>
+
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-2"><div class="prose">
         <h3>Limits of the data</h3>

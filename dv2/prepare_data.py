@@ -94,7 +94,7 @@ rows = []
 for y in range(1803, LAST_YEAR + 1):
     act = core[(core.start <= y) & (core.end >= y)].groupby("state").size()
     for s_ in REAL_STATES:
-        g = "NT and ACT" if s_ in ("Northern Territory", "Australian Capital Territory") else s_
+        g = "Northern Territory and Australian Capital Territory" if s_ in ("Northern Territory", "Australian Capital Territory") else s_
         rows.append({"group": g, "year": y, "titles": int(act.get(s_, 0))})
     rows.append({"group": "Victorian papers in Trove only for 1914\u20131918", "year": y,
                  "titles": int(((sl.start <= y) & (sl.end >= y)).sum())})
@@ -137,8 +137,8 @@ save(lr[["title_id", "label", "place", "state", "start", "end", "years", "articl
 # ----------------------------------------------- articles per year/state
 ay = pd.read_csv(RAW / "total_articles_by_year_and_state.csv")
 ay = ay[ay.state.isin(REAL_STATES) & ay.year.between(1803, LAST_YEAR)].copy()
-ay["group"] = ay.state.replace({"Northern Territory": "NT and ACT",
-                                "Australian Capital Territory": "NT and ACT"})
+ay["group"] = ay.state.replace({"Northern Territory": "Northern Territory and Australian Capital Territory",
+                                "Australian Capital Territory": "Northern Territory and Australian Capital Territory"})
 stream = ay.groupby(["group", "year"], as_index=False).total.sum()
 save(stream, "articles_by_year_state.csv")
 

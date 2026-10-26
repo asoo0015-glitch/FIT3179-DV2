@@ -12,22 +12,6 @@
     {
       "name": "yr1",
       "value": 1900
-    },
-    {
-      "name": "measure",
-      "value": "per100k",
-      "bind": {
-        "input": "select",
-        "options": [
-          "per100k",
-          "count"
-        ],
-        "labels": [
-          "Titles per 100,000 km\u00b2 (fair comparison)",
-          "Number of titles"
-        ],
-        "name": "Show: "
-      }
     }
   ],
   "projection": {
@@ -58,13 +42,34 @@
       ],
       "mark": {
         "type": "geoshape",
-        "fill": "#e4dcc8",
         "stroke": "white",
         "strokeWidth": 1
       },
       "encoding": {
         "tooltip": {
-          "field": "note"
+          "field": "note",
+          "title": "State"
+        },
+        "fill": {
+          "datum": "No data",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "No data"
+            ],
+            "range": [
+              "#d3d3d3"
+            ]
+          },
+          "legend": {
+            "orient": "bottom-left",
+            "symbolType": "square",
+            "symbolSize": 110,
+            "symbolStrokeColor": "#b9ae96",
+            "symbolStrokeWidth": 0.6,
+            "offset": 6
+          }
         }
       }
     },
@@ -104,10 +109,6 @@
           "as": "per100k"
         },
         {
-          "calculate": "measure == 'count' ? datum.n : datum.per100k",
-          "as": "shade"
-        },
-        {
           "lookup": "state",
           "from": {
             "data": {
@@ -133,7 +134,7 @@
           "type": "geojson"
         },
         "color": {
-          "field": "shade",
+          "field": "per100k",
           "type": "quantitative",
           "title": "Titles per 100,000 km\u00b2",
           "scale": {
@@ -238,6 +239,79 @@
         },
         "text": {
           "field": "s"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/titles.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.state != 'International' && datum.state != 'National' && datum.start <= yr1 && datum.end >= yr0"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "n"
+            }
+          ],
+          "groupby": [
+            "state"
+          ]
+        },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "data/state_area.csv"
+            },
+            "key": "state",
+            "fields": [
+              "area_km2"
+            ]
+          }
+        },
+        {
+          "calculate": "datum.n / datum.area_km2 * 100000",
+          "as": "per100k"
+        },
+        {
+          "window": [
+            {
+              "op": "rank",
+              "as": "rk"
+            }
+          ],
+          "sort": [
+            {
+              "field": "per100k",
+              "order": "descending"
+            }
+          ]
+        },
+        {
+          "filter": "datum.rk == 1"
+        },
+        {
+          "calculate": "'Most titles for its size: ' + datum.state",
+          "as": "top"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "x": 0,
+        "y": 0,
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "text": {
+          "field": "top"
         }
       }
     }

@@ -36,7 +36,7 @@
       },
       "transform": [
         {
-          "calculate": "'No data: ' + datum.properties.STE_NAME21",
+          "calculate": "'' + datum.properties.STE_NAME21",
           "as": "note"
         }
       ],
@@ -48,7 +48,8 @@
       },
       "encoding": {
         "tooltip": {
-          "field": "note"
+          "field": "note",
+          "title": "State"
         }
       }
     },
@@ -154,6 +155,30 @@
         "fill": null,
         "stroke": "#8f866f",
         "strokeWidth": 0.6
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "x": "width",
+        "y": 0,
+        "align": "right",
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620"
+      },
+      "encoding": {
+        "text": {
+          "value": "Darkest squares: mostly around the big cities"
+        }
       }
     }
   ],

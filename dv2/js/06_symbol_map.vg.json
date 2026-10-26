@@ -61,7 +61,7 @@
         ],
         "labels": [
           "All of Australia",
-          "South-east: Victoria, NSW, Tasmania",
+          "South-east: Victoria, New South Wales, Tasmania",
           "Melbourne and Victoria",
           "Sydney and the Hunter",
           "Adelaide and the Murray",
@@ -100,7 +100,7 @@
       },
       "transform": [
         {
-          "calculate": "'No data: ' + datum.properties.STE_NAME21",
+          "calculate": "'' + datum.properties.STE_NAME21",
           "as": "note"
         }
       ],
@@ -112,7 +112,8 @@
       },
       "encoding": {
         "tooltip": {
-          "field": "note"
+          "field": "note",
+          "title": "State"
         }
       }
     },
@@ -192,7 +193,7 @@
             ],
             "range": [
               "#0072B2",
-              "#D55E00",
+              "#A9794F",
               "#6b4fa0",
               "#CC79A7",
               "#E69F00",

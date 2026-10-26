@@ -43,7 +43,7 @@
             "Southern Argus"
           ],
           "axis": {
-            "labelLimit": 250,
+            "labelLimit": 205,
             "ticks": false,
             "domain": false,
             "labelFontSize": 11
@@ -91,7 +91,7 @@
             ],
             "range": [
               "#0072B2",
-              "#D55E00",
+              "#A9794F",
               "#CC79A7",
               "#56B4E9"
             ]
@@ -171,7 +171,7 @@
             "Southern Argus"
           ],
           "axis": {
-            "labelLimit": 250,
+            "labelLimit": 205,
             "ticks": false,
             "domain": false,
             "labelFontSize": 11
@@ -214,21 +214,22 @@
       "data": {
         "values": [
           {
-            "x": 1980
+            "x": 1966
           }
         ]
       },
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 5,
+        "dx": 0,
         "baseline": "top",
         "fontStyle": "italic",
         "fontSize": 11,
         "y": {
-          "expr": "height - 58"
+          "expr": "height - 76"
         },
-        "color": "#2b2620"
+        "color": "#2b2620",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -237,8 +238,10 @@
         },
         "text": {
           "value": [
-            "1954: Most of",
-            "Trove stops here"
+            "1954: Trove's coverage",
+            "ends. Ten of these 15",
+            "stop here, so real runs",
+            "may be longer"
           ]
         }
       }

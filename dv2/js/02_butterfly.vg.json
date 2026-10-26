@@ -2,8 +2,8 @@
   "title": {
     "text": "Newspaper titles launched and closed, by decade",
     "subtitle": [
-      "The 1890s had the most launches (247).",
-      "From the 1920s, more titles closed than opened."
+      "Each bar counts titles that started (left)",
+      "or stopped (right) in that decade."
     ]
   },
   "width": "container",
@@ -50,6 +50,13 @@
           "field": "value",
           "type": "quantitative",
           "title": "\u2190 Titles launched        Titles closed \u2192",
+          "scale": {
+            "domain": [
+              -385,
+              385
+            ],
+            "nice": false
+          },
           "axis": {
             "values": [
               -300,
@@ -160,38 +167,96 @@
     },
     {
       "data": {
-        "url": "data/titles_launched_closed_by_decade.csv"
+        "values": [
+          {
+            "label": "1890s",
+            "x": 196
+          }
+        ]
       },
-      "transform": [
-        {
-          "calculate": "'Net ' + (datum.net > 0 ? '+' : '\u2212') + abs(datum.net)",
-          "as": "netlabel"
-        },
-        {
-          "calculate": "340",
-          "as": "netx"
-        }
-      ],
       "mark": {
         "type": "text",
         "align": "left",
+        "baseline": "middle",
         "fontSize": 11,
-        "fontStyle": "italic"
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
-          "field": "netx",
+          "field": "x",
           "type": "quantitative"
         },
         "text": {
-          "field": "netlabel"
+          "value": [
+            "Gold rushes, railways:",
+            "most launches",
+            "of any decade"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "1900s",
+            "x": 196
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
         },
-        "color": {
-          "condition": {
-            "test": "datum.net < 0",
-            "value": "#5b574e"
-          },
-          "value": "#21736d"
+        "text": {
+          "value": [
+            "Grey bars below:",
+            "slices, not new",
+            "launches or closures"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "1940s",
+            "x": -380
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Depression and war years:",
+            "new launches more than halve"
+          ]
         }
       }
     }

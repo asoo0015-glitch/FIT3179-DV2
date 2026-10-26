@@ -34,7 +34,7 @@
       "title": "Rank",
       "scale": {
         "domain": [
-          0.6,
+          -1.0,
           6.4
         ],
         "reverse": true
@@ -68,7 +68,7 @@
         ],
         "range": [
           "#0072B2",
-          "#D55E00",
+          "#A9794F",
           "#6b4fa0",
           "#CC79A7",
           "#E69F00",
@@ -147,6 +147,86 @@
       }
     },
     {
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', '1870') + bandwidth('x') / 2"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 0.15)"
+          }
+        },
+        "text": {
+          "value": [
+            "1890s gold rushes:",
+            "Western Australia",
+            "climbs from 5th to 3rd"
+          ]
+        },
+        "color": {
+          "value": "#2b2620"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', '1930') + bandwidth('x') / 2"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 0.15)"
+          }
+        },
+        "text": {
+          "value": [
+            "1930: Western",
+            "Australia moves",
+            "ahead of Victoria"
+          ]
+        },
+        "color": {
+          "value": "#2b2620"
+        }
+      }
+    },
+    {
       "transform": [
         {
           "filter": "datum.year == 1950"
@@ -179,7 +259,7 @@
             ],
             "range": [
               "#0072B2",
-              "#D55E00",
+              "#A9794F",
               "#6b4fa0",
               "#CC79A7",
               "#E69F00",

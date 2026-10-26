@@ -74,12 +74,12 @@
           "South Australia",
           "Western Australia",
           "Tasmania",
-          "NT and ACT",
+          "Northern Territory and Australian Capital Territory",
           "Victorian papers in Trove only for 1914\u20131918"
         ],
         "range": [
           "#0072B2",
-          "#D55E00",
+          "#A9794F",
           "#6b4fa0",
           "#CC79A7",
           "#E69F00",
@@ -93,8 +93,7 @@
         "columns": {
           "expr": "width < 480 ? 1 : width < 760 ? 3 : 4"
         },
-        "labelLimit": 360,
-        "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"
+        "labelLimit": 360
       }
     },
     "order": {

@@ -4,7 +4,7 @@ const EMBED_OPTIONS = { mode: "vega-lite", actions: { export: true, source: true
 
 // chart div id -> spec file
 const CHARTS = {
-  vis_stream: "js/01_streamgraph.vg.json",
+  vis_stream: "js/01_stacked_area.vg.json",
   vis_butterfly: "js/02_butterfly.vg.json",
   vis_gantt: "js/03_gantt.vg.json",
   vis_dots: "js/05_dot_map_eras.vg.json",
@@ -31,15 +31,6 @@ const OVERVIEW = { id: "vis_overview", file: "js/04_overview.vg.json" };
 const LINKED_OPTIONS = {
   // the "Zoom to" menu is drawn under the text beside the map instead of above the chart
   vis_symbol: () => ({ bind: document.getElementById("zoom-controls") }),
-  // the legend title follows the "Show:" menu (a Vega-Lite spec cannot do this by itself)
-  vis_choropleth: () => ({
-    patch: (vgSpec) => {
-      (vgSpec.legends || []).forEach((legend) => {
-        legend.title = { signal: "measure == 'count' ? 'Number of titles' : 'Titles per 100,000 km²'" };
-      });
-      return vgSpec;
-    },
-  }),
 };
 
 const linkedViews = [];
@@ -74,17 +65,6 @@ fontsReady.then(() => {
       const extra = LINKED_OPTIONS[id] ? LINKED_OPTIONS[id]() : {};
       return vegaEmbed("#" + id, file, { ...EMBED_OPTIONS, ...extra }).then((r) => {
         linkedViews.push(r.view);
-
-        // choropleth only: update the caption when the measure changes
-        if (id === "vis_choropleth") {
-          const caption = document.getElementById("measure-caption");
-          r.view.addSignalListener("measure", (_, v) => {
-            caption.innerHTML =
-              v === "count"
-                ? "Shading shows the <strong>number of titles</strong> in each state. States with no titles in print are grey."
-                : "Shading shows <strong>titles per 100,000 km&sup2;</strong>, which allows for the very different sizes of the states. Grey means no titles in print.";
-          });
-        }
         return r.view;
       }).catch((e) => showError(id, e));
     })

@@ -167,8 +167,7 @@
         "values": [
           {
             "year": 1954,
-            "total": 3661437,
-            "t": "1954: 3.7 million"
+            "total": 3661437
           }
         ]
       },
@@ -176,10 +175,11 @@
         "type": "text",
         "align": "right",
         "dx": -10,
-        "dy": -24,
+        "dy": -34,
         "fontSize": 11,
         "fontStyle": "italic",
-        "color": "#2b2620"
+        "color": "#2b2620",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -217,7 +217,10 @@
           }
         },
         "text": {
-          "field": "t"
+          "value": [
+            "1954: the last year with",
+            "wide coverage"
+          ]
         }
       }
     },
@@ -226,8 +229,7 @@
         "values": [
           {
             "year": 1955,
-            "total": 436398,
-            "t": "1955: 436,000 (down 88%)"
+            "total": 436398
           }
         ]
       },
@@ -237,7 +239,8 @@
         "dx": 10,
         "fontSize": 11,
         "fontStyle": "italic",
-        "color": "#2b2620"
+        "color": "#2b2620",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -275,7 +278,11 @@
           }
         },
         "text": {
-          "field": "t"
+          "value": [
+            "1955: copyright limits what",
+            "Trove could digitise,",
+            "so articles fall by 88%"
+          ]
         }
       }
     },
@@ -284,8 +291,7 @@
         "values": [
           {
             "year": 1989,
-            "total": 1500,
-            "t": "After 1954: only a few papers"
+            "total": 1500
           }
         ]
       },
@@ -331,7 +337,7 @@
           }
         },
         "text": {
-          "field": "t"
+          "value": "After 1954: only papers with permission"
         }
       }
     }

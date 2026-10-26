@@ -35,12 +35,13 @@
         "New South Wales",
         "Tasmania",
         "Victoria",
-        "NT and ACT"
+        "Northern Territory and Australian Capital Territory"
       ],
       "axis": {
         "domain": false,
         "ticks": false,
-        "labelLimit": 150
+        "labelLimit": 150,
+        "labelExpr": "datum.label == 'Northern Territory and Australian Capital Territory' ? ['Northern Territory and', 'Australian Capital Territory'] : datum.label"
       }
     }
   },
@@ -110,6 +111,70 @@
             "title": "Titles in print"
           }
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "group": "Western Australia",
+            "x": 91
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "The gold rushes likely",
+            "pulled the press west"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "group": "Victoria",
+            "x": 110
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "The only state to",
+            "lose many titles"
+          ]
+        }
       }
     }
   ],

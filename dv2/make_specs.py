@@ -18,16 +18,19 @@ INK = "#2b2620"
 MUTED = "#6f665a"
 GRID = "#e8e0cd"
 LAND = "#e4dcc8"        # base-map land colour
+NO_DATA = "#d3d3d3"     # light grey: a state with no titles in print (no information, not zero)
 # Fonts: Verdana (already installed on Windows and macOS) for text, Merriweather (Google Fonts) for titles.
 # To try Lora instead, change "Merriweather" to "Lora" here and in index.html / styles.css.
 BODY_FONT = "Verdana, Geneva, sans-serif"
 HEAD_FONT = "Merriweather, Georgia, serif"
 
 # one colour per state, used on every chart (colour-blind-safe, Okabe-Ito based)
+TERRITORIES = "Northern Territory and Australian Capital Territory"   # the two territories share one group on some charts
 STATE_ORDER = ["New South Wales", "Victoria", "Queensland", "South Australia",
-               "Western Australia", "Tasmania", "NT and ACT"]
-STATE_COLOURS = ["#0072B2", "#D55E00", "#6b4fa0", "#CC79A7", "#E69F00", "#56B4E9", "#8a8478"]
-# full list for charts that keep NT and ACT separate (maps)
+               "Western Australia", "Tasmania", TERRITORIES]
+# Victoria is a light brown (it used to be vermillion, which sat too close to Western Australia's orange)
+STATE_COLOURS = ["#0072B2", "#A9794F", "#6b4fa0", "#CC79A7", "#E69F00", "#56B4E9", "#8a8478"]
+# full list for charts that keep the two territories separate (maps)
 STATE_ORDER_8 = STATE_ORDER[:6] + ["Northern Territory", "Australian Capital Territory"]
 STATE_COLOURS_8 = STATE_COLOURS[:6] + ["#8a8478", "#5b574e"]
 SLICE = "Victorian papers in Trove only for 1914\u20131918"
@@ -97,13 +100,13 @@ def write(name, spec):
     print("wrote", name)
 
 
-def base_layer(fill=LAND):
-    """Grey states underneath a data layer; hovering shows a 'no data' note."""
+def base_layer(fill=LAND, prefix=""):
+    """Base map under a data layer. Hovering shows the state name (with a prefix such as 'No data: ')."""
     return {
         "data": TOPO,
-        "transform": [{"calculate": "'No data: ' + datum.properties.STE_NAME21", "as": "note"}],
+        "transform": [{"calculate": "'" + prefix + "' + datum.properties.STE_NAME21", "as": "note"}],
         "mark": {"type": "geoshape", "fill": fill, "stroke": "white", "strokeWidth": 1},
-        "encoding": {"tooltip": {"field": "note"}},
+        "encoding": {"tooltip": {"field": "note", "title": "State"}},
     }
 
 
@@ -111,16 +114,34 @@ def outline_layer():
     return {"data": TOPO, "mark": {"type": "geoshape", "fill": None, "stroke": "#8f866f", "strokeWidth": 0.6}}
 
 
-# ===================================================== 1. STREAMGRAPH
-events = [
-    {"year": 1851, "label": "Gold rushes begin", "row": 6},
-    {"year": 1901, "label": "Federation", "row": 6},
-    {"year": 1914, "label": "War begins", "row": 6},
-    {"year": 1939, "label": "War begins", "row": 6},
-]
-write("01_streamgraph.vg.json", {
+# ================================================= 1. STACKED AREA
+# (this was a streamgraph with a centred baseline, whose vertical axis cannot be read; a stacked area that starts
+# at zero keeps the same story and has a real y-axis)
+def event(year, lines, align="left"):
+    """a dashed line at `year` with a short italic label along the top edge"""
+    return [
+        {"data": {"values": [{"year": year}]},
+         "mark": {"type": "rule", "strokeDash": [4, 3], "color": INK, "strokeWidth": 1},
+         "encoding": {"x": {"field": "year", "type": "quantitative"}}},
+        {"data": {"values": [{"year": year}]},
+         "mark": {"type": "text", "align": align, "dx": 6 if align == "left" else -6, "y": 6, "baseline": "top",
+                  "fontSize": 11, "fontStyle": "italic", "color": INK, "lineHeight": 13},
+         "encoding": {"x": {"field": "year", "type": "quantitative"}, "text": {"value": lines}}},
+    ]
+
+
+def area_note(year, millions, lines, align="left"):
+    """an explanatory note in the open space above the early, low part of the chart"""
+    return {"data": {"values": [{"year": year, "y": millions * 1000000}]},
+            "mark": {"type": "text", "align": align, "baseline": "bottom", "fontSize": 11, "fontStyle": "italic",
+                     "color": INK, "lineHeight": 13},
+            "encoding": {"x": {"field": "year", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"},
+                         "text": {"value": lines}}}
+
+
+write("01_stacked_area.vg.json", {
     "title": {"text": ["From a trickle in the 1830s to", "millions of articles a year by 1900"],
-              "subtitle": ["Articles preserved in Trove each year, by state.", "Thickness of each band = number of articles."]},
+              "subtitle": ["Articles preserved in Trove each year, by state.", "Height of each band = number of articles."]},
     "width": "container", "height": 380,
     "data": {"url": "data/articles_by_year_state.csv"},
     "layer": [
@@ -129,44 +150,26 @@ write("01_streamgraph.vg.json", {
             "encoding": {
                 "x": {"field": "year", "type": "quantitative", "title": "Year",
                       "axis": {"format": "d", "tickCount": 10, "grid": False},
-                      "scale": {"domain": [1810, 1954], "nice": False}},
-                # centred stack: no numbers on this axis (the band is symmetric), only its title.
+                      "scale": {"domain": [1810, 1959], "nice": False}},
+                # the bands stack up from zero, so the top edge is the national total and the y-axis can be read.
                 # The fixed domain leaves empty space at the top so the event labels never touch the bands.
-                "y": {"aggregate": "sum", "field": "total", "type": "quantitative",
-                      "stack": "center", "scale": {"domain": [-250000, 5350000]},
-                      "axis": {"title": "Articles per year", "labels": False, "ticks": False,
-                               "domain": False, "grid": False}},
+                "y": {"aggregate": "sum", "field": "total", "type": "quantitative", "stack": "zero",
+                      "scale": {"domain": [0, 5500000]},
+                      "axis": {"title": "Articles per year", "grid": True, "values": [0, 1000000, 2000000, 3000000, 4000000, 5000000],
+                               "labelExpr": "datum.value == 0 ? '0' : (datum.value / 1000000) + ' million'"}},
                 "color": {"field": "group", "type": "nominal", "title": "State",
-                          "scale": STATE_SCALE, "legend": {"orient": "top", "columns": {"expr": "width < 520 ? 1 : 3"}, "title": None, "labelLimit": 240, "columnPadding": 16, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
+                          "scale": STATE_SCALE, "legend": {"orient": "top", "columns": {"expr": "width < 520 ? 1 : 3"}, "title": None, "labelLimit": 360, "columnPadding": 16}},
                 "tooltip": [{"field": "group", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                             {"field": "total", "title": "Articles", "format": ","}],
             },
         },
-        {
-            "data": {"values": events},
-            "mark": {"type": "rule", "strokeDash": [4, 3], "color": INK, "strokeWidth": 1},
-            "encoding": {"x": {"field": "year", "type": "quantitative"}},
-        },
-        {   # event labels along the top edge; Federation sits left of its line so it does not run into WWI
-            "data": {"values": [e for e in events if e["year"] != 1901]},
-            "mark": {"type": "text", "align": "left", "dx": 9, "y": 8, "baseline": "top", "fontSize": 11,
-                     "fontStyle": "italic", "color": INK},
-            "encoding": {"x": {"field": "year", "type": "quantitative"}, "text": {"field": "label"}},
-        },
-        {
-            "data": {"values": [e for e in events if e["year"] == 1901]},
-            "mark": {"type": "text", "align": "right", "dx": -5, "y": 8, "baseline": "top", "fontSize": 11,
-                     "fontStyle": "italic", "color": INK},
-            "encoding": {"x": {"field": "year", "type": "quantitative"}, "text": {"field": "label"}},
-        },
-        {   # early boom: Trove holds ~1,150 articles for 1819, ~18,700 for 1834 and ~40,000 for 1840
-            "data": {"values": [{"year": 1851, "mid": 2390000}]},
-            "mark": {"type": "text", "align": "right", "baseline": "top", "dx": -6, "dy": -44,
-                     "fontSize": 11, "fontStyle": "italic", "color": INK},
-            "encoding": {"x": {"field": "year", "type": "quantitative"},
-                         "y": {"field": "mid", "type": "quantitative"},
-                         "text": {"value": ["1830s: newspapers", "start to boom"]}},
-        },
+        *event(1851, ["Gold rushes", "begin"]),
+        *event(1901, ["Federation"], align="right"),
+        *event(1914, ["First", "World War", "begins"]),
+        *event(1939, ["Second", "World War", "begins"]),
+        # Victoria: 19,022 articles in 1851 and 74,841 in 1859. Western Australia: 114,202 in 1895 and 359,283 in 1898.
+        area_note(1848, 1.15, ["Gold rushes: Victoria's", "total grows almost", "fourfold, 1851 to 1859"], align="right"),
+        area_note(1893, 2.45, ["1890s gold rush: Western", "Australia's yearly total", "triples in three years"], align="right"),
     ],
 })
 
@@ -174,20 +177,29 @@ write("01_streamgraph.vg.json", {
 # long-format data: launched titles are negative (drawn left), closed titles positive (drawn right).
 # The grey segment is the Victorian papers that Trove holds only for 1914-1918.
 lc_colour = {"domain": ["Titles launched", "Titles closed", SLICE], "range": [LAUNCH, CLOSE, SLICE_COLOUR]}
+
+
+def butterfly_note(decade, x, lines):
+    """an italic note on the row of one decade, starting at bar-length x (negative = left side)"""
+    return {"data": {"values": [{"label": decade, "x": x}]},
+            "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 11, "fontStyle": "italic",
+                     "color": INK, "lineHeight": 13},
+            "encoding": {"x": {"field": "x", "type": "quantitative"}, "text": {"value": lines}}}
 DEC = [f"{d}s" for d in range(1830, 1950, 10)]
 write("02_butterfly.vg.json", {
     "title": {"text": "Newspaper titles launched and closed, by decade",
-              "subtitle": ["The 1890s had the most launches (247).",
-                           "From the 1920s, more titles closed than opened."]},
+              "subtitle": ["Each bar counts titles that started (left)", "or stopped (right) in that decade."]},
     "width": "container", "height": 560,
     "encoding": {"y": {"field": "label", "type": "ordinal", "title": "Decade", "sort": DEC,
                        "axis": {"labelFontSize": 12, "domain": False, "ticks": False}}},
+    # (fixed x range so the notes on the right and left always have room)
     "layer": [
         {
             "data": {"url": "data/butterfly_long.csv"},
             "mark": {"type": "bar", "height": {"band": 0.72}},
             "encoding": {
                 "x": {"field": "value", "type": "quantitative", "title": "\u2190 Titles launched        Titles closed \u2192",
+                      "scale": {"domain": [-385, 385], "nice": False},
                       "axis": {"values": [-300, -200, -100, 0, 100, 200, 300], "labelExpr": "abs(datum.value)"}},
                 "color": {"field": "series", "type": "nominal", "scale": lc_colour,
                           "legend": {"orient": "top", "title": None, "columns": 1, "labelLimit": 380}},
@@ -207,21 +219,17 @@ write("02_butterfly.vg.json", {
             "mark": {"type": "text", "align": "left", "dx": 4, "fontSize": 11, "color": INK},
             "encoding": {"x": {"field": "Closed", "type": "quantitative"}, "text": {"field": "Closed"}},
         },
-        {
-            "data": {"url": "data/titles_launched_closed_by_decade.csv"},
-            "transform": [{"calculate": "'Net ' + (datum.net > 0 ? '+' : '\u2212') + abs(datum.net)", "as": "netlabel"},
-                          {"calculate": "340", "as": "netx"}],
-            "mark": {"type": "text", "align": "left", "fontSize": 11, "fontStyle": "italic"},
-            "encoding": {"x": {"field": "netx", "type": "quantitative"}, "text": {"field": "netlabel"},
-                         "color": {"condition": {"test": "datum.net < 0", "value": CLOSE}, "value": LAUNCH}},
-        },
+        # notes that explain what the bars mean (they sit in empty space beside the bars)
+        butterfly_note("1890s", 196, ["Gold rushes, railways:", "most launches", "of any decade"]),
+        butterfly_note("1900s", 196, ["Grey bars below:", "slices, not new", "launches or closures"]),
+        butterfly_note("1940s", -380, ["Depression and war years:", "new launches more than halve"]),
     ],
 })
 
 # ============================================================ 3. GANTT
 GY = {"field": "label", "type": "nominal", "title": "Newspaper",
       "sort": column("data/longest_running_titles.csv", "label"),
-      "axis": {"labelLimit": 250, "ticks": False, "domain": False, "labelFontSize": 11}}
+      "axis": {"labelLimit": 205, "ticks": False, "domain": False, "labelFontSize": 11}}
 # only the states that actually appear in this chart get a legend entry (same colours as everywhere else)
 GANTT_STATES = [s for s in STATE_ORDER_8 if s in set(column("data/longest_running_titles.csv", "state"))]
 GANTT_COLOURS = [STATE_COLOURS_8[STATE_ORDER_8.index(s)] for s in GANTT_STATES]
@@ -252,12 +260,12 @@ write("03_gantt.vg.json", {
         {"data": {"values": [{"x": 1954}]},
          "mark": {"type": "rule", "strokeDash": [4, 3], "color": INK},
          "encoding": {"x": {"field": "x", "type": "quantitative"}}},
-        # two-line note starting on the 1980 gridline, clear of the year-count labels at the bar ends
-        {"data": {"values": [{"x": 1980}]},
-         "mark": {"type": "text", "align": "left", "dx": 5, "baseline": "top", "fontStyle": "italic", "fontSize": 11, "y": {"expr": "height - 58"},
-                  "color": INK},
+        # note below the 1954 line, in the empty space under the bars' year-count labels. 10 of the 15 runs end in 1954.
+        {"data": {"values": [{"x": 1966}]},
+         "mark": {"type": "text", "align": "left", "dx": 0, "baseline": "top", "fontStyle": "italic", "fontSize": 11, "y": {"expr": "height - 76"},
+                  "color": INK, "lineHeight": 13},
          "encoding": {"x": {"field": "x", "type": "quantitative"},
-                      "text": {"value": ["1954: Most of", "Trove stops here"]}}},
+                      "text": {"value": ["1954: Trove's coverage", "ends. Ten of these 15", "stop here, so real runs", "may be longer"]}}},
     ],
 })
 
@@ -278,7 +286,7 @@ write("04_overview.vg.json", {
               "axis": {"tickCount": 3}},
         "color": {"field": "group", "type": "nominal", "title": None,
                   "scale": {"domain": STATE_ORDER + [SLICE], "range": STATE_COLOURS + [SLICE_COLOUR]},
-                  "legend": {"orient": "top", "columns": {"expr": "width < 480 ? 1 : width < 760 ? 3 : 4"}, "labelLimit": 360, "labelExpr": "datum.label == 'NT and ACT' ? 'Northern Territory and Canberra' : datum.label"}},
+                  "legend": {"orient": "top", "columns": {"expr": "width < 480 ? 1 : width < 760 ? 3 : 4"}, "labelLimit": 360}},
         "order": {"field": "group", "sort": "descending"},
         "tooltip": [{"field": "group", "title": "State"}, {"field": "year", "format": "d", "title": "Year"},
                     {"field": "titles", "title": "Titles in print"}],
@@ -327,7 +335,7 @@ write("05_dot_map_eras.vg.json", {
 # (The old Mercator presets were the same views, with scales about 1/cos(latitude) smaller.)
 FOCUS = [
     ([134, -28.5, 865], "All of Australia"),
-    ([148, -38.3, 2800], "South-east: Victoria, NSW, Tasmania"),   # re-centred south so Tasmania is in view
+    ([148, -38.3, 2800], "South-east: Victoria, New South Wales, Tasmania"),   # re-centred south so Tasmania is in view
     ([145.3, -37.3, 7790], "Melbourne and Victoria"),
     ([151.0, -33.2, 8370], "Sydney and the Hunter"),
     ([138.6, -34.4, 6300], "Adelaide and the Murray"),
@@ -386,38 +394,40 @@ write("06_symbol_map.vg.json", {
 })
 
 # ============================================ 7. CHOROPLETH (linked)
+# Always normalised: titles per 100,000 km2. Raw counts are not used, because a big state would look
+# "darker" only because it is big.
 LOOK = [
     {"filter": "datum.state != 'International' && datum.state != 'National' && " + ACTIVE},
     {"aggregate": [{"op": "count", "as": "n"}], "groupby": ["state"]},
     {"lookup": "state", "from": {"data": {"url": "data/state_area.csv"}, "key": "state", "fields": ["area_km2"]}},
     {"calculate": "datum.n / datum.area_km2 * 100000", "as": "per100k"},
-    {"calculate": "measure == 'count' ? datum.n : datum.per100k", "as": "shade"},
-    {"lookup": "state", "from": {"data": TOPO, "key": "properties.STE_NAME21"}, "as": "geo"},
 ]
+choro_base = base_layer(None, prefix="No data: ")
+choro_base["mark"] = {"type": "geoshape", "stroke": "white", "strokeWidth": 1}
+# a one-item legend (light grey square labelled "No data") so the grey states are explained on the map itself
+choro_base["encoding"]["fill"] = {"datum": "No data", "type": "nominal", "title": None,
+                                  "scale": {"domain": ["No data"], "range": [NO_DATA]},
+                                  "legend": {"orient": "bottom-left", "symbolType": "square", "symbolSize": 110,
+                                             "symbolStrokeColor": "#b9ae96", "symbolStrokeWidth": 0.6, "offset": 6}}
 write("07_choropleth.vg.json", {
     "title": {"text": "Titles in print, by state"},
     "width": "container", "height": 330,
-    "params": YEAR_PARAMS + [{
-        "name": "measure", "value": "per100k",
-        "bind": {"input": "select", "options": ["per100k", "count"],
-                 "labels": ["Titles per 100,000 km² (fair comparison)", "Number of titles"], "name": "Show: "},
-    }],
+    "params": YEAR_PARAMS,
     "projection": PROJ,
     "layer": [
-        base_layer(),
+        choro_base,
         {
             "data": {"url": "data/titles.csv"},
-            "transform": LOOK,
+            "transform": LOOK + [{"lookup": "state", "from": {"data": TOPO, "key": "properties.STE_NAME21"}, "as": "geo"}],
             "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
             "encoding": {
                 "shape": {"field": "geo", "type": "geojson"},
-                # legend title follows the "Show:" menu: main.js patches it with a signal (the spec holds the default)
-                "color": {"field": "shade", "type": "quantitative", "title": "Titles per 100,000 km²",
+                "color": {"field": "per100k", "type": "quantitative", "title": "Titles per 100,000 km\u00b2",
                           "scale": {"type": "sqrt", "range": ["#e3f1ee", "#8cc4bb", "#4aa093"], "domainMin": 0},
                           "legend": {"orient": "bottom-left", "format": "~s", "gradientLength": 120}},
                 "tooltip": [{"field": "state", "title": "State"},
                             {"field": "n", "title": "Titles in print"},
-                            {"field": "per100k", "title": "Per 100,000 km²", "format": ".1f"}],
+                            {"field": "per100k", "title": "Per 100,000 km\u00b2", "format": ".1f"}],
             },
         },
         {
@@ -430,6 +440,17 @@ write("07_choropleth.vg.json", {
             "encoding": {"longitude": {"field": "lon", "type": "quantitative"},
                          "latitude": {"field": "lat", "type": "quantitative"},
                          "text": {"field": "s"}},
+        },
+        {   # a note that follows the chosen years: which state has the most titles for its size
+            "data": {"url": "data/titles.csv"},
+            "transform": LOOK + [
+                {"window": [{"op": "rank", "as": "rk"}], "sort": [{"field": "per100k", "order": "descending"}]},
+                {"filter": "datum.rk == 1"},
+                {"calculate": "'Most titles for its size: ' + datum.state", "as": "top"},
+            ],
+            "mark": {"type": "text", "x": 0, "y": 0, "align": "left", "baseline": "top", "fontSize": 11,
+                     "fontStyle": "italic", "color": INK},
+            "encoding": {"text": {"field": "top"}},
         },
     ],
 })
@@ -462,10 +483,26 @@ write("08_bin_map.vg.json", {
             },
         },
         outline_layer(),
+        {   # reading note along the top edge, in the empty sea
+            "data": {"values": [{"k": 1}]},
+            "mark": {"type": "text", "x": "width", "y": 0, "align": "right", "baseline": "top", "fontSize": 11,
+                     "fontStyle": "italic", "color": INK},
+            "encoding": {"text": {"value": "Darkest squares: mostly around the big cities"}},
+        },
     ],
 })
 
 # ============================================================ 9. BUMP
+def bump_note(year, lines):
+    """italic note in the empty band above rank 1, centred over one year's column"""
+    return {"data": {"values": [{"k": 1}]},
+            "mark": {"type": "text", "align": "center", "baseline": "bottom", "fontSize": 11, "fontStyle": "italic",
+                     "color": INK, "lineHeight": 13},
+            "encoding": {"x": {"value": {"expr": f"scale('x', '{year}') + bandwidth('x') / 2"}},
+                         "y": {"value": {"expr": "scale('y', 0.15)"}},
+                         "text": {"value": lines}, "color": {"value": INK}}}
+
+
 write("09_bump.vg.json", {
     "title": {"text": ["Western Australia rose from 6th", "to 2nd place between 1870 and 1930"],
               "subtitle": ["States ranked by newspapers in print.", "1st = highest rank (the most)."]},
@@ -475,7 +512,7 @@ write("09_bump.vg.json", {
         "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0, "grid": False, "labelFontSize": 11},
               "scale": {"padding": 0.4}},
         "y": {"field": "rank", "type": "quantitative", "title": "Rank",
-              "scale": {"domain": [0.6, 6.4], "reverse": True},
+              "scale": {"domain": [-1.0, 6.4], "reverse": True},
               "axis": {"values": [1, 2, 3, 4, 5, 6], "format": "d", "grid": False}},
         "color": {"field": "state", "type": "nominal", "scale": STATE_SCALE_8, "legend": None},
     },
@@ -487,6 +524,9 @@ write("09_bump.vg.json", {
          "encoding": {"opacity": {"condition": {"param": "hl", "value": 1}, "value": 0.22},
                       "tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year"},
                                   {"field": "rank", "title": "Rank"}, {"field": "titles", "title": "Titles in print"}]}},
+        # notes in the empty band above rank 1
+        bump_note(1870, ["1890s gold rushes:", "Western Australia", "climbs from 5th to 3rd"]),
+        bump_note(1930, ["1930: Western", "Australia moves", "ahead of Victoria"]),
         {"transform": [{"filter": "datum.year == 1950"}],
          "mark": {"type": "text", "align": "left", "dx": 14, "fontSize": 11, "fontWeight": 600},
          "encoding": {"text": {"field": "state"}, "color": {"field": "state", "type": "nominal", "scale": STATE_SCALE_8, "legend": None}}},
@@ -499,6 +539,7 @@ TOWN_LABEL = ("split(datum.label, ', ')[0] + ', ' + ({'NSW': 'New South Wales', 
               "'SA': 'South Australia', 'WA': 'Western Australia', 'TAS': 'Tasmania', 'NT': 'Northern Territory', "
               "'ACT': 'Australian Capital Territory'})[split(datum.label, ', ')[1]]")
 # every town is slate grey; Sydney, the town with the most titles, gets the bright highlight colour
+TOWN_FULL = TOWN_LABEL.replace("datum.label", "datum.town")      # same text for the hover box
 LOLLI_COLOUR = {"condition": {"test": "datum.town == 'Sydney, NSW'", "value": LOLLI_HI}, "value": LOLLI}
 LY = {"field": "town", "type": "nominal", "sort": column("data/top_towns.csv", "town"), "title": "Town",
       "axis": {"ticks": False, "domain": False, "labelFontSize": 11, "labelLimit": 320, "labelExpr": TOWN_LABEL}}
@@ -508,22 +549,22 @@ write("10_lollipop.vg.json", {
               "subtitle": "The 15 towns with the most titles in Trove"},
     "width": "container", "height": 360,
     "data": {"url": "data/top_towns.csv"},
+    "transform": [{"calculate": TOWN_FULL, "as": "town_full"}],
     "layer": [
         {"mark": {"type": "rule", "strokeWidth": 3},
          "encoding": {"y": LY, "x": LX, "x2": {"datum": 0}, "color": LOLLI_COLOUR}},
         {"mark": {"type": "circle", "size": 190, "opacity": 1},
          "encoding": {"y": LY, "x": LX, "color": LOLLI_COLOUR,
-                      "tooltip": [{"field": "town", "title": "Town"}, {"field": "titles", "title": "Titles"},
+                      "tooltip": [{"field": "town_full", "title": "Town"}, {"field": "titles", "title": "Titles"},
                                   {"field": "articles", "title": "Articles in Trove", "format": ","}]}},
         {"mark": {"type": "text", "align": "left", "dx": 12, "fontSize": 11, "color": INK},
          "encoding": {"y": LY, "x": LX, "text": {"field": "titles"}, "color": {"value": INK}}},
         # annotation in the empty bottom-right corner. Six of the 15 towns are in Western Australia
         # (Perth, Fremantle, Geraldton, Coolgardie, Kalgoorlie, Bunbury), so the note says that.
         {"data": {"values": [{"note": 1}]},
-         "mark": {"type": "text", "align": "right", "baseline": "top", "x": "width", "y": {"expr": "height - 62"},
+         "mark": {"type": "text", "align": "right", "baseline": "top", "x": "width", "y": {"expr": "height - 80"},
                   "dx": -4, "fontSize": 11, "fontStyle": "italic", "lineHeight": 15, "color": INK},
-         "encoding": {"text": {"value": ["Western Australia has 6 of", "the top 15 towns, helped by",
-                                         "its 1890s gold rushes."]}}},
+         "encoding": {"text": {"value": ["Western Australia has 6 of", "the top 15 towns, helped by", "its 1890s gold rushes; no", "other state has more than 3."]}}},
     ],
 })
 
@@ -563,12 +604,12 @@ write("11_indexed_line.vg.json", {
     "transform": [{"calculate": "datum.state == 'Australia' ? 1 : 0", "as": "is_au"}],
     "encoding": {
         "x": {"field": "year", "type": "quantitative", "title": "Year",
-              "axis": {"format": "d", "values": [1929, 1934, 1939, 1944, 1949, 1954], "grid": False}, "scale": {"domain": [1929, 1954], "nice": False}},
+              "axis": {"format": "d", "values": [1929, 1934, 1939, 1944, 1949, 1954], "grid": False}, "scale": {"domain": [1929, 1966], "nice": False}},
         "y": {"field": "index", "type": "quantitative", "title": "Index (1929 = 100)",
-              "scale": {"domain": [22, 115]}},
+              "scale": {"domain": [14, 115]}},
         "color": {"field": "state", "type": "nominal", "title": None,
                   "scale": {"domain": ["Australia"] + STATE_ORDER[:6], "range": [INK] + STATE_COLOURS[:6]},
-                  "legend": {"orient": "top", "columns": {"expr": "width < 520 ? 2 : 4"}}},
+                  "legend": {"orient": "top", "columns": {"expr": "width < 380 ? 2 : 4"}}},
     },
     "layer": [
         {"data": {"values": [{"y": 100}]}, "mark": {"type": "rule", "strokeDash": [5, 4], "color": MUTED},
@@ -580,8 +621,13 @@ write("11_indexed_line.vg.json", {
          "encoding": {"tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                                   {"field": "index", "title": "Index (1929 = 100)"},
                                   {"field": "total", "title": "Articles", "format": ","}]}},
-        *callout(1931, 88.5, 1932.8, 50, 164, "1931: Depression, 88.5"),
-        *callout(1943, 54.4, 1943, 28, 128, "1943: Wartime low"),
+        *callout(1931, 88.5, 1932.8, 50, 190, ["1931: the Depression dip.", "South Australia falls most"], box_h=38),
+        *callout(1943, 54.4, 1943.6, 27, 214, ["1943: wartime low. Every state is", "down; South Australia and Queensland", "fall furthest"], box_h=66),
+        # end-of-line labels, so the lines can be read without the legend (nudged apart where lines end close together)
+        {"transform": [{"filter": "datum.year == 1954"}],
+         "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11, "fontWeight": 600,
+                  "dy": {"expr": "datum.state == 'Australia' ? -3 : datum.state == 'Victoria' ? 1 : datum.state == 'Western Australia' ? 1 : 0"}},
+         "encoding": {"text": {"field": "state"}}},
         {"data": {"values": [{"year": 1943, "index": 54.4}, {"year": 1931, "index": 88.5}]},
          "mark": {"type": "point", "size": 90, "filled": False, "color": INK, "strokeWidth": 1.5},
          "encoding": {"x": {"field": "year", "type": "quantitative"}, "y": {"field": "index", "type": "quantitative"},
@@ -593,7 +639,7 @@ write("11_indexed_line.vg.json", {
 write("12_heatmap.vg.json", {
     "title": {"text": ["Newspaper titles added to Trove's",
                        "list each year, by state"],
-              "subtitle": ["2013 was the peak: 322 titles added,", "183 of them from New South Wales"]},
+              "subtitle": ["States peaked in different years: New South Wales", "and Victoria in 2013, Western Australia in 2020"]},
     "width": "container", "height": 300,
     "data": {"url": "data/titles_added_to_trove.csv"},
     "encoding": {
@@ -618,8 +664,9 @@ write("12_heatmap.vg.json", {
 # ============================================================== 13. WAFFLE
 WAFFLE_ORDER = list(dict.fromkeys(column("data/waffle_cells.csv", "category")))
 write("13_waffle.vg.json", {
-    "title": {"text": ["What filled the pages:", "100 squares = all 251 million articles"]},
-    "width": 300, "height": 300,
+    "title": {"text": ["What filled the pages:", "100 squares = all 251 million articles"],
+              "subtitle": ["Each square = 1% of the articles,", "about 2.5 million"]},
+    "width": 430, "height": 430,
     "data": {"url": "data/waffle_cells.csv"},
     "transform": [{"calculate": "split(datum.category, ' (')[0]", "as": "type_name"}],
     "mark": {"type": "rect", "stroke": BG, "strokeWidth": 2.5, "cornerRadius": 2},
@@ -656,29 +703,39 @@ write("14_cliff.vg.json", {
         {"data": {"values": [{"year": 1954, "total": 3661437}, {"year": 1955, "total": 436398}]},
          "mark": {"type": "point", "size": 80, "filled": True, "color": TEAL},
          "encoding": {"x": CX, "y": CY}},
-        {"data": {"values": [{"year": 1954, "total": 3661437, "t": "1954: 3.7 million"}]},
-         "mark": {"type": "text", "align": "right", "dx": -10, "dy": -24, "fontSize": 11, "fontStyle": "italic", "color": INK},
-         "encoding": {"x": CX, "y": CY, "text": {"field": "t"}}},
-        {"data": {"values": [{"year": 1955, "total": 436398, "t": "1955: 436,000 (down 88%)"}]},
-         "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 11, "fontStyle": "italic", "color": INK},
-         "encoding": {"x": CX, "y": CY, "text": {"field": "t"}}},
-        {"data": {"values": [{"year": 1989, "total": 1500, "t": "After 1954: only a few papers"}]},
+        {"data": {"values": [{"year": 1954, "total": 3661437}]},
+         "mark": {"type": "text", "align": "right", "dx": -10, "dy": -34, "fontSize": 11, "fontStyle": "italic", "color": INK,
+                  "lineHeight": 13},
+         "encoding": {"x": CX, "y": CY, "text": {"value": ["1954: the last year with", "wide coverage"]}}},
+        {"data": {"values": [{"year": 1955, "total": 436398}]},
+         "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 11, "fontStyle": "italic", "color": INK,
+                  "lineHeight": 13},
+         "encoding": {"x": CX, "y": CY, "text": {"value": ["1955: copyright limits what", "Trove could digitise,", "so articles fall by 88%"]}}},
+        {"data": {"values": [{"year": 1989, "total": 1500}]},
          "mark": {"type": "text", "align": "center", "fontSize": 11, "color": MUTED},
-         "encoding": {"x": CX, "y": CY, "text": {"field": "t"}}},
+         "encoding": {"x": CX, "y": CY, "text": {"value": "After 1954: only papers with permission"}}},
     ],
 })
 
 # ====================================================== 15. CONNECTED DOT PLOT
-DUMB_ORDER = ["Western Australia", "Queensland", "South Australia", "New South Wales", "Tasmania", "Victoria", "NT and ACT"]
+DUMB_ORDER = ["Western Australia", "Queensland", "South Australia", "New South Wales", "Tasmania", "Victoria", TERRITORIES]
+
+
+def dumb_note(group, x, lines):
+    return {"data": {"values": [{"group": group, "x": x}]},
+            "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 11,
+                     "fontStyle": "italic", "color": INK, "lineHeight": 13},
+            "encoding": {"x": {"field": "x", "type": "quantitative"}, "text": {"value": lines}}}
 write("15_dumbbell.vg.json", {
     "title": {"text": ["Western Australia's titles more than", "doubled while Victoria's fell"],
               "subtitle": "Titles in print by state, 1900 against 1930"},
-    "width": "container", "height": 260,
+    "width": "container", "height": 320,
     "data": {"url": "data/active_titles_by_year_state.csv",
              "format": {"type": "csv", "parse": {"year": "number", "titles": "number"}}},
     "transform": [{"filter": "(datum.year == 1900 || datum.year == 1930) && indexof(datum.group, 'Victorian papers') < 0"}],
     "encoding": {"y": {"field": "group", "type": "nominal", "title": "State", "sort": DUMB_ORDER,
-                       "axis": {"domain": False, "ticks": False, "labelLimit": 150}}},
+                       "axis": {"domain": False, "ticks": False, "labelLimit": 150,
+                                "labelExpr": "datum.label == '" + TERRITORIES + "' ? ['Northern Territory and', 'Australian Capital Territory'] : datum.label"}}},
     "layer": [
         {"mark": {"type": "rule", "color": "#8f866f", "strokeWidth": 3},
          "encoding": {"x": {"field": "titles", "type": "quantitative", "aggregate": "min", "title": "Titles in print"},
@@ -690,6 +747,9 @@ write("15_dumbbell.vg.json", {
                                 "legend": {"orient": "top", "format": "d"}},
                       "tooltip": [{"field": "group", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                                   {"field": "titles", "title": "Titles in print"}]}},
+        # notes beside the two biggest changes. Victoria is the only state that lost many titles (110 to 65).
+        dumb_note("Western Australia", 91, ["The gold rushes likely", "pulled the press west"]),
+        dumb_note("Victoria", 110, ["The only state to", "lose many titles"]),
     ],
 })
 
@@ -715,6 +775,12 @@ write("16_languages.vg.json", {
          "encoding": {"color": LANG_COLOUR, "tooltip": [{"field": "language_full", "title": "Language"},
                                   {"field": "titles", "title": "Titles"},
                                   {"field": "first_year", "title": "First title appeared", "format": "d"}]}},
+        # the oldest presses: German from 1848, Chinese from 1856 (the gold rushes)
+        {"data": {"values": [{"language_full": "French", "x": 4.2}]},
+         "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 11, "fontStyle": "italic", "color": INK,
+                  "lineHeight": 13},
+         "encoding": {"x": {"field": "x", "type": "quantitative"},
+                      "text": {"value": ["German began in 1848, Chinese in 1856,", "during the gold rushes"]}}},
         # the label is just the number of titles; the year each language first appeared is in the tooltip
         {"mark": {"type": "text", "align": "left", "dx": 12, "fontSize": 11, "color": "#6f665a"},
          "encoding": {"text": {"field": "titles", "type": "quantitative"}}},
