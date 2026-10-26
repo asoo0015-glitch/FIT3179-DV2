@@ -11,11 +11,10 @@ const CHARTS = {
   vis_lollipop: "js/10_lollipop.vg.json",
   vis_bump: "js/09_bump.vg.json",
   vis_index: "js/11_indexed_line.vg.json",
-  vis_dumbbell: "js/15_dumbbell.vg.json",
-  vis_waffle: "js/13_waffle.vg.json",
-  vis_cliff: "js/14_cliff.vg.json",
+  vis_dumbbell: "js/14_dumbbell.vg.json",
+  vis_cliff: "js/13_cliff.vg.json",
   vis_heatmap: "js/12_heatmap.vg.json",
-  vis_languages: "js/16_languages.vg.json",
+  vis_languages: "js/15_languages.vg.json",
 };
 
 // charts that listen to the year selector (they all have yr0 / yr1 parameters)

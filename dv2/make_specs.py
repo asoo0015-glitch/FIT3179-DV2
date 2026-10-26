@@ -671,33 +671,13 @@ write("12_heatmap.vg.json", {
     ],
 })
 
-# ============================================================== 13. WAFFLE
-WAFFLE_ORDER = list(dict.fromkeys(column("data/waffle_cells.csv", "category")))
-write("13_waffle.vg.json", {
-    "title": {"text": ["What filled the pages:", "100 squares = all 251 million articles"],
-              "subtitle": ["Each square = 1% of the articles,", "about 2.5 million"]},
-    "width": 430, "height": 430,
-    "data": {"url": "data/waffle_cells.csv"},
-    "transform": [{"calculate": "split(datum.category, ' (')[0]", "as": "type_name"}],
-    "mark": {"type": "rect", "stroke": BG, "strokeWidth": 2.5, "cornerRadius": 2},
-    "encoding": {
-        "x": {"field": "col", "type": "ordinal", "axis": None},
-        "y": {"field": "row", "type": "ordinal", "axis": None, "sort": "ascending"},
-        "color": {"field": "category", "type": "nominal", "title": "Type of article",
-                  "scale": {"domain": WAFFLE_ORDER, "range": ["#a39574", "#d6ccb0", "#5b574e", TEAL]},
-                  "legend": {"orient": "bottom", "direction": "vertical", "symbolSize": 160, "labelLimit": 340, "labelFontSize": 11,
-                             "labelExpr": "split(datum.label, ' (')[0]"}},
-        "tooltip": [{"field": "type_name", "title": "Type"}, {"field": "share_pct", "title": "Exact share (%)"}],
-    },
-})
-
-# =============================================================== 14. CLIFF
+# =============================================================== 13. CLIFF
 CX = {"field": "year", "type": "quantitative", "title": "Year",
       "axis": {"format": "d", "tickCount": 10, "grid": False},
       "scale": {"domain": [1850, 2023], "nice": False, "zero": False}}
 CY = {"field": "total", "type": "quantitative", "title": "Articles (log scale)",
       "scale": {"type": "log", "domain": [1000, 10000000]}, "axis": {"format": "~s", "tickCount": 4}}
-write("14_cliff.vg.json", {
+write("13_cliff.vg.json", {
     "title": {"text": "Trove's articles fall 88% after 1954",
               "subtitle": ["Articles per year, on a log scale:", "each step up the axis is ten times more"]},
     "width": "container", "height": 330,
@@ -727,7 +707,7 @@ write("14_cliff.vg.json", {
     ],
 })
 
-# ====================================================== 15. CONNECTED DOT PLOT
+# ====================================================== 14. CONNECTED DOT PLOT
 DUMB_ORDER = ["Western Australia", "Queensland", "South Australia", "New South Wales", "Tasmania", "Victoria", TERRITORIES]
 
 
@@ -736,7 +716,7 @@ def dumb_note(group, x, lines):
             "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 11,
                      "fontStyle": "italic", "color": INK, "lineHeight": 13},
             "encoding": {"x": {"field": "x", "type": "quantitative"}, "text": {"value": lines}}}
-write("15_dumbbell.vg.json", {
+write("14_dumbbell.vg.json", {
     "title": {"text": ["Western Australia's titles more than", "doubled while Victoria's fell"],
               "subtitle": "Titles in print by state, 1900 against 1930"},
     "width": "container", "height": 320,
@@ -763,10 +743,10 @@ write("15_dumbbell.vg.json", {
     ],
 })
 
-# ============================================================ 16. NON-ENGLISH LANGUAGES
+# ============================================================ 15. NON-ENGLISH LANGUAGES
 # the most common language gets the highlight colour, the rest stay muted
 LANG_COLOUR = {"condition": {"test": "datum.language_full == 'German'", "value": TEAL}, "value": "#a39574"}
-write("16_languages.vg.json", {
+write("15_languages.vg.json", {
     "title": {"text": ["German, Italian and Chinese lead", "the press in other languages"],
               "subtitle": "Titles printed partly or wholly in another language, begun by 1954"},
     "width": "container", "height": 320,
