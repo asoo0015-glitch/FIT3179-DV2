@@ -141,40 +141,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 0,
-        "x2Offset": 89.0,
-        "y": {
-          "expr": "6 + (-4)"
-        },
-        "y2": {
-          "expr": "6 + (30)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1851
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -231,40 +197,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -82.0,
-        "x2Offset": 0.0,
-        "y": {
-          "expr": "6 + (-4)"
-        },
-        "y2": {
-          "expr": "6 + (17)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1901
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -316,40 +248,6 @@
         "x": {
           "field": "year",
           "type": "quantitative"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 0,
-        "x2Offset": 75.0,
-        "y": {
-          "expr": "6 + (-4)"
-        },
-        "y2": {
-          "expr": "6 + (43)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1914
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
         }
       }
     },
@@ -411,40 +309,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 0,
-        "x2Offset": 75.0,
-        "y": {
-          "expr": "6 + (-4)"
-        },
-        "y2": {
-          "expr": "6 + (43)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1939
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -478,44 +342,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -118.0,
-        "x2Offset": 6.0,
-        "yOffset": -16,
-        "y2Offset": 57,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1848,
-            "y": 1150000.0
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "y2": {
-          "field": "y"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -544,50 +370,10 @@
         },
         "text": {
           "value": [
-            "Gold rushes:",
-            "Victoria's total",
-            "grows almost",
-            "fourfold,",
-            "1851 to 1859"
+            "Gold rushes: Victoria's",
+            "total grows almost",
+            "fourfold, 1851 to 1859"
           ]
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -174.0,
-        "x2Offset": 6.0,
-        "yOffset": -16,
-        "y2Offset": 31,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1893,
-            "y": 2450000.0
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "year"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "y2": {
-          "field": "y"
         }
       }
     },

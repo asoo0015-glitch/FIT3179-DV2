@@ -199,35 +199,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "x": {
-          "expr": "width + (-206.0)"
-        },
-        "x2": {
-          "expr": "width + (2.0)"
-        },
-        "y": {
-          "expr": "height - 80 + (-4)"
-        },
-        "y2": {
-          "expr": "height - 80 + (64)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "note": 1
-          }
-        ]
-      }
-    },
-    {
       "data": {
         "values": [
           {

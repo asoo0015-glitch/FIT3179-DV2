@@ -114,36 +114,6 @@
       }
     },
     {
-      "mark": {
-        "type": "bar",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 4,
-        "x2Offset": 170.0,
-        "height": 34.0,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "group": "Western Australia",
-            "x": 91
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -160,8 +130,7 @@
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13,
-        "dy": -6.5
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -177,36 +146,6 @@
       }
     },
     {
-      "mark": {
-        "type": "bar",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 4,
-        "x2Offset": 135.0,
-        "height": 34.0,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "group": "Victoria",
-            "x": 110
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -223,8 +162,7 @@
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13,
-        "dy": -6.5
+        "lineHeight": 13
       },
       "encoding": {
         "x": {

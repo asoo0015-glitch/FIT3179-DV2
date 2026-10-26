@@ -170,37 +170,6 @@
         "values": [
           {
             "label": "1860s",
-            "x0": 115,
-            "x1": 375
-          }
-        ]
-      },
-      "mark": {
-        "type": "bar",
-        "height": {
-          "band": 0.8
-        },
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "tooltip": null
-      },
-      "encoding": {
-        "x": {
-          "field": "x0",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x1"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "label": "1860s",
             "x": 115
           }
         ]
@@ -224,39 +193,8 @@
         "text": {
           "value": [
             "Gold rushes, railways: first",
-"decade with over 100 launches"
+            "decade with over 100 launches"
           ]
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "label": "1870s",
-            "x0": 115,
-            "x1": 375
-          }
-        ]
-      },
-      "mark": {
-        "type": "bar",
-        "height": {
-          "band": 0.8
-        },
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "tooltip": null
-      },
-      "encoding": {
-        "x": {
-          "field": "x0",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x1"
         }
       }
     },
@@ -290,37 +228,6 @@
             "Grey bars below: slices,",
             "not new launches or closures"
           ]
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "label": "1940s",
-            "x0": -372,
-            "x1": -112
-          }
-        ]
-      },
-      "mark": {
-        "type": "bar",
-        "height": {
-          "band": 0.8
-        },
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "tooltip": null
-      },
-      "encoding": {
-        "x": {
-          "field": "x0",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x1"
         }
       }
     },

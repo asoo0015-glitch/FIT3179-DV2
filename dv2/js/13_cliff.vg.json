@@ -163,59 +163,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -184.0,
-        "x2Offset": -4.0,
-        "yOffset": -44.5,
-        "y2Offset": -10.5,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1954,
-            "total": 3661437
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [
-              1850,
-              2023
-            ],
-            "nice": false,
-            "zero": false
-          }
-        },
-        "x2": {
-          "field": "year"
-        },
-        "y": {
-          "field": "total",
-          "type": "quantitative",
-          "scale": {
-            "type": "log",
-            "domain": [
-              1000,
-              10000000
-            ]
-          }
-        },
-        "y2": {
-          "field": "total"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -278,59 +225,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": 4,
-        "x2Offset": 205.0,
-        "yOffset": -23.5,
-        "y2Offset": 23.5,
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "year": 1955,
-            "total": 436398
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [
-              1850,
-              2023
-            ],
-            "nice": false,
-            "zero": false
-          }
-        },
-        "x2": {
-          "field": "year"
-        },
-        "y": {
-          "field": "total",
-          "type": "quantitative",
-          "scale": {
-            "type": "log",
-            "domain": [
-              1000,
-              10000000
-            ]
-          }
-        },
-        "y2": {
-          "field": "total"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -346,8 +240,7 @@
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13,
-        "dy": -13
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -394,64 +287,11 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -86.5,
-        "x2Offset": 86.5,
-        "yOffset": -17.0,
-        "y2Offset": 17.0,
-        "tooltip": null
-      },
       "data": {
         "values": [
           {
             "year": 1989,
-            "total": 2200
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [
-              1850,
-              2023
-            ],
-            "nice": false,
-            "zero": false
-          }
-        },
-        "x2": {
-          "field": "year"
-        },
-        "y": {
-          "field": "total",
-          "type": "quantitative",
-          "scale": {
-            "type": "log",
-            "domain": [
-              1000,
-              10000000
-            ]
-          }
-        },
-        "y2": {
-          "field": "total"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "year": 1989,
-            "total": 2200
+            "total": 1500
           }
         ]
       },
@@ -459,9 +299,7 @@
         "type": "text",
         "align": "center",
         "fontSize": 11,
-        "color": "#6f665a",
-        "dy": -6.5,
-        "lineHeight": 13
+        "color": "#6f665a"
       },
       "encoding": {
         "x": {
@@ -499,10 +337,7 @@
           }
         },
         "text": {
-          "value": [
-            "After 1954: only papers",
-            "with permission"
-          ]
+          "value": "After 1954: only papers with permission"
         }
       }
     }

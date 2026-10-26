@@ -211,40 +211,6 @@
       }
     },
     {
-      "mark": {
-        "type": "rect",
-        "fill": "#fffdf7",
-        "stroke": "#8f866f",
-        "strokeWidth": 1,
-        "cornerRadius": 3,
-        "xOffset": -6,
-        "x2Offset": 132.0,
-        "y": {
-          "expr": "height - 76 + (-4)"
-        },
-        "y2": {
-          "expr": "height - 76 + (69)"
-        },
-        "tooltip": null
-      },
-      "data": {
-        "values": [
-          {
-            "x": 1966
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
@@ -272,10 +238,9 @@
         },
         "text": {
           "value": [
-            "1954: Trove's",
-            "coverage ends. Ten",
-            "of these 15 stop",
-            "here, so real runs",
+            "1954: Trove's coverage",
+            "ends. Ten of these 15",
+            "stop here, so real runs",
             "may be longer"
           ]
         }
