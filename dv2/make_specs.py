@@ -179,12 +179,17 @@ write("01_stacked_area.vg.json", {
 lc_colour = {"domain": ["Titles launched", "Titles closed", SLICE], "range": [LAUNCH, CLOSE, SLICE_COLOUR]}
 
 
-def butterfly_note(decade, x, lines):
-    """an italic note on the row of one decade, starting at bar-length x (negative = left side)"""
-    return {"data": {"values": [{"label": decade, "x": x}]},
-            "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 11, "fontStyle": "italic",
-                     "color": INK, "lineHeight": 13},
+def butterfly_note(decade, x0, x1, lines):
+    """a note in a box on the row of one decade; the box runs from bar-length x0 to x1 (negative = left side)"""
+    box = {"data": {"values": [{"label": decade, "x0": x0, "x1": x1}]},
+           "mark": {"type": "bar", "height": {"band": 0.8}, "fill": "#fffdf7", "stroke": "#8f866f",
+                    "strokeWidth": 1, "cornerRadius": 3, "tooltip": None},
+           "encoding": {"x": {"field": "x0", "type": "quantitative"}, "x2": {"field": "x1"}}}
+    text = {"data": {"values": [{"label": decade, "x": x0}]},
+            "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 7, "fontSize": 11,
+                     "fontStyle": "italic", "color": INK, "lineHeight": 13, "dy": -6.5},
             "encoding": {"x": {"field": "x", "type": "quantitative"}, "text": {"value": lines}}}
+    return [box, text]
 DEC = [f"{d}s" for d in range(1830, 1950, 10)]
 write("02_butterfly.vg.json", {
     "title": {"text": "Newspaper titles launched and closed, by decade",
@@ -219,10 +224,9 @@ write("02_butterfly.vg.json", {
             "mark": {"type": "text", "align": "left", "dx": 4, "fontSize": 11, "color": INK},
             "encoding": {"x": {"field": "Closed", "type": "quantitative"}, "text": {"field": "Closed"}},
         },
-        # notes that explain what the bars mean (they sit in empty space beside the bars)
-        butterfly_note("1890s", 196, ["Gold rushes, railways:", "most launches", "of any decade"]),
-        butterfly_note("1900s", 196, ["Grey bars below:", "slices, not new", "launches or closures"]),
-        butterfly_note("1940s", -380, ["Depression and war years:", "new launches more than halve"]),
+        *butterfly_note("1860s", 115, 375, ["Gold rushes, railways: most", "launches of any decade"]),
+        *butterfly_note("1870s", 115, 375, ["Grey bars below: slices,", "not new launches or closures"]),
+        *butterfly_note("1940s", -372, -112, ["Depression and war years:", "new launches more than halve"]),
     ],
 })
 
@@ -569,10 +573,15 @@ write("10_lollipop.vg.json", {
 })
 
 # ================================================ 11. INDEXED LINE
-def callout(year, index, box_year, box_index, box_w, text, below=True, box_h=24):
+def callout(year, index, box_year, box_index, box_w, text, below=True, box_h=None):
     """A boxed note in open space, joined to its data point by a thin line.
     (year, index) is the data point; (box_year, box_index) is the CENTRE of the box in data units.
-    The box is box_w x box_h pixels, kept inside the plot, and sits below (or above) its point."""
+    The box is box_w pixels wide and just tall enough for its lines, kept inside the plot, below (or above) its point."""
+    LH = 13                                              # line height in pixels
+    n = len(text)
+    if box_h is None:
+        box_h = n * LH + 16                              # text height plus 8 px of padding top and bottom
+    lift = -(n - 1) * LH / 2                             # Vega puts the first line at the middle, so lift the block to centre it
     one = {"data": {"values": [{"k": 1}]}}
     px, py = f"scale('x', {year})", f"scale('y', {index})"
     cx = f"max({box_w / 2 + 2}, min(width - {box_w / 2 + 2}, scale('x', {box_year})))"
@@ -590,7 +599,8 @@ def callout(year, index, box_year, box_index, box_w, text, below=True, box_h=24)
          "encoding": {"x": {"value": {"expr": f"{cx} - {box_w / 2}"}}, "x2": {"value": {"expr": f"{cx} + {box_w / 2}"}},
                       "y": {"value": {"expr": f"{cy} - {box_h / 2}"}}, "y2": {"value": {"expr": f"{cy} + {box_h / 2}"}},
                       "color": None, "fill": {"value": BG}, "stroke": {"value": "#8f866f"}}},
-        {**one, "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 11},
+        {**one, "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 11,
+                         "lineHeight": LH, "dy": lift},
          "encoding": {"x": {"value": {"expr": cx}}, "y": {"value": {"expr": cy}},
                       "text": {"value": text}, "color": {"value": INK}}},
     ]
@@ -621,8 +631,8 @@ write("11_indexed_line.vg.json", {
          "encoding": {"tooltip": [{"field": "state", "title": "State"}, {"field": "year", "title": "Year", "format": "d"},
                                   {"field": "index", "title": "Index (1929 = 100)"},
                                   {"field": "total", "title": "Articles", "format": ","}]}},
-        *callout(1931, 88.5, 1932.8, 50, 190, ["1931: the Depression dip.", "South Australia falls most"], box_h=38),
-        *callout(1943, 54.4, 1943.6, 27, 214, ["1943: wartime low. Every state is", "down; South Australia and Queensland", "fall furthest"], box_h=66),
+        *callout(1931, 88.5, 1932.8, 50, 190, ["1931: the Depression dip.", "South Australia falls most"]),
+        *callout(1943, 54.4, 1943.6, 27, 214, ["1943: wartime low. Every state is", "down; South Australia and Queensland", "fall furthest"]),
         # end-of-line labels, so the lines can be read without the legend (nudged apart where lines end close together)
         {"transform": [{"filter": "datum.year == 1954"}],
          "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11, "fontWeight": 600,
