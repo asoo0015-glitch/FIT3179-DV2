@@ -314,8 +314,8 @@ def era_panel(era, label, show_legend):
             {
                 "data": {"url": "data/titles.csv"},
                 "transform": [{"filter": f"{HAS_PLACE} && datum.era == '{era}'"}],
-                "mark": {"type": "circle", "opacity": 0.6, "size": 22},
-                "encoding": {
+                "mark": {"type": "circle", "opacity": 1, "size": 22, "stroke": "white", "strokeWidth": 0.4},
+                                                "encoding": {
                     "longitude": {"field": "lon", "type": "quantitative"},
                     "latitude": {"field": "lat", "type": "quantitative"},
                     "color": {"field": "place_type", "type": "nominal", "title": None,

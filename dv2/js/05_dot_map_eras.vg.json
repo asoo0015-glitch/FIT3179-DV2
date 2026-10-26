@@ -50,8 +50,10 @@
           ],
           "mark": {
             "type": "circle",
-            "opacity": 0.6,
-            "size": 22
+            "opacity": 1,
+            "size": 22,
+            "stroke": "white",
+            "strokeWidth": 0.4
           },
           "encoding": {
             "longitude": {
@@ -147,8 +149,10 @@
           ],
           "mark": {
             "type": "circle",
-            "opacity": 0.6,
-            "size": 22
+            "opacity": 1,
+            "size": 22,
+            "stroke": "white",
+            "strokeWidth": 0.4
           },
           "encoding": {
             "longitude": {
@@ -244,8 +248,10 @@
           ],
           "mark": {
             "type": "circle",
-            "opacity": 0.6,
-            "size": 22
+            "opacity": 1,
+            "size": 22,
+            "stroke": "white",
+            "strokeWidth": 0.4
           },
           "encoding": {
             "longitude": {
