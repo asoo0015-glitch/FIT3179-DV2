@@ -147,6 +147,45 @@
       }
     },
     {
+      "mark": {
+        "type": "rect",
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "tooltip": null
+      },
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', '1870') + bandwidth('x') / 2 + (-83.0)"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "scale('x', '1870') + bandwidth('x') / 2 + (83.0)"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 0.15) + (-16)"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 0.15) + (31)"
+          }
+        }
+      }
+    },
+    {
       "data": {
         "values": [
           {
@@ -183,6 +222,45 @@
         },
         "color": {
           "value": "#2b2620"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "tooltip": null
+      },
+      "data": {
+        "values": [
+          {
+            "k": 1
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "value": {
+            "expr": "scale('x', '1930') + bandwidth('x') / 2 + (-65.5)"
+          }
+        },
+        "x2": {
+          "value": {
+            "expr": "scale('x', '1930') + bandwidth('x') / 2 + (65.5)"
+          }
+        },
+        "y": {
+          "value": {
+            "expr": "scale('y', 0.15) + (-16)"
+          }
+        },
+        "y2": {
+          "value": {
+            "expr": "scale('y', 0.15) + (31)"
+          }
         }
       }
     },

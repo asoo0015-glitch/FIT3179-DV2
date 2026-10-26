@@ -113,6 +113,36 @@
       }
     },
     {
+      "mark": {
+        "type": "bar",
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "xOffset": -6,
+        "x2Offset": 167.0,
+        "height": 60.0,
+        "tooltip": null
+      },
+      "data": {
+        "values": [
+          {
+            "language_full": "French",
+            "x": 4.2
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x"
+        }
+      }
+    },
+    {
       "data": {
         "values": [
           {
@@ -128,7 +158,8 @@
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13
+        "lineHeight": 13,
+        "dy": -19.5
       },
       "encoding": {
         "x": {
@@ -137,8 +168,10 @@
         },
         "text": {
           "value": [
-            "German began in 1848, before the gold rushes;",
-"Chinese began in 1856, during them"
+            "German began in 1848,",
+            "before the gold rushes;",
+            "Chinese began in 1856,",
+            "during them"
           ]
         }
       }

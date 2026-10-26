@@ -261,7 +261,8 @@
         },
         "fontSize": 11,
         "fontStyle": "italic",
-        "fill": "#2b2620"
+        "fill": "#2b2620",
+        "fontWeight": "bold"
       },
       "encoding": {
         "longitude": {
