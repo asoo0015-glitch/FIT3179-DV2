@@ -169,8 +169,39 @@
       "data": {
         "values": [
           {
-            "label": "1890s",
-            "x": 196
+            "label": "1860s",
+            "x0": 115,
+            "x1": 375
+          }
+        ]
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.8
+        },
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "tooltip": null
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x1"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "1860s",
+            "x": 115
           }
         ]
       },
@@ -178,10 +209,12 @@
         "type": "text",
         "align": "left",
         "baseline": "middle",
+        "dx": 7,
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13
+        "lineHeight": 13,
+        "dy": -6.5
       },
       "encoding": {
         "x": {
@@ -190,9 +223,8 @@
         },
         "text": {
           "value": [
-            "Gold rushes, railways:",
-            "most launches",
-            "of any decade"
+            "Gold rushes, railways: most",
+            "launches of any decade"
           ]
         }
       }
@@ -201,8 +233,39 @@
       "data": {
         "values": [
           {
-            "label": "1900s",
-            "x": 196
+            "label": "1870s",
+            "x0": 115,
+            "x1": 375
+          }
+        ]
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.8
+        },
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "tooltip": null
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x1"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "1870s",
+            "x": 115
           }
         ]
       },
@@ -210,10 +273,12 @@
         "type": "text",
         "align": "left",
         "baseline": "middle",
+        "dx": 7,
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13
+        "lineHeight": 13,
+        "dy": -6.5
       },
       "encoding": {
         "x": {
@@ -222,9 +287,8 @@
         },
         "text": {
           "value": [
-            "Grey bars below:",
-            "slices, not new",
-            "launches or closures"
+            "Grey bars below: slices,",
+            "not new launches or closures"
           ]
         }
       }
@@ -234,7 +298,38 @@
         "values": [
           {
             "label": "1940s",
-            "x": -380
+            "x0": -372,
+            "x1": -112
+          }
+        ]
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.8
+        },
+        "fill": "#fffdf7",
+        "stroke": "#8f866f",
+        "strokeWidth": 1,
+        "cornerRadius": 3,
+        "tooltip": null
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x1"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "1940s",
+            "x": -372
           }
         ]
       },
@@ -242,10 +337,12 @@
         "type": "text",
         "align": "left",
         "baseline": "middle",
+        "dx": 7,
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#2b2620",
-        "lineHeight": 13
+        "lineHeight": 13,
+        "dy": -6.5
       },
       "encoding": {
         "x": {

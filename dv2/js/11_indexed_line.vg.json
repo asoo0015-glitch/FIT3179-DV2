@@ -194,7 +194,7 @@
         },
         "y2": {
           "value": {
-            "expr": "scale('y', 50) - 19.0"
+            "expr": "scale('y', 50) - 21.0"
           }
         },
         "color": {
@@ -228,12 +228,12 @@
         },
         "y": {
           "value": {
-            "expr": "scale('y', 50) - 19.0"
+            "expr": "scale('y', 50) - 21.0"
           }
         },
         "y2": {
           "value": {
-            "expr": "scale('y', 50) + 19.0"
+            "expr": "scale('y', 50) + 21.0"
           }
         },
         "color": null,
@@ -257,7 +257,9 @@
         "type": "text",
         "align": "center",
         "baseline": "middle",
-        "fontSize": 11
+        "fontSize": 11,
+        "lineHeight": 13,
+        "dy": -6.5
       },
       "encoding": {
         "x": {
@@ -311,7 +313,7 @@
         },
         "y2": {
           "value": {
-            "expr": "scale('y', 27) - 33.0"
+            "expr": "scale('y', 27) - 27.5"
           }
         },
         "color": {
@@ -345,12 +347,12 @@
         },
         "y": {
           "value": {
-            "expr": "scale('y', 27) - 33.0"
+            "expr": "scale('y', 27) - 27.5"
           }
         },
         "y2": {
           "value": {
-            "expr": "scale('y', 27) + 33.0"
+            "expr": "scale('y', 27) + 27.5"
           }
         },
         "color": null,
@@ -374,7 +376,9 @@
         "type": "text",
         "align": "center",
         "baseline": "middle",
-        "fontSize": 11
+        "fontSize": 11,
+        "lineHeight": 13,
+        "dy": -13.0
       },
       "encoding": {
         "x": {

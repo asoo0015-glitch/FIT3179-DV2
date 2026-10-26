@@ -1,0 +1,391 @@
+{
+  "title": {
+    "text": "Trove's articles fall 88% after 1954",
+    "subtitle": [
+      "Articles per year, on a log scale:",
+      "each step up the axis is ten times more"
+    ]
+  },
+  "width": "container",
+  "height": 330,
+  "data": {
+    "url": "data/articles_all_years.csv"
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954.5,
+            "year2": 2023
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#cfc4a8",
+        "opacity": 0.4
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "x2": {
+          "field": "year2"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "color": "#5b574e",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "total",
+            "title": "Articles",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954,
+            "total": 3661437
+          },
+          {
+            "year": 1955,
+            "total": 436398
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "size": 80,
+        "filled": true,
+        "color": "#21736d"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1954,
+            "total": 3661437
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "dy": -34,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "value": [
+            "1954: the last year with",
+            "wide coverage"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1955,
+            "total": 436398
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#2b2620",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "value": [
+            "1955: copyright limits what",
+            "Trove could digitise,",
+            "so articles fall by 88%"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1989,
+            "total": 1500
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontSize": 11,
+        "color": "#6f665a"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "tickCount": 10,
+            "grid": false
+          },
+          "scale": {
+            "domain": [
+              1850,
+              2023
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "y": {
+          "field": "total",
+          "type": "quantitative",
+          "title": "Articles (log scale)",
+          "scale": {
+            "type": "log",
+            "domain": [
+              1000,
+              10000000
+            ]
+          },
+          "axis": {
+            "format": "~s",
+            "tickCount": 4
+          }
+        },
+        "text": {
+          "value": "After 1954: only papers with permission"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Verdana, Geneva, sans-serif",
+    "title": {
+      "font": "Merriweather, Georgia, serif",
+      "fontSize": 15,
+      "color": "#2b2620",
+      "anchor": "start",
+      "fontWeight": 700,
+      "subtitleFont": "Verdana, Geneva, sans-serif",
+      "subtitleFontWeight": 400,
+      "subtitleColor": "#6f665a",
+      "subtitleFontSize": 11.5,
+      "subtitlePadding": 6,
+      "offset": 10
+    },
+    "axis": {
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
+      "labelColor": "#6f665a",
+      "titleColor": "#6f665a",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "gridColor": "#e8e0cd",
+      "domainColor": "#b9ae96",
+      "tickColor": "#b9ae96"
+    },
+    "legend": {
+      "labelFont": "Verdana, Geneva, sans-serif",
+      "titleFont": "Verdana, Geneva, sans-serif",
+      "labelColor": "#2b2620",
+      "titleColor": "#6f665a",
+      "labelFontSize": 11,
+      "titleFontSize": 11.5,
+      "titleFontWeight": 400,
+      "symbolType": "square",
+      "symbolOpacity": 1
+    },
+    "text": {
+      "font": "Verdana, Geneva, sans-serif"
+    }
+  }
+}
