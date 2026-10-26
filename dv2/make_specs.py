@@ -491,7 +491,6 @@ write("08_bin_map.vg.json", {
             "data": {"values": [{"k": 1}]},
             "mark": {"type": "text", "x": "width", "y": 0, "align": "right", "baseline": "top", "fontSize": 11,
                      "fontStyle": "italic", "color": INK},
-            "encoding": {"text": {"value": "Darkest squares: mostly around the big cities"}},
         },
     ],
 })
