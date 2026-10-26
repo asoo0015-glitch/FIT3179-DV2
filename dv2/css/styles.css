@@ -48,7 +48,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; margin: 0; }
 .masthead-text h1 { margin-top: 0; }
 .masthead-text .byline { margin-bottom: 0; }
 .intro-pic { display: flex; justify-content: center; align-items: center; }
-.intro-pic img { display: block; width: 100%; max-width: 290px; height: auto; border: 1px solid var(--rule); box-shadow: 0 2px 8px rgba(59, 42, 32, 0.25); box-sizing: border-box; }
+.intro-pic img { display: block; width: 100%; max-width: 250px; height: auto; border: 1px solid var(--rule); box-shadow: 0 2px 8px rgba(59, 42, 32, 0.25); box-sizing: border-box; }
 .byline { color: var(--muted); font-size: 0.82rem; margin: 0 0 18px; }
 
 .facts { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 14px 0; margin: 12px 0 16px; }
